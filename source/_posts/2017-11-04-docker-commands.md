@@ -25,7 +25,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 - -i :以交互模式运行容器，通常与 -t 同时使用
 - -t :为容器重新分配一个伪输入终端，通常与 -i 同时使用
 - -h :"mars": 指定容器的hostname
-- -e :设置环境变量，容器中可以使用该环境变量 e.g. username="ritchie"
+- -e --env :设置环境变量，容器中可以使用该环境变量 e.g. username="ritchie"
 - -m :设置容器的内存上限
 - -u :指定容器的用户
 - -w :指定容器的工作目录
@@ -33,7 +33,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 - -P :Docker 会随机映射一个 49000~49900 的端口到内部容器开放的网络端口。
 - -p :指定容器暴露的端口
 - -h :指定容器的主机名
-- -v :给容器挂载存储卷，挂载到容器的某个目录
+- -v :给容器挂载存储卷，挂载到容器的某个目录，可以结合`--read-only`使用，启用后，容器的文件系统将为只读，除了指定的挂载卷以外。
 - --name: 为容器指定一个名称
 - --env-file=[]: 从指定文件读入环境变量
 - --rm :指定容器停止后自动删除容器(不支持以docker run -d启动的容器)
@@ -63,6 +63,11 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 - --mtu=BYTES --容器网络中的 MTU
 
 `--rm` 和 `-d` 参数不能同时使用。
+如果容器运行需要配置代理有两种方式：
+
+- `docker 17.07`或者更高的版本，可以[配置`docker client`](https://docs.docker.com/network/proxy/#configure-the-docker-client)自动设置环境变量。
+- `docker 17.06`或者更低的版本，必须[手动配置环境变量](https://docs.docker.com/network/proxy/#use-environment-variables)。
+
 
 ``` bash
 #本地主机的随机映射一个 49000~49900 的端口到容器的 5000 端口
@@ -79,6 +84,9 @@ docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python ap
 
 #--link 参数的格式为 --link name:alias，其中 name 是要链接的容器的名称，alias 是这个连接的别名。
 docker run -d -P --name web --link db:db training/webapp python app.py
+
+#容器的文件系统将为只读，只有挂载卷/icanwrite可写
+docker run --read-only -v /icanwrite busybox touch /icanwrite/here
 ```
 
 ### dcoker start
@@ -541,14 +549,21 @@ Build Cache                                                 0B                  
 
 ``` bash
 #删除`Exit`的容器
-docker rm -f `docker ps -a -q`
+docker rm $(docker ps -q -f status=exited)
 
 #删除没有tag的镜像
 docker rmi $(docker images | grep "none" | awk '{print $3}')
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
 #删除无用的数据卷
 docker volume rm $(docker volumels -qf dangling=true)
 ```
+
+## 网络管理
+
+### network
+
+network [官网文档](https://docs.docker.com/engine/reference/commandline/network/)。
 
 ## 参考文章
 

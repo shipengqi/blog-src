@@ -160,7 +160,7 @@ PING busybox1 (172.19.0.2): 56 data bytes
 
 ### Docker Compose
 
-如果你有多个容器之间需要互相连接，推荐使用 [Docker Compose](../compose)。
+如果你有多个容器之间需要互相连接，推荐使用 [Docker Compose](/2018/03/15/docker-compose/)。
 
 ## 配置 DNS
 

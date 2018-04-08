@@ -170,6 +170,10 @@ Docker 命令有两大类，客户端命令和服务端命令。前者是主要�
 
 `daemon.json`几乎可以配置所有的服务端进程配置选项。但是`daemon.json`不能 [配置HTTP代理](/2017/10/27/yum-install-docker/)。
 
+官方配置文档：
+- [Configure and troubleshoot the Docker daemon](https://docs.docker.com/config/daemon/)
+- [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
+
 
 ## 常用 daemon.json 配置
 

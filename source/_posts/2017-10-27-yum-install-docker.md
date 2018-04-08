@@ -96,6 +96,10 @@ systemctl show --property=Environment docker
 systemctl restart docker
 ```
 
+官方代配置文档：
+- [Configure and troubleshoot the Docker daemon](https://docs.docker.com/config/daemon/)
+- [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
+
 如果没有代理，由于国内网络的问题，拉取 Docker 镜像会十分缓慢，建议配置 国内镜像加速：
 
 - [Docker 官方提供的中国registry mirror]()
@@ -120,5 +124,9 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
+## 错误：docker-runc did not terminate sucessfully unknown
+
+系统版本不支持。
+<https://github.com/moby/moby/issues/35906>
 
 [Docker 官方 CentOS 安装文档](https://docs.docker.com/engine/installation/linux/docker-ce/centos/)

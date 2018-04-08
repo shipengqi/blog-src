@@ -21,3 +21,14 @@ http://blog.csdn.net/javkburd/article/details/68935206
 
 https://www.cnblogs.com/lasclocker/p/5539467.html
 http://blog.csdn.net/mrxiky/article/details/70573252
+
+shell脚本中>/dev/null的含义
+https://www.cnblogs.com/hanson1/p/7102201.html
+http://blog.csdn.net/yasi_xi/article/details/8637069
+
+https://zhidao.baidu.com/question/455085747.html
+
+
+shell 读取配置文件的方法
+https://www.cnblogs.com/binbinjx/p/5680214.html
+https://www.cnblogs.com/ChinaHook/p/6754420.html
