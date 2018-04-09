@@ -1,5 +1,5 @@
 ---
-title: Javascript深入学习（三）
+title: Javascript深入学习 面向对象
 date: 2018-02-27 17:16:05
 categories: ["Javascript"]
 tags: ["Javascript深入学习系列"]
@@ -430,3 +430,5 @@ JavaScript中定义函数的方式有两种：一种是函数声明，另一种�
 ### 私有变量
 
 JavaScript中没有私有成员的概念；所有对象属性都是公有的。不过，倒是有一个私有变量的概念。任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量。
+
+

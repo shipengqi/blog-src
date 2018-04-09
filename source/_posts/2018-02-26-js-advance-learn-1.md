@@ -1,5 +1,5 @@
 ---
-title: Javascript深入学习（一）
+title: Javascript深入学习 基础语法
 date: 2018-02-26 15:19:07
 categories: ["Javascript"]
 tags: ["Javascript深入学习系列"]

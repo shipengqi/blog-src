@@ -1,5 +1,5 @@
 ---
-title: Javascript深入学习（二）
+title: Javascript深入学习 内存管理，引用类型
 date: 2018-02-27 17:14:21
 categories: ["Javascript"]
 tags: ["Javascript深入学习系列"]

@@ -302,7 +302,6 @@ $ dockerd --userns-remap="testuser:testuser"
 
 > `userns-remap` 使用不多，但并不是不重要。目前不是默认启用的原因是因为一些应用会**假定** uid 0 的用户拥有特殊能力，从而导致假定失败，然后报错退出。所以**如果要启用 user id remap，你要充分测试一下**。但是启用 uid remap 的安全性提高是明显的。
 
-![userns-remap-001](images/userns-remap-001.png)
 
 ## 一张图总结 Docker 的命令
 ![Docker 命令总结](/images/docker-daemon/cmd_logic.png)

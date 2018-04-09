@@ -1,5 +1,5 @@
 ---
-title: Javascript深入学习（五）
+title: Javascript深入学习 浏览器环境和BOM
 date: 2018-02-27 17:18:48
 categories: ["Javascript"]
 tags: ["Javascript深入学习系列"]
