@@ -60,4 +60,5 @@ typings/
 .idea
 .deploy*
 public
+db.json
 
