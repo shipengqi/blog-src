@@ -439,18 +439,18 @@ document.body.insertBefore(p, document.body.firstChild);
 
 上面代码中，新建一个`<p>`节点，插在`document.body.firstChild`的前面，也就是成为`document.body`的第一个子节点。
 
-如果`insertBefore`方法的第二个参数为`null`，则新节点将插在当前节点内部的最后位置，即变成最后一个子节点。
+如果`insertBefore`方法的**第二个参数为**`null`，**则新节点将插在当前节点内部的最后位置，即变成最后一个子节点**。
 
 ```javascript
 var p = document.createElement('p');
 document.body.insertBefore(p, null);
 ```
 
-上面代码中，`p`将成为`document.body`的最后一个子节点。这也说明`insertBefore`的第二个参数不能省略。
+上面代码中，`p`将成为`document.body`的最后一个子节点。
 
-注意，如果所要插入的节点是当前 DOM 现有的节点，则该节点将从原有的位置移除，插入新的位置。
+注意，**如果所要插入的节点是当前 DOM 现有的节点，则该节点将从原有的位置移除，插入新的位置**。
 
-由于不存在`insertAfter`方法，如果新节点要插在父节点的某个子节点后面，可以用`insertBefore`方法结合`nextSibling`属性模拟。
+**如果节点要插在父节点的某个子节点后面，可以用**`insertBefore`**方法结合**`nextSibling`**属性模拟**。
 
 ```javascript
 parent.insertBefore(s1, s2.nextSibling);
@@ -458,7 +458,7 @@ parent.insertBefore(s1, s2.nextSibling);
 
 上面代码中，`parent`是父节点，`s1`是一个全新的节点，`s2`是可以将`s1`节点，插在`s2`节点的后面。如果`s2`是当前节点的最后一个子节点，则`s2.nextSibling`返回`null`，这时`s1`节点会插在当前节点的最后，变成当前节点的最后一个子节点，等于紧跟在`s2`的后面。
 
-如果要插入的节点是`DocumentFragment`类型，那么插入的将是`DocumentFragment`的所有子节点，而不是`DocumentFragment`节点本身。返回值将是一个空的`DocumentFragment`节点。
+> 如果要插入的节点是`DocumentFragment`类型，那么插入的将是`DocumentFragment`的所有子节点，而不是`DocumentFragment`节点本身。返回值将是一个空的`DocumentFragment`节点。
 
 ### Node.removeChild()
 
@@ -480,7 +480,7 @@ while (element.firstChild) {
 }
 ```
 
-被移除的节点依然存在于内存之中，但不再是 DOM 的一部分。所以，一个节点移除以后，依然可以使用它，比如插入到另一个节点下面。
+**被移除的节点依然存在于内存之中，但不再是 DOM 的一部分。所以，一个节点移除以后，依然可以使用它，比如插入到另一个节点下面**。
 
 如果参数节点不是当前节点的子节点，`removeChild`方法将报错。
 
@@ -604,7 +604,7 @@ wrapper.childNodes.length // 1
 
 上面代码使用`normalize`方法之前，`wrapper`节点有两个毗邻的文本子节点。使用`normalize`方法之后，两个文本子节点被合并成一个。
 
-该方法是`Text.splitText`的逆方法，可以查看《Text 节点对象》一章，了解更多内容。
+该方法是`Text.splitText`的逆方法。
 
 ### Node.getRootNode()
 
@@ -631,7 +631,7 @@ document.body.firstChild.getRootNode() === document // true
 document.body.childNodes instanceof NodeList // true
 ```
 
-`NodeList`实例很像数组，可以使用`length`属性和`forEach`方法。但是，它不是数组，不能使用`pop`或`push`之类数组特有的方法。
+**`NodeList`实例很像数组，可以使用`length`属性和`forEach`方法。但是，它不是数组，不能使用`pop`或`push`之类数组特有的方法**。
 
 ```javascript
 var children = document.body.childNodes;
@@ -661,7 +661,8 @@ for (var i = 0; i < children.length; i++) {
 }
 ```
 
-注意，NodeList 实例可能是动态集合，也可能是静态集合。所谓动态集合就是一个活的集合，DOM 删除或新增一个相关节点，都会立刻反映在 NodeList 实例。目前，只有`Node.childNodes`返回的是一个动态集合，其他的 NodeList 都是静态集合。
+注意，NodeList 实例可能是动态集合，也可能是静态集合。所谓动态集合就是一个活的集合，DOM 删除或新增一个相关节点，都会立刻反映在 NodeList 实例。
+目前，**只有`Node.childNodes`返回的是一个动态集合，其他的 NodeList 都是静态集合。**
 
 ```javascript
 var children = document.body.childNodes;
@@ -716,7 +717,8 @@ document.body.childNodes[0]
 
 ### NodeList.prototype.keys()，NodeList.prototype.values()，NodeList.prototype.entries()
 
-这三个方法都返回一个 ES6 的遍历器对象，可以通过`for...of`循环遍历获取每一个成员的信息。区别在于，`keys()`返回键名的遍历器，`values()`返回键值的遍历器，`entries()`返回的遍历器同时包含键名和键值的信息。
+这三个方法都返回一个 ES6 的遍历器对象，可以通过`for...of`循环遍历获取每一个成员的信息。
+区别在于，`keys()`返回键名的遍历器，`values()`返回键值的遍历器，`entries()`返回的遍历器同时包含键名和键值的信息。
 
 ```javascript
 var children = document.body.childNodes;
@@ -748,7 +750,8 @@ for (var entry of children.entries()) {
 
 ### 概述
 
-`HTMLCollection`是一个节点对象的集合，只能包含元素节点（element），不能包含其他类型的节点。它的返回值是一个类似数组的对象，但是与`NodeList`接口不同，`HTMLCollection`没有`forEach`方法，只能使用`for`循环遍历。
+`HTMLCollection`是一个节点对象的集合，**能包含元素节点（element），不能包含其他类型的节点**。
+它的返回值是一个类似数组的对象，但是与`NodeList`接口不同，**`HTMLCollection`没有`forEach`方法，只能使用`for`循环遍历**。
 
 返回`HTMLCollection`实例的，主要是一些`Document`对象的集合属性，比如`document.links`、`docuement.forms`、`document.images`等。
 
@@ -756,7 +759,7 @@ for (var entry of children.entries()) {
 document.links instanceof HTMLCollection // true
 ```
 
-`HTMLCollection`实例都是动态集合，节点的变化会实时反映在集合中。
+**`HTMLCollection`实例都是动态集合，节点的变化会实时反映在集合中**。
 
 如果元素节点有`id`或`name`属性，那么`HTMLCollection`实例上面，可以使用`id`属性或`name`属性引用该节点元素。如果没有对应的节点，则返回`null`。
 
@@ -807,7 +810,8 @@ document.images.namedItem('pic') === pic // true
 
 节点对象除了继承 Node 接口以外，还会继承其他接口。`ParentNode`接口表示当前节点是一个父节点，提供一些处理子节点的方法。`ChildNode`接口表示当前节点是一个子节点，提供一些相关方法。
 
-如果当前节点是父节点，就会继承`ParentNode`接口。由于只有元素节点（element）、文档节点（document）和文档片段节点（documentFragment）拥有子节点，因此只有这三类节点会继承`ParentNode`接口。
+如果当前节点是父节点，就会继承`ParentNode`接口。
+**由于只有元素节点（element）、文档节点（document）和文档片段节点（documentFragment）拥有子节点，因此只有这三类节点会继承`ParentNode`接口**。
 
 ### ParentNode.children
 
@@ -937,4 +941,4 @@ el.replaceWith(span);
 
 
 
-**原文出自**[《JavaScript 标准参考教程（alpha）》](http://es6.ruanyifeng.com/#docs/decorator)
+**原文出自**[《JavaScript 标准参考教程（alpha）》](http://javascript.ruanyifeng.com/dom/node.html)

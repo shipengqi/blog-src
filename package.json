@@ -6,7 +6,8 @@
     "version": "3.3.9"
   },
   "scripts": {
-    "start": "hexo s"
+    "start": "hexo s",
+    "start:debug": "hexo s --debug"
   },
   "dependencies": {
     "hexo": "^3.2.0",
