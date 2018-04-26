@@ -23,7 +23,7 @@ categories: ["Life"]
 ## A计划
 
 **第一阶段：**
-Nodejs为基础，深入学习Express, Koa2框架和常用扩展。 75%
+Nodejs为基础，深入学习Express, Koa2框架和常用扩展。
 **第二阶段：**
 Docker, Nginx, Kubernetes, DNS, Shell, Go, Micro Service
 **第三阶段：**

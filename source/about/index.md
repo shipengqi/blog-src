@@ -25,10 +25,10 @@ Web后台开发、Nodejs开发
 - [粉丝日志](http://blog.fens.me/)
 - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
 
-还有一个对我挺有意义的一个，这是我漫漫技术之路上的第一个师傅（大牛）的 Github：[芝麻飞来](https://github.com/magicsky)，对我的帮助不仅仅是技术上的，我很感谢他。
+还有对我挺有意义的一个，这是我漫漫技术之路上的第一个师傅（大牛）的 Github：[芝麻飞来](https://github.com/magicsky)，对我的帮助不仅仅是技术上的，我很感谢他。
 
 
-博客搭建于[Github](https://github.com/shipengqi/shipengqi.github.io)， 欢迎Fork。
+博客搭建于Github， 欢迎[Fork](https://github.com/shipengqi/shipengqi.github.io)。
 博客里面很多文章是空白的，没有时间写（就是抄），以后会慢慢补（chao）。也会尝试写一点自己学习的总结和理解。
 
 ### Hexo搭建指南: 
