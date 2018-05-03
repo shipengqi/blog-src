@@ -88,6 +88,7 @@ data: {
 ```
 
 ### 组件上使用
+参考[vue组件](/2018/04/23/vue-advance-learn-6/)
 
 ## 绑定内联样式
 Vue绑定内联样式`v-bind:style`，和在元素张写css的写法相似，CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，用单引号括起来) 来命名：
@@ -163,7 +164,7 @@ Vue中条件渲染指令有v-if,v-else-if,v-else。和js中的if else条件语�
 **v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。**
 
 
-可以在Vue内置的<template> 元素上使用 v-if：
+可以在Vue内置的`<template> `元素上使用 v-if：
 ```html
 <div id="app">
     <template v-if="ok">
@@ -246,7 +247,7 @@ v-show的使用方法与 v-if 大致一样，不同的是 v-show 只是简单地
 </script>
 ```
 
-**v-show 不能用到<template>上，不会生效。**
+**v-show 不能用到`<template>`上，不会生效。**
 v-if 与 v-show 功能相同，但是 v-if 每次切换都会去销毁重建元素，但是v-show是惰性的，它只是进行了css切换。
 所以说 v-if的切换开销更大，v-show 适合在切换频繁的场景使用。
 
@@ -435,7 +436,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 
 
 ### v-for & template
-v-for也可以和 v-if一样应用在 <template>上来渲染多个元素:
+v-for也可以和 v-if一样应用在 `<template>`上来渲染多个元素:
 ```html
 <ul>
   <template v-for="phone in phones">
@@ -469,7 +470,7 @@ v-for也可以和 v-if一样应用在 <template>上来渲染多个元素:
 ```
 
 ### 组件的v-for
-
+参考[vue组件](/2018/04/23/vue-advance-learn-6/)
 
 ## 其它指令
 
@@ -524,3 +525,24 @@ v-for也可以和 v-if一样应用在 <template>上来渲染多个元素:
 </script>
 ```
 可用来优化性能。
+
+## 总结
+
+- `v-bind`动态更新html元素上的属性。
+- `v-bind`绑定`class`和`style`，实现动态切换。可以绑定计算属性。
+- v-if,v-else-if,v-else,v-show，v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。可以用到`<template>`上。
+- Vue为了提高渲染效率，通常会复用已有的元素，而不是重新渲染，但是如果想让Vue不复用它们。只需给元素添加一个具有唯一值的 key 属性
+- v-show 只是简单地切换元素的 CSS 属性 display。v-show 表达式的值为true是就显示，false就隐藏。
+- v-show 不能用到`<template>`上，不会生效。
+- v-if的切换开销更大，v-show 适合在切换频繁的场景使用。
+- 建议尽可能在使用 v-for 时提供 key，除非遍历输出的 DOM 内容非常简单。
+- Vue 包含了一组观察数组变异的方法，会改变被这些方法调用的原始数组。使用它们改变数组也会触发视图更新:`push`,`pop`,`shift`,`unshift`,`splice`,`sort`,`reverse`
+- `filter`,`concat`,`slice`，这些不会改变原始数组，总是返回一个新数组，当使用这些方法时，可以用新数组替换旧数组。
+- Vue 检测不到的数组变动：
+  - 通过索引直接设置：`app.phones[10] = {name: "HuaWei P20"}`
+  - 手动修改数组长度：`app.phones.length = 2`
+- 创建vue实例后，Vue 不能检测对象属性的添加或删除。
+- 使用vue.$set
+- v-for也可以和 v-if一样应用在`<template>`上。
+- 如果v-for和 v-if在同一个节点上，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。
+- v-cloak，v-once

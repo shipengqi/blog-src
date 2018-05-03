@@ -170,3 +170,13 @@ Vue.config.keyCodes.enter2 = 13
 <div @click.ctrl="handle">Ctrl Click</div>
 ```
 
+## 总结
+- Vue中使用指令`v-on`监听DOM事件，缩写是`@`。类似原生javascript的 `onclick`。
+- 使用$event，访问原生DOM事件。
+- 方法只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
+- 事件修饰符：
+    - .stop，阻止事件冒泡
+    - .prevent，阻止元素发生默认的行为
+    - .capture，添加事件监听器时使用事件捕获模式
+    - .self，只当在 event.target 是当前元素自身时触发处理函数
+    - .once，事件将只会触发一次

@@ -15,7 +15,7 @@ tags: ["Vue.js"]
 
 Vue提供了web开发中常见的高级功能：
 
-- 解辑视图与数据
+- 解耦视图与数据
 - 可复用的组件
 - 前端路由
 - 状态管理
@@ -24,7 +24,7 @@ Vue提供了web开发中常见的高级功能：
 ### 什么是MVVM
 
 MVVM(Model-View-View-Model)模式是由MVC衍生出来的。当View （视图层）变化时，会自动更新到ViewModel （视图模型），
-反之亦然。View 和ViewModel 之间通过双向绑定（tdata-binding ）建立联系。
+反之亦然。View 和ViewModel 之间通过双向绑定（data-binding ）建立联系。
 
 
 ## Vue数据双向绑定
@@ -319,3 +319,24 @@ v-on 指令可以用来绑定监听事件:
 <!-- 缩写 -->
 <a @click="doSomething">...</a>
 ```
+
+## 总结
+- 只有当实例被创建时 data 中存在的属性才是响应式的。也就是说如果你添加一个新的属性，比如`data: {name: xiaoming}`，在创建实例后，添加`app.age = 18`，
+这里的`age`属性，的改动将不会触发任何视图的更新。所以如果需要双向绑定的数值，如果初始化时它为空或者不存在，就给它设置一个初始的值。
+- 所有会用到的数据都应该预先在data内声明，这样不至于将数据散落在业务逻辑中，难以维护。
+- 数据驱动DOM 是Vue.js的核心理念，所以尽量不要主动操作DOM。
+- 常用钩子函数：
+    - `created`，实例创建完成后调用，此阶段完成了数据的观测等，但尚未挂载，$el 还不可用。需要初始化处理一些数据时会比较有用。
+    - `mounted`，el 挂载到实例上后调用，一般业务逻辑会在这里开始。
+    - `beforeDestroyed`，实例销毁之前调用。主要解绑一些使用addEventListener 监听的事件等。
+- 生命周期钩子的 this 上下文指向调用它的 Vue 实例。
+- 不要在选项属性或回调上使用**箭头函数**，因为箭头函数会绑定this的指向，会导致`Uncaught TypeError: Cannot read property of undefined`
+或`Uncaught TypeError: this.myMethod is not a function` 之类的错误。
+- 插值：
+    - 双括号插值
+    - v-html
+    - v-bind
+- 双括号插值的方式是不能用到html标签的属性上，如果需要可以使用`v-bind`
+- 如果`v-bind`的值是 `null`、`undefined`或`false`，则绑定的特性甚至不会被包含在渲染出来的元素中。
+- 全局过滤器和局部过滤器
+- v-bind，缩写：`:`，v-on，缩写`@`

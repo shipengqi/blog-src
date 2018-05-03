@@ -195,7 +195,7 @@ render: function (createElement) {
 }
 ```
 
-那么需要多阿哥重复的组件、元素，可以使用工厂函数来实现。
+那么需要多个重复的组件、元素，可以使用工厂函数来实现。
 ```html
 render: function (createElement) {
   return createElement('div',
