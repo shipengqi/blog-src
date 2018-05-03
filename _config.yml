@@ -90,15 +90,14 @@ deploy:
   branch: master
 
 
-search:
-  path: search.xml
-  field: post
-  format: html
-  limit: 10000
+#search:
+#  path: search.xml
+#  field: post
+#  format: html
+#  limit: 10000
 
-#algolia:
-  #applicationID: 'KBIB7OD1W6'
-  #apiKey: 'c01ad95c87e0189a49c01989bd4141c5'
-  #adminApiKey: 'e38b488240f036bed6983066d270a863'
-  #indexName: 'PookyLofe'
-  #chunkSize: 5000
+algolia:
+  applicationID: '07FOXYZ6PF'
+  indexName: 'blog'
+  apiKey: 'fff267b07b3a0db8d496a17fe3601667'
+  chunkSize: 5000
