@@ -5,7 +5,7 @@ categories: ["前端"]
 tags: ["Vue.js"]
 ---
 
-[Vuex]((https://vuex.vuejs.org)) 是一个Vue状态管理插件。
+[Vuex](https://vuex.vuejs.org) 是一个Vue状态管理插件。
 
 
 <!-- more -->
@@ -196,9 +196,10 @@ $store.getters.getBotByName("test")
 ### mapGetters
 getter有自己的辅助函数`mapGetters`，不多介绍了。
 
-```javascript
-```
+
+
 ## mutation
+
 提交 mutation 是更改状态的唯一方法，通过 `this.$store.commit`方法来提交，上面已经简单的使用了mutation，mutation还可以接受第二个参数(payload)，
 ```javascript
   mutations: {
