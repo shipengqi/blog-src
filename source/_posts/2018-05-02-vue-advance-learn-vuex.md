@@ -510,10 +510,36 @@ store.registerModule(['nested', 'myModule'], {
 Vuex 的 store 的 `plugins` 选项，可以添加插件。具体使用查看[官网文档](https://vuex.vuejs.org/zh-cn/plugins.html)
 ### 严格模式
 开启严格模式：
+```javascript
 const store = new Vuex.Store({
   // ...
   strict: true
 })
+```
 严格模式下，不是由 mutation 函数引起的状态变更会抛出错误。会影响性能，建议在开发环境下使用。
 ### 表单
+使用 Vuex 时，如果使用 v-model 绑定state中的数据会比较麻烦，因为使用v-model双向绑定数据，用户在input输入时会尝试修改state，
+这在Vuex的严格模式中是会抛出错误的，因为state的数据只能在mutation中修改。
+
+
+有两种方式可以解决上面的问题：
+- 双向绑定计算属性
+- 不使用v-model，v-model只是一个语法糖，可以直接使用`@input="handleInput"`监听input事件，并使用`:value`给表单元素绑定value，在`handleInput`函数中提交mutation。
+
+我比较常用的方式是第一种，给计算属性添加`getter`和`setter`：
+```javascript
+<bot-input v-model="volumeType"></bot-input>
+
+computed: {
+  volumeType: {
+    get () {
+      return this.$store.state.currentData.volume.type;
+    },
+    set (value, oldVal) {
+      this.$store.commit('updateCurrentData', {volume: {type: value}});
+    }
+  }
+}
+```
+
 具体使用查看[官网文档](https://vuex.vuejs.org/zh-cn/forms.html)
