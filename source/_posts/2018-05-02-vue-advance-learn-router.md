@@ -77,13 +77,17 @@ export default routers;
 通过注入路由器，我们可以在任何组件内通过 this.$router 访问路由器，使用 this.$router 的就不需要在封装路由的组件中都导入路由。
 **最后一个path为`*`的路由，是为了当访问路径不存在时，访问list页面。**
 
-**上面的写法，webpack会把每隔路由打包，请求到该页面时才会加载，也就是懒加载（按需加载）**，如果需要一次性加载：
+**上面的写法，webpack会把每个路由打包，请求到该页面时才会加载，也就是懒加载（按需加载）**，如果需要一次性加载：
 ```javascript
   {
     path: '/add',
     component: require('./views/add.vue')
   }
 ```
+
+> 路由懒加载在webpack打包后可能会抛出404的错误，改写成`resolve => require.ensure([], () => resolve(require('../views/BotList.vue')), 'chatops-view')`
+之后，问题解决。把所有组件都打包在同个异步 chunk 中，只需要 给 chunk 命名，提供 require.ensure 第三个参数作为 chunk 的名称
+，Webpack 将相同 chunk 下的所有异步模块打包到一个异步块里面。
 
 ## 路径参数
 在路由路径中使用参数：
