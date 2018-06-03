@@ -5,7 +5,6 @@ categories: ["NodeJs"]
 tags: ["Hubot"]
 ---
 
-https://hubot.github.com/
-https://github.com/hubotio/hubot
+`Hubot`是一个开源的聊天机器人框架。[官方文档](https://hubot.github.com/docs/)和[源码](https://github.com/hubotio/hubot)。
 
 <!-- more -->
