@@ -13,8 +13,8 @@ Options:
   --help
     Display this help screen
 
-  --restart
-    重启服务
+  --start
+    启动服务
 
   --port
     指定监听的端口
