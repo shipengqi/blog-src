@@ -2,8 +2,16 @@
 
 My blog source code.
 
-启动:
+## requirements
+- NodeJs 
+- Hexo(全局)
+
+## Usage
 ```bash
+#安装依赖
+yarn install # or npm install
+
+#启动
 ./run.sh
 ```
 
