@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 function show_help() {
 cat << EOF
@@ -93,7 +93,6 @@ function deploy() {
     if [[ ${useProxy} == "true" ]];then
         set_proxy
     fi
-    exit 1
     hexo clean
     hexo g
     export HEXO_ALGOLIA_INDEXING_KEY=fff267b07b3a0db8d496a17fe3601667
