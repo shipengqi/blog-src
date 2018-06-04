@@ -29,6 +29,11 @@ Options:
 
   --deploy
     部署到github
+
+  --proxy
+    配置代理，参数可选，没有参数即使用默认代理。
+    配合deploy使用, e.g: --proxy="http://proxy.com"
+    注意"="必须有
 ```
 
 ## TODO

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 function show_help() {
 cat << EOF
@@ -17,13 +17,20 @@ Options:
 
   --deploy
     部署到github
+
+  --proxy
+    配置代理，参数可选，没有参数即使用默认代理。
+    配合deploy使用, e.g: --proxy="http://proxy.com"
+    注意"="必须有
 EOF
 }
 
 
 port=8081
+useProxy="false"
+proxy="http://web-proxy.il.softwaregrp.net:8080"
 executeCommand="start"
-TEMP=`getopt -o hsdp: --long help,start,deploy,port: -n './run.sh --help' -- "$@"`
+TEMP=`getopt -o hsdp: --long help,start,deploy,port:,proxy:: -n './run.sh --help' -- "$@"`
 if [ $? != 0 ]; then
     echo "Terminating..."
     exit 1
@@ -44,11 +51,20 @@ do
             shift
         ;;
         -d|--deploy)
-            executeCommand="stop"
+            executeCommand="deploy"
             shift
         ;;
         -p|--port)
             port=$2
+            shift 2
+        ;;
+        --proxy)
+            useProxy="true"
+            echo $2
+            if [[ $2 != "" ]];then
+                proxy=$2
+            fi
+            echo $proxy
             shift 2
         ;;
         --)
@@ -74,11 +90,24 @@ function start() {
 }
 
 function deploy() {
+    if [[ ${useProxy} == "true" ]];then
+        set_proxy
+    fi
+    exit 1
     hexo clean
     hexo g
     export HEXO_ALGOLIA_INDEXING_KEY=fff267b07b3a0db8d496a17fe3601667
     hexo algolia
     hexo d
+}
+
+function set_proxy() {
+  export http_proxy=$proxy
+  export https_proxy=$http_proxy
+  export HTTP_PROXY=$http_proxy
+  export HTTPS_PROXY=$http_proxys
+  export no_proxy=127.0.0.1,localhost,.hpe.com,.hp.com,.hpeswlab.net
+  export NO_PROXY=$no_proxy
 }
 
 if [[ ${executeCommand} == "start" ]];then
