@@ -18,3 +18,4 @@ CoffeeScript不再被直接支持。这类预编译语言可以使用相应的�
 
 babel-register
 如果你的ES6模块是以.js为扩展名的，你可以npm install --save-dev babel-register，然后--require babel-register; --compilers就可以指定文件扩展名
+使用nyc

@@ -196,15 +196,23 @@ env:
 
 修改`.travis.yml`文件：
 ```yml
-before_install:
-  - npm install codecov
-  - npm install coverage
-
 script:
-  - coverage command
+  - npm run lint
+  - npm run test:coverage
 after_script:
-  - codecov
+  - npm install codecov
+  - ./node_modules/.bin/codecov
 ```
+
+上面安装了`codecov`，因为不是全局安装，所以运行`./node_modules/.bin/`的`codecov`。
+
+`test:coverage`:
+```json
+"test:coverage": "nyc --reporter=html --reporter=text-lcov > coverage.lcov mocha"
+```
+
+这里使用 [nyc](https://github.com/istanbuljs/nyc)生成覆盖率报告。[nyc使用教程](https://istanbul.js.org/docs/tutorials/)。
+**注意`> coverage.lcov`这里不能漏掉，这个报告是要上传到`Codecov`的。**
 
 添加下面格式的链接到`Readme`。
 ```
