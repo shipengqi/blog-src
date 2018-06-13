@@ -16,6 +16,7 @@ Travis CI 只支持 Github，不支持其他代码托管服务。
 首先，访问[travis-ci 官方网站](https://travis-ci.org/)，使用 Github 账户登入 Travis CI。
 
 Travis 会列出 Github 上面你的所有仓库，以及你所属于的组织。此时，选择你需要 Travis 帮你构建的仓库，打开仓库旁边的开关。一旦激活了一个仓库，Travis 会监听这个仓库的所有变化。
+<img src="/images/travis/travis1.jpg" width="80%" height="">
 
 ## 配置.travis.yml
 
@@ -169,14 +170,17 @@ env:
 
 有些环境变量（比如用户名和密码）不能公开，这时可以通过 Travis 网站，写在每个仓库的设置页里面，Travis 会自动把它们加入环境变量。
 这样一来，脚本内部依然可以使用这些环境变量，但是只有管理员才能看到变量的值。具体操作请看[官方文档](https://docs.travis-ci.com/user/environment-variables)。
+<img src="/images/travis/travis2.png" width="80%" height="">
+### 加密
+如果不放心保密信息明文存在 Travis 的网站，可以使用 Travis 提供的加密功能。[官方文档](https://docs.travis-ci.com/user/encryption-keys/)
+如果要加密的是文件（比如私钥），Travis 提供了加密文件功能。[官方文档](https://docs.travis-ci.com/user/encrypting-files/)
+实际的例子可以参考下面两篇文章。
+- [Auto-deploying built products to gh-pages with Travis](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd)
+- [SSH deploys with Travis CI](https://oncletom.io/2016/travis-ssh-deploy/)
 
-### 加密信息
-如果不放心保密信息明文存在 Travis 的网站，可以使用 Travis 提供的加密功能。
+**原文出自** [持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
 
-首先，安装 `Ruby` 的包`travis`。
-
-**原文出自**[持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
-https://segmentfault.com/a/1190000004415437
-https://travis-ci.org/
-https://hjptriplebee.github.io/Travis%E4%B8%8ECodecov%E5%85%A5%E9%97%A8.html/
-http://shields.io/
+## 参考链接
+- https://segmentfault.com/a/1190000004415437
+- https://hjptriplebee.github.io/Travis%E4%B8%8ECodecov%E5%85%A5%E9%97%A8.html/
+- http://shields.io/
