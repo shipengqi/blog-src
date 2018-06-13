@@ -196,7 +196,48 @@ fs.readFile('test.js', () => {
 ```
 上面代码会先进入 I/O callbacks 阶段，然后是 check 阶段，最后才是 timers 阶段。因此，setImmediate才会早于setTimeout执行。
 
+## async 函数和promise
+```javascript
+async function async1() {
+    console.log("async1 start");
+    await  async2();
+    console.log("async1 end");
 
+}
+async  function async2() {
+   console.log( 'async2');
+}
+console.log("script start");
+setTimeout(function () {
+    console.log("settimeout");
+},0);
+async1();
+new Promise(function (resolve) {
+    console.log("promise1");
+    resolve();
+}).then(function () {
+    console.log("promise2");
+});
+console.log('script end');
+```
+
+上面代码的执行结果是：
+```bash
+script start
+async1 start
+async2
+promise1
+script end
+async1 end
+promise2
+settimeout
+```
+
+这是为什么，函数执行碰到`await`，会等到`await`之后的函数执行完之后才返回，但是这里的`async2`却在`promise1`之前，
+这是因为我之前的理解有误，正确的理解应该是**当函数执行的时候，一旦遇到`await`就会执行`await`之后的函数中的同步代码然后返回，等到`await`之后的函数中的异步操作完成，再接着执行函数体内后面的语句。**
+所以这里执行到`await  async2()`时，先输出了`async2`，然后跳出`async2()`函数，让出线程，执行后面的同步代码。
+创建promise对象里面的代码属于同步代码，所以接下里是`promise1`，`script end`。
+先执行同步代码，遇到异步代码就先加入队列，然后按入队的顺序执行异步代码，所以接下来执行`async1 end`，`promise2`，`settimeout`。
 
 **原文出自** [Node 定时器详解](http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html)
 

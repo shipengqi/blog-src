@@ -41,6 +41,5 @@ Options:
 - Debug pattern
 - Article
   - mocha jtest
-  - nodejs timers and async
 - SEO
   - https://hjptriplebee.github.io/hexo%E7%9A%84SEO%E6%96%B9%E6%B3%95.html/
