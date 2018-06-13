@@ -178,7 +178,6 @@ env:
 - [Auto-deploying built products to gh-pages with Travis](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd)
 - [SSH deploys with Travis CI](https://oncletom.io/2016/travis-ssh-deploy/)
 
-**原文出自** [持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
 
 ## 添加图标
 
@@ -215,3 +214,6 @@ after_script:
 更多配置参考[官方文档](https://docs.codecov.io/docs)。
 
 更多图标可以在[这里](http://shields.io)找。
+
+
+**原文出自** [持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
