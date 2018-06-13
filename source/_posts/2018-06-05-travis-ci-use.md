@@ -180,7 +180,42 @@ env:
 
 **原文出自** [持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
 
+## 添加图标
+
+### 添加`build`状态图标
+我们可以在项目中添加 Travis CI build的状态图标，点击下图中的图标获取连接：
+<img src="/images/travis/travis3.jpg" width="80%" height="">
+
+### coverage 图标
+
+[Codecov](https://codecov.io/gh)是一个测试结果分析工具，travis负责执行测试，Codecov负责分析测试结果。很多项目通过他测试覆盖率。
+
+
+#### 使用
+
+去[官网](https://codecov.io/)，使用 Github 账户登入。选择要分析的仓库。
+
+修改`.travis.yml`文件：
+```yml
+before_install:
+  - npm install codecov
+  - npm install coverage
+
+script:
+  - coverage command
+after_script:
+  - codecov
+```
+
+添加下面格式的链接到`Readme`。
+```
+[![codecov](https://codecov.io/gh/{USER}/{REPO}/branch/master/graph/badge.svg)](https://codecov.io/gh/{USER}/{REPO})
+```
+
+更多配置参考[官方文档](https://docs.codecov.io/docs)。
+
+更多图标可以在[这里](http://shields.io)找。
+
 ## 参考链接
 - https://segmentfault.com/a/1190000004415437
 - https://hjptriplebee.github.io/Travis%E4%B8%8ECodecov%E5%85%A5%E9%97%A8.html/
-- http://shields.io/

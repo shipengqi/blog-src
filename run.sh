@@ -35,8 +35,7 @@ if [ $? != 0 ]; then
     echo "Terminating..."
     exit 1
 fi
-
-#set 将规范化后的命令行参数分配至位置参数（$1,$2,...)
+ 
 eval set -- "$TEMP"
 
 while true
