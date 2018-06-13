@@ -215,7 +215,3 @@ after_script:
 更多配置参考[官方文档](https://docs.codecov.io/docs)。
 
 更多图标可以在[这里](http://shields.io)找。
-
-## 参考链接
-- https://segmentfault.com/a/1190000004415437
-- https://hjptriplebee.github.io/Travis%E4%B8%8ECodecov%E5%85%A5%E9%97%A8.html/
