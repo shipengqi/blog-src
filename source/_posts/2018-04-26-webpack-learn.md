@@ -182,3 +182,174 @@ npm install webpack webpack-cli --save-dev
 - 处理和压缩图片
 - 使用 Babel 来支持 ES 新特性
 - 本地提供静态服务以方便开发调试
+
+### HTML
+通常生成的js文件时使用[hash]命名的，这个时候要讲HTML引用的js路径和我们通过webpack打包好的文件关联起来，就使用插件[html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)。
+```javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  // ...
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index_production.html', // 输出文件名和路径
+      template: 'assets/index.ejs', // 文件模板
+      inject: false
+    }),
+  ],
+}
+```
+
+模板`index.ejs`：
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ChatOps</title>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[0] %>">
+</head>
+<body>
+    <div id="app" class="container">
+
+    </div>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[0] %>"></script>
+</body>
+</html>
+```
+
+详细配置参考[官方文档](https://github.com/jantimon/html-webpack-plugin#configuration)。
+
+### CSS
+
+安装`css-loader`，`style-loader`后在配置中引入 loader 来解析和处理 CSS 文件：
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      // ...
+      {
+        test: /\.css/,
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+    ],
+  }
+}
+```
+
+`css-loader`负责解析 CSS 代码，处理 CSS 中的依赖，例如`@import`和`url()`等引用外部文件的声明。
+`style-loader`将`css-loader`解析的结果转变成`JS`代码，运行时动态插入`style`标签来让`CSS`代码生效。
+
+#### 抽取CSS
+使用[extract-text-webpack-plugin](https://webpack.docschina.org/plugins/extract-text-webpack-plugin)插件，可以把 CSS 文件分离出来：
+```javascript
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        // 因为这个插件需要干涉模块转换的内容，所以需要使用它对应的 loader
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      },
+    ],
+  },
+  plugins: [
+    // 同样可以使用 [name] [hash]
+    new ExtractTextPlugin({
+      filename: '[name].[hash].bundle.css',
+      allChunks: true
+    }),
+  ],
+}
+```
+
+> `extract-text-webpack-plugin` 这个插件不支持 webpack 4.x，所以使用 4.x 时需要安装 alpha 版本:`npm install extract-text-webpack-plugin@next -save-dev`，3.x 请忽略。
+
+#### CSS 预处理
+通常我们会使用 Less/Sass 等 CSS 预处理器：
+```javascript
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'less-loader',
+          ],
+        }),
+      },
+    ],
+  },
+  // ...
+}
+```
+
+### 处理图片
+css-loader 会解析样式中用 url() 引用的文件路径，但是图片对应的 jpg/png/gif 等文件格式，webpack 处理不了，
+所以我们使用 [file-loader](https://webpack.js.org/loaders/file-loader/) 来处理：
+```javascript
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
+    ],
+  },
+}
+```
+
+### Babel
+```javascript
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.jsx?/,
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
+        loader: 'babel-loader',
+      },
+    ],
+  },
+}
+```
+
+
+### webpack-dev-server
+安装webpack-dev-server：
+```bash
+npm install webpack-dev-server -D
+```
+
+添加npm脚本：
+```javascript
+"scripts": {
+  "start:dev": "webpack-dev-server --mode development"
+}
+```
