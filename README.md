@@ -3,8 +3,8 @@
 My blog source code.
 
 ## requirements
-- NodeJs 
-- Hexo(全局)
+- NodeJs
+- Hexo(全局安装)
 
 ## Usage
 ```bash
@@ -37,9 +37,16 @@ Options:
 ```
 
 ## TODO
-- Check port before start
-- Debug pattern
-- Article
-  - mocha jtest
+- Check port before starting up
+  - [portscanner](https://github.com/baalexander/node-portscanner)
+- Add
+  - Javascript basics, HTML, CSS, Vue.js虚拟DOM
+  - Redis, cache
+  - Express, Koa source code
+  - Mocha, Jtest
+  - TCP, WS, RPC
+  - Hubot
+  - Docker, Kubernetes
+  - Go
 - SEO
   - https://hjptriplebee.github.io/hexo%E7%9A%84SEO%E6%96%B9%E6%B3%95.html/
