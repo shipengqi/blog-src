@@ -59,11 +59,10 @@ do
         ;;
         --proxy)
             useProxy="true"
-            echo $2
             if [[ $2 != "" ]];then
                 proxy=$2
             fi
-            echo $proxy
+            echo "Using proxy: ${proxy}."
             shift 2
         ;;
         --)
