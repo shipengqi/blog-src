@@ -89,7 +89,7 @@ resolve: {
 ## loader 配置
 loader 用于处理不同的文件类型。
 
-### 匹配规则
+### test
 通过`module.rules` 字段来配置相关的规则：
 ```javascript
 module: {
@@ -130,8 +130,8 @@ module.exports = {
 }
 ```
 
-### 规则条件
-一般配置 loader 的匹配条件时，配置`test`字段就足够了，但是有时需要一些特殊的配置，webpack 提供了多种配置形式：
+### 其他匹配条件
+一般配置 loader 的匹配条件时，配置`test`字段就足够了，但是有时需要一些特殊的配置，webpack 提供了多种匹配条件：
 
 - `{ test: ... }` 匹配特定条件
 - `{ include: ... }` 匹配特定路径
@@ -159,3 +159,183 @@ module: {
   ],
 }
 ```
+
+### use
+上面的例子中提到，使用`use`字段指定使用哪个`loader`,`use`的值除了可以是字符串，还可以是数组，或者对象：
+```javascript
+rules: [
+  {
+    test: /\.less/,
+    use: [
+      'style-loader', // 使用字符串指定 loader
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1
+        }
+      } // 使用对象指定 loader，可以传递 loader 配置等
+    ],
+  }
+],
+```
+如果只需要一个`loader`，也可以这样：`use: { loader: 'babel-loader', options: { ... } }`。
+
+### loader 执行顺序
+
+两种情况：
+
+**在一个`rule`中配置了多个`loader`，那么执行顺序从是最后配置的`loader`开始。**
+
+```javascript
+rules: [
+  {
+    test: /\.less/,
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1
+        }
+      },
+      {
+        loader: 'less-loader',
+        options: {
+          noIeCompat: true
+        }
+      },
+    ],
+  }
+]
+```
+
+上面的示例,一个`style.less`文件会经过 `less-loader` => `css-loader` => `style-loader` 处理，然后打包。
+
+**在不同的`rule`，匹配了同种类型的文件：**
+```javascript
+rules: [
+  {
+    enforce: 'pre',
+    test: /\.(jsx|js)$/,
+    exclude: /node_modules/,
+    loader: "eslint-loader",
+  },
+  {
+    test: /\.(jsx|js)$/,
+    exclude: /node_modules/,
+    loader: "babel-loader",
+  },
+]
+```
+
+上面的示例中，多了一个`enforce`字段，这个字段作用就是保证`loader`的执行顺序。`pre`代表了前置，保证了`eslint-loader`在`babel-loader`前执行。
+
+`enforce`字段有下面两种类型：
+
+- `pre`，表示前置类型的`loader`
+- `post`，表示后置类型的`loader`
+
+没有`enforce`字段，就是普通类型。
+这些`loader`的执行顺序为 `前置` => `普通` => `后置`
+
+### noParse
+`noParse` 让 webpack 忽略对某些模块文件的解析。可以用来优化 webpack 的构建速度。
+`noParse`类型可以是正则表达式，也可以一个函数。
+```javascript
+module.exports = {
+  // ...
+  module: {
+    noParse: /jquery|lodash/, // 正则表达式
+
+    // 使用 function
+    noParse(content) {
+      return /jquery|lodash/.test(content)
+    },
+  }
+}
+```
+
+**被忽略的模块中，不应该有`import`，`define`，`require`等模块化语句，包含这些语句的模块需要 webpack 解析，否则无法再浏览器端运行。**
+
+## 配置 plugin
+插件是 webpack 的支柱功能。插件解决了`loader`无法实现的事情。
+
+### 常用的插件
+
+#### DefinePlugin
+`DefinePlugin` 是内置的插件，使用`webpack.DefinePlugin`直接获取。
+`DefinePlugin`用于创建一些在编译时可以配置的全局变量。
+
+```javascript
+module.exports = {
+  // ...
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: 'production',
+      TEST: '1+1',
+      CONSTANTS: {
+        VERSION: JSON.stringify('1.0.0')
+      }
+    }),
+  ],
+}
+```
+
+配置好之后，可以在代码中直接访问：
+```javascript
+console.log("ENV: ", ENV);
+```
+**配置规则：**
+
+- 如果配置的值是字符串，那么字符串会被当成代码片段来执行，其结果作为最终变量的值，如上面的`TEST: "1+1"`，最后的结果是 2
+- 如果不是字符串，也不是一个对象字面量，那么该值会被转为一个字符串，如 `true`，最后的结果是 `'true'`
+- 如果一个对象字面量，那么该对象的所有`key`会以同样的方式去定义
+
+#### ProvidePlugin
+内置的插件，使用`webpack.ProvidePlugin`来获取。
+用于引用某些模块作为应用运行时的变量，从而不需要每次使用`require`或者`import`去引用：
+```javascript
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      identifier: 'module',
+    })
+  ]
+```
+
+上面的示例，将`$`和`jQuery`两个变量都指向对应的`jquery`模块，然后在源码中可以使用下面的方式调用：
+```javascript
+$('#test');
+jQuery('#test');
+```
+上面的情况在使用`bootstrap`时就需要配置，否则后报错`jQuery is not a function`。
+`Angular`会寻找`window.jQuery`来决定`jQuery`是否存在。
+
+上面的示例，当 identifier 被当作未赋值的变量时，module 就会被自动加载，而 `identifier` 这个变量即 `module` 对外暴露的内容。
+注意，如果是`ES6`的`default export`，那么需要指定模块的`default`属性：`identifier: ['module', 'default']`。.
+
+#### extract-text-webpack-plugin
+用来把依赖的`CSS`分离出来成为单独的文件。
+
+```javascript
+module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        use: 'css-loader',
+        fallback: 'style-loader'
+      })
+    }
+  ]
+},
+plugins: [
+  new ExtractTextPlugin({
+    filename: '[name].css',
+    allChunks: true
+  })
+]
+```
+**更多插件**[plugins in awesome-webpack](https://github.com/webpack-contrib/awesome-webpack#webpack-plugins)
