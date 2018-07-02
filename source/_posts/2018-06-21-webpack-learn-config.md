@@ -442,13 +442,56 @@ contentBase: [path.join(__dirname, "public"), path.join(__dirname, "assets")]
   **`publicPath`的优先级高于`contentBase`。**
 - `before`在`webpack-dev-server`静态资源中间件处理之前，可以用于拦截部分请求返回特定内容，或者实现简单的数据`mock`。
 ```javascript
-before(app){
-  app.get('/some/path', function(req, res) { // 当访问 /some/path 路径时，返回自定义的 json 数据
-    res.json({ custom: 'response' })
-  })
+devServer: {
+  before(app){
+    app.get('/chatops/config/bots', function(req, res) {
+      res.json({
+        code: 200,
+        data:[{
+          HUBOT_NAME: 'test',
+          status: 'init'
+        }],
+        msg: 'success'
+      })
+    })
+  }
 }
 ```
 - `after`在`webpack-dev-server`静态资源中间件处理之后，比较少用到，可以用于打印日志或者做一些额外处理。
+
+#### mock server
+mock的数据过多，可以创建一个`mock.js`文件：
+```javascript
+module.exports = function(app){
+  app.get('/chatops/config/bots', function(req, res) {
+    res.json({
+      code: 200,
+      data:[{
+        HUBOT_NAME: 'test',
+        status: 'init'
+      }],
+      msg: 'success'
+    })
+  })
+
+  // ... 其他路由 mock
+
+}
+```
+
+然后在配置文件中引入：
+```javascript
+const mock = require('./mock.js');
+devServer: {
+  before(app){
+    mock(app);
+  }
+}
+```
+
+如果你单独使用了一个`mock sever`时，可以配置`proxy`将部分路径代理到对应的`mock sever`。
+
+联调时，也可以使用 `proxy` 代理到对应的服务上去。
 
 #### webpack-dev-middleware
 `webpack-dev-middleware`是一个`Express`中间件，可以把`webpack-dev-server`和`Express`集成。
