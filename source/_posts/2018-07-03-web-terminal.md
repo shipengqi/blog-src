@@ -60,3 +60,39 @@ cloudcmd --terminal --terminal-path /usr/local/lib/node_modules/gritty --save
 
 关于更多配置使用查看[Cloud Commander官方文档](http://cloudcmd.io/)。
 如果只是想实现`terminal`功能，可以直接安装使用[gritty](https://github.com/cloudcmd/gritty)。
+
+## 与Express集成
+
+### gritty与Express集成
+```bash
+npm i gritty socket.io express --save
+```
+
+创建服务端：
+```javascript
+const gritty = require('gritty');
+const http = require('http');
+const express = require('express');
+const io = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const socket = io.listen(server);
+
+const port = 1337;
+
+app.use(gritty())
+app.use(express.static(__dirname));
+
+gritty.listen(socket);
+server.listen(port);
+```
+
+页面`index.html`：
+```html
+<div class="gritty"></div>
+<script src="/gritty/gritty.js"></script>
+<script>
+    gritty('.gritty');
+</script>
+```
