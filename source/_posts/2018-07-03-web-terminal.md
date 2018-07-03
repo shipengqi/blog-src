@@ -96,3 +96,54 @@ server.listen(port);
     gritty('.gritty');
 </script>
 ```
+
+### cloudcmd与Express集成
+```bash
+npm i cloudcmd socket.io express --save
+```
+
+创建服务端：
+```javascript
+const http = require('http');
+const cloudcmd = require('cloudcmd');
+const io = require('socket.io');
+const app = require('express')();
+
+const port = 1337;
+const prefix = '/cloudcmd';
+
+const server = http.createServer(app);
+const socket = io.listen(server, {
+    path: `${prefix}/socket.io`
+});
+
+const config = {
+    prefix // base URL or function which returns base URL (optional)
+};
+
+const plugins = [
+    __dirname + '/plugin.js'
+];
+
+const filePicker = {
+    data: {
+        FilePicker: {
+            key: 'key'
+        }
+    }
+};
+
+// override option from json/modules.json
+const modules = {
+    filePicker,
+};
+
+app.use(cloudcmd({
+    socket,  // used by Config, Edit (optional) and Console (required)
+    config,  // config data (optional)
+    plugins, // optional
+    modules, // optional
+}));
+
+server.listen(port);
+```
