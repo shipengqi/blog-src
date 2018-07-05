@@ -4,10 +4,12 @@ My blog source code.
 
 ## requirements
 - NodeJs
-- Hexo(全局安装)
 
 ## Usage
 ```bash
+#全局安装 Hexo
+yarn global install hexo-cli # npm install -g hexo-cli
+
 #安装依赖
 yarn install # or npm install
 
