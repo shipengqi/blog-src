@@ -2,7 +2,7 @@
 
 My blog source code.
 
-## requirements
+## Requirements
 - NodeJs
 
 ## Usage
@@ -39,16 +39,15 @@ Options:
 ```
 
 ## TODO
-- Check port before starting up
-  - [portscanner](https://github.com/baalexander/node-portscanner)
-- Add
+- Add文章
   - Javascript basics, HTML, CSS, Vue.js虚拟DOM
+  - Webpack 使用
   - Redis, cache
   - Express, Koa source code
-  - Mocha, Jtest
+  - NodeJs Unit test (Mocha, nyc)
   - TCP, WS, RPC
-  - Hubot
+  - Hubot source code
   - Docker, Kubernetes
   - Go
-- SEO
+- SEO优化
   - https://hjptriplebee.github.io/hexo%E7%9A%84SEO%E6%96%B9%E6%B3%95.html/
