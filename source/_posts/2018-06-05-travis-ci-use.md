@@ -1,8 +1,8 @@
 ---
 title: Travis CI 教程
 date: 2018-06-05 22:23:22
-categories: ["Git"]
-tags: ["Travis"]
+categories: ["编程"]
+tags: ["Travis", Git]
 ---
 
 Travis CI 提供的是持续集成服务（Continuous Integration，简称 CI）。它绑定 Github 上面的项目，只要有新的代码，就会自动抓取。然后，提供一个运行环境，执行测试，完成构建，还能部署到服务器。
