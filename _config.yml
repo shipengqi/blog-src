@@ -91,10 +91,16 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
+- type: git
   repository: git@github.com:shipengqi/shipengqi.github.io.git
   branch: master
+- type: baidu_url_submitter
 
+baidu_url_submit:
+  count: 1
+  host:  www.shipengqi.top
+  token: MSpvujKZoY66JsZC
+  path: baidu_urls.txt
 
 #search:
 #  path: search.xml
