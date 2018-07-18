@@ -158,3 +158,6 @@ npm install eslint-config-standard eslint-plugin-standard eslint-plugin-promise 
 }
 ```
 
+### eslint-config-sactive
+[eslint-config-sactive](https://github.com/sactive/eslint-config-sactive)，是我基于`Standard`标准，封装的自己的代码风格的包。
+

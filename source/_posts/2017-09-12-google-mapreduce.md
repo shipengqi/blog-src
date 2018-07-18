@@ -1,17 +1,19 @@
 ---
-title: Google MapReduce 中 文 版
+title: Google MapReduce (中文版)
 date: 2017-09-13 20:27:28
 categories: ["Big data"]
 tags: ["google"]
 ---
+
+Google MapReduce 论文的中文版。
+
+<!-- more -->
 
 ## 摘要
 MapReduce 是一个编程模型，也是一个处理和生成超大数据集的算法模型的相关实现。用户首先创建一
 个 Map 函数处理一个基于 key/value pair 的数据集合，输出中间的基于 key/value pair 的数据集合；然后再创建
 一个 Reduce 函数用来合并所有的具有相同中间 key 值的中间 value 值。现实世界中有很多满足上述处理模型
 的例子，本论文将详细描述这个模型。
-
-<!-- more -->
 
 MapReduce 架构的程序能够在大量的普通配置的计算机上实现并行化处理。这个系统在运行时只关心：
 如何分割输入数据，在大量计算机组成的集群上的调度，集群中计算机的错误处理，管理集群中计算机之间

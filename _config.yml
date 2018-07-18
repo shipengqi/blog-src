@@ -4,18 +4,24 @@
 
 # Site
 title: Learning
-subtitle:
-description: Do more, Do Better
+subtitle: Learning
+description: Learn and recard.
 author: shipengqi
 language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.shipengqi.top
+url: https://www.shipengqi.top
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+
+# hexo sitemap网站地图
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
 
 # Directory
 source_dir: source
