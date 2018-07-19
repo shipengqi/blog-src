@@ -96,13 +96,13 @@ deploy:
     github: git@github.com:shipengqi/shipengqi.github.io.git
     coding: git@git.coding.net:shipengqi/learning.git
   branch: master
-#- type: baidu_url_submitter
+- type: baidu_url_submitter
 
-#baidu_url_submit:
-#  count: 0
-#  host:  www.shipengqi.top
-#  token:
-#  path: baidu_urls.txt
+baidu_url_submit:
+  count: 0
+  host:  www.shipengqi.top
+  token: MSpvujKZoY66JsZC
+  path: baidu_urls.txt
 
 #search:
 #  path: search.xml
