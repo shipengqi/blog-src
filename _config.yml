@@ -96,13 +96,13 @@ deploy:
     github: git@github.com:shipengqi/shipengqi.github.io.git
     coding: git@git.coding.net:shipengqi/learning.git
   branch: master
-- type: baidu_url_submitter
+#- type: baidu_url_submitter
 
-baidu_url_submit:
-  count: 1
-  host:  www.shipengqi.top
-  token: MSpvujKZoY66JsZC
-  path: baidu_urls.txt
+#baidu_url_submit:
+#  count: 0
+#  host:  www.shipengqi.top
+#  token:
+#  path: baidu_urls.txt
 
 #search:
 #  path: search.xml
@@ -115,3 +115,20 @@ algolia:
   indexName: 'blog'
   apiKey: 'fff267b07b3a0db8d496a17fe3601667'
   chunkSize: 5000
+
+#compress
+neat_enable: true
+neat_html:
+  enable: true
+  exclude:
+neat_css:
+  enable: true
+  exclude:
+    - '*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'
