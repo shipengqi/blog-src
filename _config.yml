@@ -99,7 +99,7 @@ deploy:
 - type: baidu_url_submitter
 
 baidu_url_submit:
-  count: 0
+  count: 1
   host:  www.shipengqi.top
   token: MSpvujKZoY66JsZC
   path: baidu_urls.txt

@@ -380,11 +380,11 @@ changyan:
 # more info please open https://valine.js.org
 valine:
   enable: true
-  appid:  lXrFVvnbf0Oiw3GBdVwpXM9P-gzGzoHsz# your leancloud application appid
-  appkey: X8d0SelOpM0dFw98cMCbGta6# your leancloud application appkey
+  appid:  lXrFVvnbf0Oiw3GBdVwpXM9P-gzGzoHsz
+  appkey: X8d0SelOpM0dFw98cMCbGta6
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  placeholder: Come On !!! # comment box placeholder
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
