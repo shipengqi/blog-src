@@ -92,7 +92,9 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: git
-  repository: git@github.com:shipengqi/shipengqi.github.io.git
+  repo:
+    github: git@github.com:shipengqi/shipengqi.github.io.git
+    coding: git@git.coding.net:shipengqi/learning.git
   branch: master
 - type: baidu_url_submitter
 

@@ -49,3 +49,7 @@ Options:
   - Hubot source code
   - Docker, Kubernetes
   - Go
+- 优化
+  - 七牛云静态资源存储
+  - 压缩静态文件
+  - https://blog.csdn.net/sunshine940326/article/details/70936988
