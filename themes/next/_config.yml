@@ -356,7 +356,7 @@ han: false
 #duoshuo_shortname:
 
 #your livere_uid
-livere_uid: MTAyMC8zMTc1MS84MzE1
+#livere_uid: MTAyMC8zMTc1MS84MzE1
 
 
 # Disqus
@@ -379,9 +379,9 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  enable: true
+  appid:  lXrFVvnbf0Oiw3GBdVwpXM9P-gzGzoHsz# your leancloud application appid
+  appkey: X8d0SelOpM0dFw98cMCbGta6# your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
   placeholder: Just go go # comment box placeholder
