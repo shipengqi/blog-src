@@ -353,6 +353,13 @@ plugins: [
 ]
 ```
 
+#### copy-webpack-plugin
+用来复制文件的插件：
+```javascript
+new CopyWebpackPlugin([
+  { from: 'src/assets/favicon.ico', to: 'favicon.ico', }, // from 配置来源，to 配置目标路径
+]),
+```
 **更多插件**[plugins in awesome-webpack](https://github.com/webpack-contrib/awesome-webpack#webpack-plugins)
 
 ## webpack-dev-server
