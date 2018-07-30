@@ -32,7 +32,7 @@ var text1 = new Text();
 var text2 = new Text('This is a text node');
 ```
 
-注意，由于空格也是一个字符，所以哪怕只有一个空格，也会形成文本节点。比如，`<p> </p>`包含一个空格，它的子节点就是一个文本节点。
+**注意，由于空格也是一个字符，所以哪怕只有一个空格，也会形成文本节点。比如，`<p> </p>`包含一个空格，它的子节点就是一个文本节点。**
 
 文本节点除了继承`Node`接口，还继承了`CharacterData`接口。`Node`接口的属性和方法请参考《Node 接口》一章，这里不再重复介绍了，以下的属性和方法大部分来自`CharacterData`接口。
 
@@ -40,7 +40,7 @@ var text2 = new Text('This is a text node');
 
 ### data
 
-`data`属性等同于`nodeValue`属性，用来设置或读取文本节点的内容。
+**`data`属性等同于`nodeValue`属性，用来设置或读取文本节点的内容。**
 
 ```javascript
 // 读取文本内容
@@ -171,7 +171,9 @@ p.childNodes.length // 1
 
 ## DocumentFragment 节点
 
-`DocumentFragment`节点代表一个文档的片段，本身就是一个完整的 DOM 树形结构。它没有父节点，`parentNode`返回`null`，但是可以插入任意数量的子节点。它不属于当前文档，操作`DocumentFragment`节点，要比直接操作 DOM 树快得多。
+**`DocumentFragment`节点代表一个文档的片段，本身就是一个完整的 DOM 树形结构。它没有父节点，`parentNode`返回`null`，但是可以插入任意数量的子节点。它不属于当前文档，操作`DocumentFragment`节点，要比直接操作 DOM 树快得多。**
+
+因为每一次对DOM进行操作的时候都会导致[重绘、回流](http://www.blogjava.net/BearRui/archive/2010/05/10/320502.html)。这样会加大页面的负担。影响页面性能。因此我们可以使用`DocumentFragment`创建这样一个文档片段，然后一次性插入到HTML中。
 
 它一般用于构建一个 DOM 结构，然后插入当前文档。`document.createDocumentFragment`方法，以及浏览器原生的`DocumentFragment`构造函数，可以创建一个空的`DocumentFragment`节点。然后再使用其他 DOM 方法，向其添加子节点。
 
