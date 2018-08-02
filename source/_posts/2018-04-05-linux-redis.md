@@ -7,11 +7,12 @@ tags: ["Redis"]
 
 [Redis中文官网的介绍](http://www.redis.cn/)：
 
-Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。
+Redis（Remote Dictionary Service）是目前互联网技术领域使用最为广泛的存储中间件，它是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。
 它支持多种类型的数据结构，如 字符串（strings）， 散列（hashes）， 列表（lists）， 集合（sets）， 有序集合（sorted sets） 与范围查询，
 bitmaps， hyperloglogs 和 地理空间（geospatial） 索引半径查询。 Redis 内置了 复制（replication），LUA脚本（Lua scripting），
 LRU驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence），
 并通过 Redis哨兵（Sentinel）和自动 分区（Cluster）提供高可用性（high availability）。
+
 
 <!-- more -->
 
@@ -72,8 +73,9 @@ Memache的设计理念就是设计一个单纯的缓存，缓存的数据都是�
 - Memcached的单个命令也是线程安全的，单个连接的多个命令序列不是线程安全的，它也提供了inc等线程安全的自加命令，并提供了gets/cas保证线程安全。
 
 ## 数据类型
+我们已经知道 Redis 的 5 种基础数据结构，分别为：string (字符串)、list (列表)、set (集合)、hash (哈希) 和 zset (有序集合)。
 ### String（字符串）
-String类型是最常用的一种类型，string类型是二进制安全的。也就是说string可以包含任何数据。比如`jpg图片`或者`序列化的对象` 。
+String类型是最常用，也是最简单的的一种类型，string类型是二进制安全的。也就是说string可以包含任何数据。比如`jpg图片`或者`序列化的对象` 。
 一个键**最大能存储512MB**。
 ``` bash
 redis> set testkey hello
