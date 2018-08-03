@@ -206,3 +206,5 @@ OK
 redis> DECRBY count 20
 (integer) 80
 ```
+
+### 位图
