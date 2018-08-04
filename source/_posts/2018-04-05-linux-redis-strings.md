@@ -207,4 +207,184 @@ redis> DECRBY count 20
 (integer) 80
 ```
 
+### APPEND
+向`key`值字符串的末尾追加指定的`value`；如果`key`不存在，则执行`SET`操作，设置`key`值
+```bash
+redis> APPEND notexistkey hello
+(integer) 5
+
+redis> APPEND notexistkey " - redis"
+(integer) 13
+
+redis> GET myphone
+"hello - redis"
+```
+
+### STRLEN
+返回key的值的长度。如果`key`不存在，则返回`0`。果key的值不是字符串，则返回一个错误。
+
+```bash
+redis> SET existkey "hello redis"
+OK
+redis> STRLEN existkey
+(integer) 11
+
+redis> STRLEN notexistkey
+(integer) 0
+```
+
+### SETRANGE
+使用`value`覆盖`key`以偏移量`offset`开始的字符串。
+```bash
+SETRANGE key offset value
+```
+如果key原来储存的字符串长度比偏移量小，那么原字符和偏移量之间的空白将用零字节("\x00")来填充。
+```bash
+# 对非空字符串进行 SETRANGE
+redis> SET greeting "hello redis"
+OK
+redis> SETRANGE greeting 6 "Redis"
+(integer) 11
+redis> GET greeting
+"hello Redis"
+
+# 对空字符串/不存在的 key 进行 SETRANGE
+redis> EXISTS notexistkey
+(integer) 0
+redis> SETRANGE notexistkey 5 "Redis"
+(integer) 10
+redis> GET notexistkey
+"\x00\x00\x00\x00\x00Redis"
+```
+### GETRANGE
+`GETRANGE`类似`javascript`中的`substring`。提取字符串中两个指定的索引号之间的字符。
+```bash
+GETRANGE key start end
+```
+`start`提取字符串的起始位置，`end`为结束位置。
+如果是负数，那么该参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2 指倒数第二个字符，以此类推。
+
+```bash
+redis> SET greeting "hello, redis"
+OK
+
+redis> GETRANGE greeting 0 4
+"hello"
+
+# 不支持回绕操作
+redis> GETRANGE greeting -1 -5
+""
+
+redis> GETRANGE greeting -3 -1
+"dis"
+
+# 从第一个到最后一个
+redis> GETRANGE greeting 0 -1
+"hello, redis"
+
+# 取值范围超过实际字符串长度范围，会被自动忽略
+redis> GETRANGE greeting 0 1008611
+"hello, redis"
+```
+
 ### 位图
+位图不是特殊的数据结构，它的内容其实就是普通的字符串，也就是 byte 数组。
+在日常开发中，可能会有一些`bool`型数据需要存取，如果使用普通的`key/value`方式存储，会浪费很多存储空间,比如签到记录，签了是`1`，没签是`0`，记录`365`天。
+如果每个用户存储`365`条记录，当用户量很庞大的时候，需要的存储空间是惊人的。
+
+对于这种操作，Redis 提供了位操作，这样每天的签到记录只占据一个位，`365`天就是`365`个位，`46`个字节就可以完全容纳下，大大节约了存储空间。
+
+#### SETBIT
+Redis 的位数组是自动扩展，如果设置了某个偏移位置超出了现有的内容范围，就会自动将位数组进行零扩充。
+```bash
+SETBIT key offset value
+```
+设置指定偏移量上的位`bit`的值。`value`的值是`0`或`1`。当`key`不存在时，自动生成一个新的字符串值。
+`offset`参数的取值范围为大于等于`0`，小于`2^32`(bit 映射限制在 512 MB 以内)。
+```bash
+redis> SETBIT testbit 100 1
+(integer) 0
+redis> GETBIT testbit 100
+(integer) 1
+redis> GETBIT testbit 101
+(integer) 0 # bit 默认被初始化为 0
+```
+#### GETBIT
+获取指定偏移量上的位`bit`的值。
+```bash
+GETBIT key offset
+```
+如果`offset`比字符串值的长度大，或者`key`不存在时，返回`0`。
+```bash
+redis> EXISTS testbit2
+(integer) 0
+redis> GETBIT testbit2 100
+(integer) 0
+
+redis> SETBIT testbit2 100 1
+(integer) 0
+redis> GETBIT bit 100
+(integer) 1
+```
+
+#### BITPOS
+
+获取字符串里面第一个被设置为`1`或者`0`的`bit`位。
+`BITPOS`可以用来做查找，例如，查找用户从哪一天开始第一次签到。如果指定了范围参数`start`, `end`，就可以统计在某个时间范围内用户签到了多少天，用户自某天以后的哪天开始签到。
+```bash
+BITPOS key value start end
+```
+`value`是`0`或者`1`。如果我们在空字符串或者`0`字节的字符串里面查找`bit`为`1`的内容，那么结果将返回`-1`。
+`start`和`end`也可以包含负值，负值将从字符串的末尾开始计算，`-1`是字符串的最后一个字节，`-2`是倒数第二个，等等。
+`start`和`end`参数是字节索引，也就是说指定的位范围必须是 8 的倍数，而不能任意指定。
+不存在的`key`将会被当做空字符串来处理。
+```bash
+redis> SET testbit3 hello
+OK
+redis> BITPOS testbit3 1 # 第一个 1 位
+(integer) 1
+redis> BITPOS testbit3 0 # 第一个 0 位
+(integer) 0
+redis> SET mykey "\xff\xf0\x00"
+OK
+redis> BITPOS mykey 0 # 查找字符串里面bit值为0的位置
+(integer) 12
+redis> SET mykey "\x00\xff\xf0"
+OK
+redis> BITPOS mykey 1 0 # 查找字符串里面bit值为1从第0个字节开始的位置
+(integer) 8
+redis> BITPOS mykey 1 2 # 查找字符串里面bit值为1从第2个字节(12)开始的位置
+(integer) 16
+redis> set mykey "\x00\x00\x00"
+OK
+redis> BITPOS mykey 1 # 查找字符串里面bit值为1的位置
+(integer) -1
+```
+
+#### BITOP
+#### BITCOUNT
+可以用来做高位统计，例如，统计用户一共签到了多少天。
+计算指定字符串中，比特位被设置为`1`的数量。指定可选参数`start`和`end`时只统计指定位上的字符，否则统计全部。
+```bash
+BITPOS key value start end
+```
+```bash
+redis> BITCOUNT testbit4
+(integer) 0
+
+redis> SETBIT testbit4 0 1          # 0001
+(integer) 0
+
+redis> BITCOUNT testbit4
+(integer) 1
+
+redis> SETBIT testbit4 3 1          # 1001
+(integer) 0
+
+redis> BITCOUNT testbit4
+(integer) 2
+```
+#### BITFIELD
+`SETBIT`和`GETBIT`都只能操作一个`bit`，如果要操作多个`bit`就使用`BITFIELD`。
+
+
