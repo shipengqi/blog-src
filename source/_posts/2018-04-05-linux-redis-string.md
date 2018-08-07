@@ -1,5 +1,5 @@
 ---
-title: Redis 数据类型 string
+title: Redis 数据类型 String
 date: 2018-04-05 22:11:25
 categories: ["Linux"]
 tags: ["Redis"]

@@ -1,5 +1,5 @@
 ---
-title: Redis 数据类型 set
+title: Redis 数据类型 Set
 date: 2018-04-05 22:11:45
 categories: ["Linux"]
 tags: ["Redis"]

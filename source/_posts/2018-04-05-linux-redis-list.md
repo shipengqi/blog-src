@@ -1,5 +1,5 @@
 ---
-title: Redis 数据类型 list
+title: Redis 数据类型 List
 date: 2018-04-05 22:11:39
 categories: ["Linux"]
 tags: ["Redis"]
