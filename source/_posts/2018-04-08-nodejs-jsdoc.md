@@ -4,7 +4,7 @@ date: 2018-04-08 14:22:02
 categories: ["NodeJs"]
 ---
 
-`JSDoc`是一个根据`Javascript`文件中的代码注释，生成`API`文档的工具。
+[JSDoc](http://usejsdoc.org/)是一个根据`Javascript`文件中的代码注释，生成`API`文档的工具。
 
 <!-- more -->
 
@@ -37,6 +37,7 @@ Student.prototype={
 ## 标签
 关于标签参考：
 - [JSDoc 中文文档](http://www.css88.com/doc/jsdoc/tags.html)
+- [JSDoc 官网](http://usejsdoc.org/)
 
 ## 生成Markdown文档
 
