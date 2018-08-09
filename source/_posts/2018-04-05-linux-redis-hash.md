@@ -346,7 +346,7 @@ redis> HSTRLEN myhash f3
 (integer) 4
 ```
 #### HSCAN
-参考**SCAN**命令。
+参考**[SCAN](/2018/08/08/redis-key/#more)**命令。
 ```bash
 HSCAN key cursor [MATCH pattern] [COUNT count]
 ```

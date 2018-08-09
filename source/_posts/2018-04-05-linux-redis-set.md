@@ -63,6 +63,7 @@ redis> SCARD tool   # 空集合
 
 ### SMEMBERS
 返回集合`key`的所有成员。
+**注意当`SMEMBERS`处理一个很大的集合键时，由于`Redis`是单线程，它可能会阻塞服务器。**
 ```bash
 SMEMBERS key
 ```
@@ -414,7 +415,7 @@ redis> SMEMBERS my_songs
 
 ## 其他
 ### SSCAN
-参考**SCAN**命令。
+参考**[SCAN](/2018/08/08/redis-key/#more)**命令。
 ```bash
 SSCAN key cursor [MATCH pattern] [COUNT count]
 ```
