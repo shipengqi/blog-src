@@ -4,11 +4,12 @@ date: 2018-04-08 14:22:02
 categories: ["NodeJs"]
 ---
 
-jsdoc 是一个根据javascript文件中的代码注释，生成api文档的工具。
+`JSDoc`是一个根据`Javascript`文件中的代码注释，生成`API`文档的工具。
 
 <!-- more -->
 
-JSDoc注释放置在方法或函数声明之前，它必须以`/ **`开始，其他以`/*`，`/***`或者超过3个星号的注释，都将被JSDoc解析器忽略。例如一下代码：
+## 简单使用
+`JSDoc`注释放置在方法或函数声明之前，它必须以`/ **`开始，其他以`/*`，`/***`或者超过3个星号的注释，都将被JSDoc解析器忽略。例如一下代码：
 ``` javascript
 /**
  * Student类，学生.
@@ -32,3 +33,32 @@ Student.prototype={
 ```
 
 上面的代码中，以`@`开头的是 JSDoc 的。因为JSDoc考虑向后兼容，所以一些注释标签存在别名。 比如@param有两个别名：`@arg`，`@argument`。
+
+## 标签
+关于标签参考：
+- [JSDoc 中文文档](http://www.css88.com/doc/jsdoc/tags.html)
+
+## 生成Markdown文档
+
+### 安装依赖
+```bash
+npm install -g jsdoc-to-markdown
+```
+
+### 使用
+如 `docs.sh`文件：
+```bash
+PROJECT_ROOT="$PWD"
+MARKDOWN_DOCS_DIR="${PROJECT_ROOT}/docs"
+
+node_modules/.bin/jsdoc2md \
+  --files "lib/**/*.js" \
+  > "${MARKDOWN_DOCS_DIR}/api_docs.md"
+```
+
+运行`docs.sh`会在当前目录下的`docs`目录生成`api_docs.md`文件。
+
+查看命令帮助：
+```bash
+jsdoc2md --help
+```
