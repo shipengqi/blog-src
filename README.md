@@ -48,9 +48,9 @@ Options:
 - [hexo-baidu-url-submit](https://github.com/huiwang/hexo-baidu-url-submit) 主动推送Hexo博客新链接至百度搜索引擎
 
 ## TODO
-- Add文章
-  - Javascript basics, HTML, CSS, Vue.js虚拟DOM
-  - Webpack 使用
+- Articles
+  - Javascript basics, HTML, CSS, Vue.js Virtual DOM
+  - Webpack Usage
   - Redis, cache
   - Express, Koa source code
   - NodeJs Unit test (Mocha, nyc)
