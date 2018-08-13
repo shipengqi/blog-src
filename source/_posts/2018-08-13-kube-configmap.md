@@ -297,6 +297,32 @@ hello
 # cat  /etc/config/keys/example.type
 kube
 ```
+
+#### 使用 subPath
+使用`subPath`可以将`configmap`中的每个`key`，按照文件的方式挂载到目录下：
+```yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      command: ["/bin/sh","-c","sleep 36000"]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config3/example.how
+        subPath: example.how
+  volumes:
+    - name: config-volume
+      configMap:
+        name: example-config
+        items:
+        - key: example.how
+          path: example.how
+  restartPolicy: Never
+```
 ## 相关命令
 
 [更多 Kubernetes 相关命令](/2018/01/03/k8s-commands/)
