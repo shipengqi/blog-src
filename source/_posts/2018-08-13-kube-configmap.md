@@ -323,6 +323,14 @@ spec:
           path: example.how
   restartPolicy: Never
 ```
+
+## ConfigMap 热更新
+如果`ConfigMap`更新了，那么：
+- `Pod`中使用该`ConfigMap`配置的环境变量不会同步更新，环境变量是在容器启动的时候注入的，启动之后就不会再改变环境变量的值。
+- `Pod`中使用该`ConfigMap`挂载的`Volume`中的数据在一段时间（大概10秒）会同步更新
+
+`ConfigMap`更新并不会触发相关`Pod`的滚动更新。
+
 ## 相关命令
 
 [更多 Kubernetes 相关命令](/2018/01/03/k8s-commands/)
