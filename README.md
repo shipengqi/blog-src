@@ -1,6 +1,6 @@
 # blog-src
 
-My blog source code.
+:rainbow: My blog source code.
 
 ## Requirements
 - NodeJs
@@ -50,6 +50,7 @@ Options:
 ## TODO
 - Articles
   - Javascript basics, HTML, CSS, Vue.js Virtual DOM
+  - [Vue design](https://github.com/HcySunYang/vue-design)
   - Webpack Usage
   - Redis, cache
   - Express, Koa source code
@@ -59,6 +60,8 @@ Options:
   - Docker, Kubernetes
   - NodeJs source code
   - Go
+  - [System design primer](https://github.com/donnemartin/system-design-primer)
+  - [More](https://github.com/xitu/gold-miner)
 - 优化
   - 七牛云静态资源存储
     - https://github.com/gyk001/hexo-qiniu-sync
