@@ -100,7 +100,7 @@ redis> TTL age
 (integer) 49000
 ```
 #### SETNX
-如果 `key` 不存在，则设置其值。
+如果`key`不存在，则设置其值。设置成功，返回`1`。失败，返回`0`。
 `SET key value NX`等同于`SETNX key value`
 
 #### GET

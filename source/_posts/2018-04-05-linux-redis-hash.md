@@ -34,7 +34,7 @@ redis> hget student age
 "18"
 ```
 #### HSETNX
-和`HSET`一样，但是只在字段`field`不存时才会设置。设置成功，返回`1`。
+和`HSET`一样，但是只在字段`field`不存时才会设置。设置成功，返回`1`。失败，返回`0`。
 ```bash
 HSETNX key field value
 ```
