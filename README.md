@@ -51,6 +51,8 @@ Options:
 - Articles
   - Javascript basics, HTML, CSS, Vue.js Virtual DOM
   - [Vue design](https://github.com/HcySunYang/vue-design)
+  - [Vue CLI](https://cli.vuejs.org/zh/)
+  - [Vue SSR](https://ssr.vuejs.org/zh/)
   - Webpack Usage
   - Redis, cache
   - Express, Koa source code
@@ -60,6 +62,8 @@ Options:
   - Docker, Kubernetes
   - NodeJs source code
   - Go
+  - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
+  - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
   - [System design primer](https://github.com/donnemartin/system-design-primer)
   - [More](https://github.com/xitu/gold-miner)
 - 优化
