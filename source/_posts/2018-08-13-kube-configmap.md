@@ -7,7 +7,7 @@ tags: ["Kubernetes"]
 
 `ConfigMap`是`Kubernetes`中的一种用来**存储配置**的资源对象。
 除了`ConfigMap`还有其他几种存储相关的资源对象：
-- [Secret](/2018/08/13/kube-secret/)
+- [Secret](/2018/08/20/kube-secret/)
 - [Volume](/2018/08/13/kube-volume/)
 - [PV](/2018/08/13/kube-pv/)
 - [PVC](/2018/08/13/kube-pvc/)
