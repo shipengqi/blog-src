@@ -31,8 +31,8 @@ tags: ["Redis"]
 懒惰删除策略就是指，在访问某个`key`时，`Redis`判断`key`是否过期，过期了就删除。定期删除是集中处理，惰性删除是零散处理。
 
 ## 内存淘汰机制
-`Redis`的内存占用会越来越高。`Redis`为了限制最大使用内存，提供了
-配置参数`maxmemory`。当内存超出`maxmemory`，`Redis`提供了几种内存淘汰机制让用户选择：
+`Redis`的内存占用会越来越高。`Redis`为了限制最大使用内存，提供了`redis.conf`中的
+配置参数`maxmemory`。当内存超出`maxmemory`，`Redis`提供了几种内存淘汰机制让用户选择，配置`maxmemory-policy`：
 - `noeviction`：当内存超出`maxmemory`，写入请求会报错，但是删除和读请求可以继续。（使用这个策略，疯了吧）
 - `allkeys-lru`：当内存超出`maxmemory`，在所有的`key`中，移除最少使用的`key`。只把`Redis`既当缓存是使用这种策略。（推荐）。
 - `allkeys-random`：当内存超出`maxmemory`，在所有的`key`中，随机移除某个 Key。（应该没人用吧）
@@ -40,3 +40,9 @@ tags: ["Redis"]
 - `volatile-random`：当内存超出`maxmemory`，在设置了过期时间`key`的字典中，随机移除某个`key`。
 - `volatile-ttl`：当内存超出`maxmemory`，在设置了过期时间`key`的字典中，优先移除`ttl`小的。
 
+### 近似 LRU 算法
+
+`Redis`使用的并不是完全`LRU`算法。不使用`LRU`算法，是为了节省内存，`Redis`采用的是随机`LRU`算法，`Redis`为每一个`key`增加了一个`24 bit`的字段，
+用来记录这个`key`最后一次被访问的时间戳。**注意`Redis`的`LRU`淘汰策略是懒惰处理**，也就是不会主动执行淘汰策略，当`Redis`执行写操作时，发现内存超出`maxmemory`，
+就会执行`LRU`淘汰算法。这个算法就是随机采样出`5`(默认值)个`key`，然后移除最旧的`key`，如果移除后内存还是超出`maxmemory`，那就继续随机采样淘汰，直到内存低于`maxmemory`为止。
+随机采样的`key`的个数可以通过参数`maxmemory-samples`配置。
