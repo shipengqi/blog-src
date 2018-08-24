@@ -16,13 +16,35 @@ export  NODE_ENV="production"
 ```
 ## 修改`profile` 文件
 
-用户登录时，文件会被执行。修改`profile` 文件，环境变量对该系统中所有用户都永久有效。因为所有用户的Shell终端都有权使用这个环境变量，可能会给系统带来安全性问题。
-添加环境变量时，可以在行尾使用;号，也可以不使用。一个变量名可以对应多个变量值，多个变量值使用:分隔。
+用户登录时，文件会被执行。修改`profile` 文件，环境变量对该系统中所有用户都永久有效。因为所有用户的`Shell`终端都有权使用这个环境变量，可能会给系统带来安全性问题。
+添加环境变量时，可以在行尾使用`;`号，也可以不使用。一个变量名可以对应多个变量值，多个变量值使用`:`分隔。
+
+```bash
+PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:....:<PATH N>
+```
+
+**Example:**
 ``` bash
 vim /etc/profile
 
 #添加
 export  NODE_ENV="production"
+
+# node
+export NODE_HOME=/usr/local/node/v8.11.4
+export PATH=$NODE_HOME/bin:$PATH
+
+# yarn
+YARN_INSTALL_DIR=/usr/local/yarn/v1.9.4
+PATH=$PATH:$YARN_INSTALL_DIR/bin
+
+# proxy
+export http_proxy=http://web-proxy.net:8080
+export https_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxys
+export no_proxy=127.0.0.1,localhost
+export NO_PROXY=$no_proxy
 
 #使配置生效
 source /etc/profile
