@@ -37,6 +37,8 @@ HOME=/ # 指定在执行命令或者脚本时使用的主目录。
 0 1 * * * root /user/local/run.sh
 ```
 
+**注意系统任务要指定用户，如上面例子中的`root`，否则会报错`ERROR (getpwnam() failed)`。**
+
 ### 用户任务
 用户定义的`crontab`文件保存在`/var/spool/cron`，**文件名与用户名一致**。
 还有两个文件比较重要：
@@ -86,3 +88,17 @@ minute   hour   day   month   week   command
 10 1 * * 6,0 /etc/init.d/smb restart
 ```
 每周六、周日的一点十分重启smb
+
+## crontab 中的环境变量
+`crontab`执行定时任务时自动执行失败，但是手动执行可以，报类似的错：`yarn command not found`，这说明配置的环境变量未找到。这是应为`crontab`
+执行脚本时用的是系统的环境变量，用户定义的环境变量找不到。
+
+解决方案：
+1. 脚本中涉及到的的文件路径使用绝对路径。
+2. 脚本中的命令式用户自定义的环境变量可以在脚本头部执行`source`命令引入环境变量，如`source /etc/profile`。
+3. 如果上述方法都无效，可以在`crontab`文件中引入环境变量，如`* * * * * . /etc/profile;/bin/bash command`
+
+## 其他问题
+可以在任务后面加上`* * * * * /root/install.sh >/dev/null 2>&1`将日志重定向处理，避免`crontab`运行中有内容输出。
+
+也可以追加到日志文件，如`* * * * * /root/install.sh >> /root/install.log 2>&1`。

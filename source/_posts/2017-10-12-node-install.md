@@ -4,11 +4,11 @@ date: 2017-10-12 20:03:27
 categories: ["Linux"]
 ---
 
-在CentOS上用源码安装Node.js。
+在`CentOS`上用源码安装`Node.js`。
 
 <!-- more -->
 
-1. Node官网下载node源码，https://nodejs.org/en/download/
+1. `Node`官网[下载node源码](https://nodejs.org/en/download/)。
 ``` bash
 wget https://nodejs.org/dist/v6.11.4/node-v6.11.4-linux-x64.tar.xz
 
