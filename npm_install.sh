@@ -1,4 +1,24 @@
 #!/bin/bash
+# Prepare:
+# yarn global add pm2
+# cd <project_dir>
+# pm2 init
+# vim ecosystem.config.js
+# e.g.
+#  apps : [{
+#    name      : 'install',
+#    script    : 'npm_install.sh',
+#    env: {
+#      NODE_ENV: 'development'
+#    },
+#    env_production : {
+#      NODE_ENV: 'production'
+#    }
+#  }]
+# pm2 start ecosystem.config.js
+# pm2 ls
+# pm2 logs <id>
+
 # exit on errors
 set -e
 
