@@ -1,6 +1,6 @@
 # blog-src
 
-:rainbow: My blog source code, builded by [Hexo](https://github.com/hexojs/hexo).
+:see_no_evil: :books:  My blog source code, builded by [Hexo](https://github.com/hexojs/hexo).
 
 ## Requirements
 - NodeJs
