@@ -1,6 +1,6 @@
 # blog-src
 
-:rainbow: My blog source code.
+:rainbow: My blog source code, builded by [Hexo](https://github.com/hexojs/hexo).
 
 ## Requirements
 - NodeJs
@@ -65,7 +65,7 @@ Options:
     - Lodash source code
     - Unit test (Mocha, nyc)
   - Go
-    - [Go 语言圣经]（https://docs.hacknode.org/gopl-zh/index.html）
+    - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
     - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
     - Go 并发编程实战
     - Go 语言学习笔记
