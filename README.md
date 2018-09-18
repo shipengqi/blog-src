@@ -48,23 +48,52 @@ Options:
 - [hexo-baidu-url-submit](https://github.com/huiwang/hexo-baidu-url-submit) 主动推送Hexo博客新链接至百度搜索引擎
 
 ## TODO
-- Articles
-  - Javascript basics, HTML, CSS, Vue.js Virtual DOM
-  - [Vue design](https://github.com/HcySunYang/vue-design)
+- Reading Scheme
+  - Javascript basics, HTML, CSS
+  - Vue source code
+    - [Vue design](https://github.com/HcySunYang/vue-design)
+    - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
+  - Node.js
+    - [Source code](https://github.com/nodejs/node)
+    - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
+    - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
+    - [profiler](https://segmentfault.com/a/1190000012414666)
+    - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
+    - Express, Koa source code
+    - Hubot source code
+    - [socket.io source code](https://github.com/socketio/socket.io)
+    - Lodash source code
+    - Unit test (Mocha, nyc)
+  - Go
+    - [Go 语言圣经]（https://docs.hacknode.org/gopl-zh/index.html）
+    - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
+    - Go 并发编程实战
+    - Go 语言学习笔记
   - [Vue CLI](https://cli.vuejs.org/zh/)
   - [Vue SSR](https://ssr.vuejs.org/zh/)
   - Webpack Usage
+    - 小册 webpack 定制前端开发环境
   - Redis, cache
-  - Express, Koa source code
-  - NodeJs Unit test (Mocha, nyc)
+    - 小册 Redis 深度历险
+    - Redis 设计与实现
   - TCP, WS, RPC
-  - Hubot source code
+    - TCP/IP 详解
+    - 极客时间 RPC 深入理解
   - Docker, Kubernetes
-  - NodeJs source code
-  - Go
   - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
   - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
+    - 小册 微信小程序开发入门
   - [System design primer](https://github.com/donnemartin/system-design-primer)
+  - 架构
+    - 人人都是架构师
+    - 微服务架构与实践
+    - 微服务设计
+    - 架构解密:从分布式到微服务
+    - 架构探险:从零开始写分布式服务架构
+    - 亿级流量网站架构核心技术
+    - 阿里技术 双十一
+    - 极客时间 微服务
+  - Linux 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
   - [More](https://github.com/xitu/gold-miner)
 - 优化
   - 七牛云静态资源存储
