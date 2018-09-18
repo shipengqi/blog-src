@@ -50,6 +50,7 @@ Options:
 ## TODO
 - Reading Scheme
   - Javascript basics, HTML, CSS
+    - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
   - Vue source code
     - [Vue design](https://github.com/HcySunYang/vue-design)
     - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
@@ -59,6 +60,7 @@ Options:
     - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
     - [profiler](https://segmentfault.com/a/1190000012414666)
     - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
+    - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
     - Express, Koa source code
     - Hubot source code
     - [socket.io source code](https://github.com/socketio/socket.io)
@@ -94,7 +96,10 @@ Options:
     - 阿里技术 双十一
     - 极客时间 微服务
   - Linux 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
-  - [Recommend](https://github.com/Snailclimb/JavaGuide)
+    - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
+  - Recommend
+    - [JavaGuide 包含了Java,架构,数据库,协议等相关知识](https://github.com/Snailclimb/JavaGuide)
+    - [技能图谱](https://github.com/TeamStuQ/skill-map)
   - [More](https://github.com/xitu/gold-miner)
 - 优化
   - [七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
