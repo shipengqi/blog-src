@@ -94,6 +94,7 @@ Options:
     - 阿里技术 双十一
     - 极客时间 微服务
   - Linux 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
+  - [Recommend](https://github.com/Snailclimb/JavaGuide)
   - [More](https://github.com/xitu/gold-miner)
 - 优化
   - [七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
