@@ -3,7 +3,7 @@
 :see_no_evil: :books:  My blog source code, builded by [Hexo](https://github.com/hexojs/hexo).
 
 ## Requirements
-- NodeJs
+- Node.js
 
 ## Usage
 ```bash
@@ -97,9 +97,10 @@ Options:
     - 极客时间 微服务
   - Linux 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
     - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
-  - Recommend
+  - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,协议等相关知识](https://github.com/Snailclimb/JavaGuide)
     - [技能图谱](https://github.com/TeamStuQ/skill-map)
-  - [More](https://github.com/xitu/gold-miner)
+    - [掘金翻译计划](https://github.com/xitu/gold-miner)
+    - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
 - 优化
   - [七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
