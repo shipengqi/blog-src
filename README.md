@@ -49,15 +49,19 @@ Options:
 
 ## TODO
 - Reading Scheme
-  - Javascript basics, HTML, CSS
+  - Javascript, HTML, CSS
     - 你不知道的 Javascript
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
-  - Vue source code
-    - [Vue design](https://github.com/HcySunYang/vue-design)
-    - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
+  - Vue	
+    - Vue source code
+      - [Vue design](https://github.com/HcySunYang/vue-design)
+      - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
+	  - [Vue Analysis](https://github.com/ustbhuangyi/vue-analysis)
+    - [Vue CLI](https://cli.vuejs.org/zh/)
+    - [Vue SSR](https://ssr.vuejs.org/zh/)	  
   - Node.js
-    - [Source code](https://github.com/nodejs/node)
+    - [Node.js Source code](https://github.com/nodejs/node)
     - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
     - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
     - [profiler](https://segmentfault.com/a/1190000012414666)
@@ -73,8 +77,6 @@ Options:
     - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
     - Go 并发编程实战
     - Go 语言学习笔记
-  - [Vue CLI](https://cli.vuejs.org/zh/)
-  - [Vue SSR](https://ssr.vuejs.org/zh/)
   - Webpack Usage
     - 小册 webpack 定制前端开发环境
   - Redis, cache
@@ -97,7 +99,8 @@ Options:
     - 亿级流量网站架构核心技术
     - 阿里技术 双十一
     - 极客时间 微服务
-  - Linux 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
+  - Linux 
+    - 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
     - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
   - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,协议等相关知识](https://github.com/Snailclimb/JavaGuide)
