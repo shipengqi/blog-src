@@ -52,14 +52,15 @@ Options:
   - Javascript, HTML, CSS
     - 你不知道的 Javascript
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
-    - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
+    - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。	
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
       - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
 	  - [Vue Analysis](https://github.com/ustbhuangyi/vue-analysis)
     - [Vue CLI](https://cli.vuejs.org/zh/)
-    - [Vue SSR](https://ssr.vuejs.org/zh/)	  
+    - [Vue SSR](https://ssr.vuejs.org/zh/)
+  - [Weex](http://weex.apache.org/cn/guide/)		
   - Node.js
     - [Node.js Source code](https://github.com/nodejs/node)
     - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
