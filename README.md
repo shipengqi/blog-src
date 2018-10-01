@@ -52,7 +52,8 @@ Options:
   - Javascript, HTML, CSS
     - 你不知道的 Javascript
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
-    - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。	
+    - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
+    - [前端入门](https://github.com/e-f-e/fe-primary-tutorial)
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
@@ -104,7 +105,7 @@ Options:
     - 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
     - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
   - Recommendations
-    - [JavaGuide 包含了Java,架构,数据库,协议等相关知识](https://github.com/Snailclimb/JavaGuide)
+    - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
     - [技能图谱](https://github.com/TeamStuQ/skill-map)
     - [掘金翻译计划](https://github.com/xitu/gold-miner)
     - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
