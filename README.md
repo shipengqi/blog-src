@@ -53,6 +53,7 @@ Options:
     - 你不知道的 Javascript
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
+    - [33 js concepts](https://github.com/leonardomso/33-js-concepts)
     - [前端入门](https://github.com/e-f-e/fe-primary-tutorial)
   - Vue	
     - Vue source code
