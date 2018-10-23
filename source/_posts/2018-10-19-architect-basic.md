@@ -75,7 +75,7 @@ categories: ["Architecture"]
 
 #### 预测变化
 #### 封装变化
-
+#### 应对变化
 
 
 
