@@ -54,6 +54,7 @@ Options:
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
     - [33 js concepts](https://github.com/leonardomso/33-js-concepts)
+    - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
@@ -69,6 +70,7 @@ Options:
     - [profiler](https://segmentfault.com/a/1190000012414666)
     - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
     - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
+    - [Nodejs笔记](https://github.com/peze/someArticle)
     - Express, Koa source code
     - Hubot source code
     - [socket.io source code](https://github.com/socketio/socket.io)
@@ -107,6 +109,7 @@ Options:
   - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
     - [技能图谱](https://github.com/TeamStuQ/skill-map)
+    - [九部知识库](https://github.com/frontend9/fe9-library)
     - [掘金翻译计划](https://github.com/xitu/gold-miner)
     - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
 - 优化
