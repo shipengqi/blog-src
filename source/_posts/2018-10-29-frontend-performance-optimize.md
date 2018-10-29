@@ -813,3 +813,5 @@ Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量
 
 在 Chrome 的应用商店里下载一个 LightHouse。
 ### Performance API
+
+## 总结
