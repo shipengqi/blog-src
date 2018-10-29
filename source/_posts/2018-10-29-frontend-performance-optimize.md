@@ -800,3 +800,16 @@ function throttle(fn, delay) {
 // 用新的throttle包装scroll的回调
 document.addEventListener('scroll', throttle(() => console.log('触发了滚动事件'), 1000))
 ```
+
+## 性能监测
+性能监测目的是为了确定性能瓶颈，从而有的放矢地开展具体的优化工作。
+
+性能监测方案主要有两种：可视化方案、可编程方案。
+
+### Performance 开发者工具
+### LightHouse
+
+Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量。 你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 为Lighthouse 提供一个需要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。
+
+在 Chrome 的应用商店里下载一个 LightHouse。
+### Performance API
