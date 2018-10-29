@@ -146,6 +146,16 @@ isNaN(NaN); // true
 ```
 为什么排序结果不是`[1, 2, 10, 20]`，因为`Array`的`sort()`方法默认把所有元素先转换为`String`再排序，结果'10'排在了'2'的前面，因为字符'1'比字符'2'的`ASCII`码小。
 
+### 分组选择符
+```js
+var a = (1,2,3);
+console.log(a);  //3, 会以最后一个为准
+
+// 所以下面的 typeof f 输出是 "number"
+var f = (function f(){ return "1"; }, function g(){ return 2; })();
+typeof f;//"number"
+```
+
 
 
 
