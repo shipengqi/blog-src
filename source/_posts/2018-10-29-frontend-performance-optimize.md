@@ -609,3 +609,194 @@ container.style.display = 'block'
 访问“即时性”属性时，浏览器会为了获得此时此刻的、最准确的属性值，而提前将 flush 队列的任务出队，这就是所谓的“不得已”时刻。
 
 但是不是所有的浏览器都这么聪明。
+
+## Lazy-Load
+懒加载的实现思路，先把 style 内联样式中的背景图片属性设置为 none ，当出现在可视区域的瞬间，把背景图片属性从 none 变成一个在线图片的 URL。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lazy-Load</title>
+  <style>
+    .img {
+      width: 200px;
+      height:200px;
+      background-color: gray;
+    }
+    .pic {
+      // 必要的img样式
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="img">
+      // 注意我们并没有为它引入真实的src
+      <img class="pic" alt="加载中" data-src="./images/1.png">
+    </div>
+    <div class="img">
+      <img class="pic" alt="加载中" data-src="./images/2.png">
+    </div>
+    <div class="img">
+      <img class="pic" alt="加载中" data-src="./images/3.png">
+    </div>
+    <div class="img">
+      <img class="pic" alt="加载中" data-src="./images/4.png">
+    </div>
+    <div class="img">
+      <img class="pic" alt="加载中" data-src="./images/5.png">
+    </div>
+     <div class="img">
+      <img class="pic" alt="加载中" data-src="./images/6.png">
+    </div>
+  </div>
+</body>
+</html>
+```
+两个关键的数值：一个是当前可视区域的高度，另一个是元素距离可视区域顶部的高度。
+
+```js
+<script>
+    // 获取所有的图片标签
+    const imgs = document.getElementsByTagName('img')
+    // 获取可视区域的高度
+    const viewHeight = window.innerHeight || document.documentElement.clientHeight // 兼容低版本 IE
+    // num用于统计当前显示到了哪一张图片，避免每次都从第一张图片开始检查是否露出
+    let num = 0
+    function lazyload(){
+        for(let i=num; i<imgs.length; i++) {
+            // 用可视区域高度减去元素顶部距离可视区域顶部的高度
+            let distance = viewHeight - imgs[i].getBoundingClientRect().top
+            // 如果可视区域高度大于等于元素顶部距离可视区域顶部的高度，说明元素露出
+            if(distance >= 0 ){
+                // 给元素写入真实的src，展示图片
+                imgs[i].src = imgs[i].getAttribute('data-src')
+                // 前i张图片已经加载完毕，下次从第i+1张开始检查是否露出
+                num = i + 1
+            }
+        }
+    }
+    // 监听Scroll事件
+    window.addEventListener('scroll', lazyload, false);
+</script>
+```
+
+## 节流（throttle）与防抖（debounce）
+scroll 事件是一个非常容易被反复触发的事件，频繁触发回调导致的大量计算会引发页面的抖动甚至卡顿。
+为了规避这种情况，throttle（事件节流）和 debounce（事件防抖）出现了。
+
+### “节流”与“防抖”的本质
+
+这两个东西都以闭包的形式存在。
+
+它们通过对事件对应的回调函数进行包裹、以自由变量的形式缓存时间信息，最后用 setTimeout 来控制事件的触发频率。
+
+### throttle
+throttle 的中心思想在于：在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束时给予响应。
+
+```js
+// fn是我们需要包装的事件回调, interval是时间间隔的阈值
+function throttle(fn, interval) {
+  // last为上一次触发回调的时间
+  let last = 0
+
+  // 将throttle处理结果当作函数返回
+  return function () {
+      // 保留调用时的this上下文
+      let context = this
+      // 保留调用时传入的参数
+      let args = arguments
+      // 记录本次触发回调的时间
+      let now = +new Date()
+
+      // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+      if (now - last >= interval) {
+      // 如果时间间隔大于我们设定的时间间隔阈值，则执行回调
+          last = now;
+          fn.apply(context, args);
+      }
+    }
+}
+
+// 用throttle来包装scroll的回调
+document.addEventListener('scroll', throttle(() => console.log('触发了滚动事件'), 1000))
+```
+
+### debounce
+防抖的中心思想在于：我会等你到底。在某段时间内，不管你触发了多少次回调，我都只认最后一次。
+
+我们对比 throttle 来理解 debounce：在throttle的逻辑里，“第一个人说了算”，它只为第一个乘客计时，时间到了就执行回调。而 debounce 认为，
+“最后一个人说了算”，debounce 会为每一个新乘客设定新的定时器。
+
+```js
+// fn是我们需要包装的事件回调, delay是每次推迟执行的等待时间
+function debounce(fn, delay) {
+  // 定时器
+  let timer = null
+
+  // 将debounce处理结果当作函数返回
+  return function () {
+    // 保留调用时的this上下文
+    let context = this
+    // 保留调用时传入的参数
+    let args = arguments
+
+    // 每次事件被触发时，都去清除之前的旧定时器
+    if(timer) {
+        clearTimeout(timer)
+    }
+    // 设立新定时器
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+    }, delay)
+  }
+}
+
+// 用debounce来包装scroll的回调
+document.addEventListener('scroll', debounce(() => console.log('触发了滚动事件'), 1000))
+```
+
+### 用 Throttle 来优化 Debounce
+
+debounce 的问题在于它“太有耐心了”。试想，如果用户的操作十分频繁——他每次都不等 debounce 设置的 delay 时间结束就进行下一次操作，
+于是每次 debounce 都为该用户重新生成定时器，回调函数被延迟了不计其数次。频繁的延迟会导致用户迟迟得不到响应，用户同样会产生“这个页面卡死了”的观感。
+
+打造一个“有底线”的 debounce:delay 时间内，我可以为你重新生成定时器；但只要delay的时间到了，我必须要给用户一个响应。
+
+```js
+// fn是我们需要包装的事件回调, delay是时间间隔的阈值
+function throttle(fn, delay) {
+  // last为上一次触发回调的时间, timer是定时器
+  let last = 0, timer = null
+  // 将throttle处理结果当作函数返回
+
+  return function () {
+      // 保留调用时的this上下文
+      let context = this
+      // 保留调用时传入的参数
+      let args = arguments
+      // 记录本次触发回调的时间
+      let now = +new Date()
+      // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
+
+      if (now - last < delay) {
+      // 如果时间间隔小于我们设定的时间间隔阈值，则为本次触发操作设立一个新的定时器
+         clearTimeout(timer)
+         timer = setTimeout(function () {
+            last = now
+            fn.apply(context, args)
+          }, delay)
+      } else {
+          // 如果时间间隔超出了我们设定的时间间隔阈值，那就不等了，无论如何要反馈给用户一次响应
+          last = now
+          fn.apply(context, args)
+      }
+    }
+
+// 用新的throttle包装scroll的回调
+document.addEventListener('scroll', throttle(() => console.log('触发了滚动事件'), 1000))
+```
