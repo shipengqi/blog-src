@@ -815,3 +815,21 @@ Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量
 ### Performance API
 
 ## 总结
+- 网络层面的性能优化有两个方向：减少请求次数，减少单次请求所花费的时间。
+  - webpack 优化
+    - 构建过程提速（loader 少做不必要的事），打包第三方库（通过 DllPlugin 处理），将 loader 由单进程转为多进程（Happypack）。
+    - 压缩体积，可视化工具（webpack-bundle-analyzer）找出导致体积过大的原因，拆分资源（DllPlugin），删除冗余代码（Tree-Shaking，optimization.minimize 与 optimization.minimizer），按需加载，HTTP 压缩（Gzip）
+  - 图片优化，压缩图片的体积，是尽可能地去寻求一个质量与性能之间的平衡点。不同业务场景下的图片方案选型（JPEG/JPG、PNG、WebP、Base64、SVG 等）。
+  - 浏览器缓存
+  - 本地存储
+  - CDN
+- 渲染层面的优化
+  - 服务端渲染
+  - 浏览器渲染的过程，CSS 优化，CSS 与 JS 的加载顺序优化       
+  - DOM 优化
+  - 异步更新
+  - 回流与重绘
+- 应用
+  - lazy-load
+  - 节流和防抖
+- 性能监测  
