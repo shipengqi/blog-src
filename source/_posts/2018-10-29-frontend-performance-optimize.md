@@ -807,18 +807,27 @@ document.addEventListener('scroll', throttle(() => console.log('触发了滚动�
 性能监测方案主要有两种：可视化方案、可编程方案。
 
 ### Performance 开发者工具
-### LightHouse
+Performance 是 Chrome 提供给我们的开发者工具，它呈现的数据具有实时性、多维度的特点，可以帮助我们很好地定位性能问题。
+[Performance 官方文档](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)
 
+### LightHouse
 Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量。 你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 为Lighthouse 提供一个需要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。
 
-在 Chrome 的应用商店里下载一个 LightHouse。
+可以在 Chrome 的应用商店里下载一个 LightHouse。
+也可以使用命令行`npm install -g lighthouse`。
+[使用 Lighthouse 审查网络应用](https://developers.google.com/web/tools/lighthouse/?hl=zh-cn)
+
 ### Performance API
+Performance API 是为了拿到真实的数据，才可以对它进行二次处理，去做一个更加深层次的可视化。
+
+[MDN Performance API 介绍](https://developer.mozilla.org/zh-CN/docs/Web/API/Performance)
 
 ## 总结
 - 网络层面的性能优化有两个方向：减少请求次数，减少单次请求所花费的时间。
   - webpack 优化
     - 构建过程提速（loader 少做不必要的事），打包第三方库（通过 DllPlugin 处理），将 loader 由单进程转为多进程（Happypack）。
-    - 压缩体积，可视化工具（webpack-bundle-analyzer）找出导致体积过大的原因，拆分资源（DllPlugin），删除冗余代码（Tree-Shaking，optimization.minimize 与 optimization.minimizer），按需加载，HTTP 压缩（Gzip）
+    - 压缩体积，可视化工具（webpack-bundle-analyzer）找出导致体积过大的原因，拆分资源（DllPlugin），删除冗余代码
+    （Tree-Shaking，optimization.minimize 与 optimization.minimizer），按需加载，HTTP 压缩（Gzip）
   - 图片优化，压缩图片的体积，是尽可能地去寻求一个质量与性能之间的平衡点。不同业务场景下的图片方案选型（JPEG/JPG、PNG、WebP、Base64、SVG 等）。
   - 浏览器缓存
   - 本地存储
@@ -832,4 +841,4 @@ Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量
 - 应用
   - lazy-load
   - 节流和防抖
-- 性能监测  
+- 性能监测
