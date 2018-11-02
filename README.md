@@ -56,6 +56,7 @@ Options:
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
     - [33 js concepts](https://github.com/leonardomso/33-js-concepts)
     - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
+    - [前端指南](https://github.com/nanhupatar/FEGuide)
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
