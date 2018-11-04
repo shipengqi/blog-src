@@ -807,29 +807,64 @@ document.addEventListener('scroll', throttle(() => console.log('触发了滚动�
 性能监测方案主要有两种：可视化方案、可编程方案。
 
 ### Performance 开发者工具
-### LightHouse
+Performance 是 Chrome 提供给我们的开发者工具，它呈现的数据具有实时性、多维度的特点，可以帮助我们很好地定位性能问题。
+[Performance 官方文档](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/reference)
 
+### LightHouse
 Lighthouse 是一个开源的自动化工具，用于改进网络应用的质量。 你可以将其作为一个 Chrome 扩展程序运行，或从命令行运行。 为Lighthouse 提供一个需要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。
 
-在 Chrome 的应用商店里下载一个 LightHouse。
+可以在 Chrome 的应用商店里下载一个 LightHouse。
+也可以使用命令行`npm install -g lighthouse`。
+[使用 Lighthouse 审查网络应用](https://developers.google.com/web/tools/lighthouse/?hl=zh-cn)
+
 ### Performance API
+Performance API 是为了拿到真实的数据，才可以对它进行二次处理，去做一个更加深层次的可视化。
+
+[MDN Performance API 介绍](https://developer.mozilla.org/zh-CN/docs/Web/API/Performance)
 
 ## 总结
 - 网络层面的性能优化有两个方向：减少请求次数，减少单次请求所花费的时间。
   - webpack 优化
     - 构建过程提速（loader 少做不必要的事），打包第三方库（通过 DllPlugin 处理），将 loader 由单进程转为多进程（Happypack）。
-    - 压缩体积，可视化工具（webpack-bundle-analyzer）找出导致体积过大的原因，拆分资源（DllPlugin），删除冗余代码（Tree-Shaking，optimization.minimize 与 optimization.minimizer），按需加载，HTTP 压缩（Gzip）
+    - 压缩体积，可视化工具（webpack-bundle-analyzer）找出导致体积过大的原因，拆分资源（DllPlugin），删除冗余代码
+    （Tree-Shaking，optimization.minimize 与 optimization.minimizer），按需加载，HTTP 压缩（Gzip）
   - 图片优化，压缩图片的体积，是尽可能地去寻求一个质量与性能之间的平衡点。不同业务场景下的图片方案选型（JPEG/JPG、PNG、WebP、Base64、SVG 等）。
   - 浏览器缓存
+    - HTTP 缓存 （Cache-Control 控制）
+    - memory cache
+    - service worker cache
+    - push cache
   - 本地存储
+    - cookie，同一个域名下的所有请求，都会携带 Cookie。这样的不必要的 Cookie 带来的开销将是无法想象的。
+    - web storage
+    - indexdb
   - CDN
+    - 浏览器缓存，只能解决在第一次获取到资源之后的性能问题，那么CDN 可以解决第一次获取资源的性能问题。
+    - 同一个域名下的请求会不分青红皂白地携带 Cookie，而静态资源往往并不需要 Cookie 携带什么认证信息。把静态资源和主页面置于不同的域名（CDN域名）下，
+    完美地避免了不必要的 Cookie 的出现
 - 渲染层面的优化
-  - 服务端渲染
-  - 浏览器渲染的过程，CSS 优化，CSS 与 JS 的加载顺序优化       
-  - DOM 优化
+  - 服务端渲染，解决了首屏加载速度过慢。SEO。
+  - 浏览器渲染的过程，CSS 优化，CSS 与 JS 的加载顺序优化
+    - CSS 选择符是从右到左进行匹配的
+    - 避免使用通配符，只对需要用到的元素进行选择。
+    - 关注可以通过继承实现的属性，避免重复匹配重复定义。
+    - 少用标签选择器。如果可以，用类选择器替代
+    - id 和 class 选择器不应该被多余的标签选择器拖后腿。
+    - 减少嵌套。后代选择器的开销是最高的，因此我们应该尽量将选择器的深度降到最低。尽可能使用类来关联每一个标签元素。
+    - CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。
+    - js 脚本，一般当我们的脚本与 DOM 元素和其它脚本之间的依赖关系不强时，我们会选用 async；当脚本依赖于 DOM 元素和其它脚本的执行结果时，我们会选用 defer。
+  - DOM 优化，DOM 为什么这么慢？
+    - 把 DOM 和 JavaScript 各自想象成一个岛屿，它们之间用收费桥梁连接。
+    - 过桥很慢，到了桥对岸，我们的更改操作带来的结果也很慢。
   - 异步更新
+    - Vue 中每产生一个状态更新任务，它就会被塞进一个叫 callbacks 的数组（此处是任务队列的实现形式）中。这个任务队列在被丢进 micro 或 macro 队列之前，
+    会先去检查当前是否有异步更新任务正在执行（即检查 pending 锁）。如果确认 pending 锁是开着的（false），就把它设置为锁上（true），然后对当前 callbacks
+    数组的任务进行派发（丢进 micro 或 macro 队列）和执行。设置 pending 锁的意义在于保证状态更新任务的有序进行，避免发生混乱。
   - 回流与重绘
+    - 缓存会导致回流或重绘的属性。
+    - 避免逐条改变样式，使用类名去合并样式
+    - 将 DOM “离线”
 - 应用
-  - lazy-load
+  - lazy-load，优化首屏体验
   - 节流和防抖
-- 性能监测  
+- 性能监测
