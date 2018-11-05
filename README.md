@@ -57,6 +57,7 @@ Options:
     - [33 js concepts](https://github.com/leonardomso/33-js-concepts)
     - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
     - [前端指南](https://github.com/nanhupatar/FEGuide)
+		- [V8 引擎](https://github.com/justjavac/v8.js.cn)
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
