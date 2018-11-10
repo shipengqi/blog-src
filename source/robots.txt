@@ -12,4 +12,5 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: https://www.shipengqi.top/sitemap.xml
+Sitemap: https://blog.shipengqi.top/sitemap.xml
 Sitemap: https://blog.shipengqi.top/baidusitemap.xml
