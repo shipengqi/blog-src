@@ -100,7 +100,7 @@ deploy:
 
 baidu_url_submit:
   count: 1
-  host:  www.shipengqi.top
+  host:  blog.shipengqi.top
   token: MSpvujKZoY66JsZC
   path: baidu_urls.txt
 
