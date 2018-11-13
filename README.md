@@ -54,15 +54,17 @@ Options:
     - [JS 深入系列](https://github.com/mqyqingfeng/Blog)
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
-    - [33 js concepts](https://github.com/leonardomso/33-js-concepts)
     - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
     - [前端指南](https://github.com/nanhupatar/FEGuide)
-		- [V8 引擎](https://github.com/justjavac/v8.js.cn)
+    - [V8 引擎](https://github.com/justjavac/v8.js.cn)
+    - 小册 大厂H5
+    - 小册 前端面试指南
+    - 小册 前端优化原理
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
       - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
-	  - [Vue Analysis](https://github.com/ustbhuangyi/vue-analysis)
+      - [Vue Analysis](https://github.com/ustbhuangyi/vue-analysis)
     - [Vue CLI](https://cli.vuejs.org/zh/)
     - [Vue SSR](https://ssr.vuejs.org/zh/)
   - [Weex](http://weex.apache.org/cn/guide/)		
@@ -74,7 +76,7 @@ Options:
     - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
     - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
     - [Nodejs笔记](https://github.com/peze/someArticle)
-    - Express, Koa source code
+    - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
     - Hubot source code
     - [socket.io source code](https://github.com/socketio/socket.io)
     - Lodash source code
@@ -92,6 +94,7 @@ Options:
   - TCP, WS, RPC
     - TCP/IP 详解
     - 极客时间 RPC 深入理解
+    - 极客时间 趣谈网络协议
   - Docker, Kubernetes
   - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
   - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
@@ -106,8 +109,10 @@ Options:
     - 亿级流量网站架构核心技术
     - 阿里技术 双十一
     - 极客时间 微服务
+    - 极客时间 秒杀系统
+    - 推荐系统实战
   - Linux 
-    - 命令 curl awk [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
+    - 命令 curl [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
     - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
   - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
@@ -115,5 +120,6 @@ Options:
     - [九部知识库](https://github.com/frontend9/fe9-library)
     - [掘金翻译计划](https://github.com/xitu/gold-miner)
     - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
+    - 掘金 收藏
 - 优化
   - [七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
