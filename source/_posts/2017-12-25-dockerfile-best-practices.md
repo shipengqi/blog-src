@@ -65,6 +65,75 @@ RUN apt-get update && apt-get install -y \
 
 一旦缓存失效，所有后续的 `Dockerfile` 指令都将产生新的镜像，缓存不会被使用。
 
+### 在容器中编译源代码
+例如一个`build-image.sh`脚本：
+```bash
+#!/usr/bin/env bash
+
+VERSION=0.5.0
+
+# Build the binaries
+# 把当前目录下的 go 源码和 build.sh脚本挂载到 /go/src/github.com/Boostport/kubernetes-vault-0.5.0
+# 然后执行 ./build.sh 编译 go 源码
+docker run --rm -v $PWD:/go/src/github.com/Boostport/kubernetes-vault-0.5.0 \
+-w /go/src/github.com/Boostport/kubernetes-vault-0.5.0 golang:1.9.2-alpine3.6 ./build.sh
+
+
+# Build the init container
+#CGO_ENABLED=0 go build -a -o cmd/init/kubernetes-vault-init ./cmd/init/
+
+#/bin/cp -f ./cmd/init/kubernetes-vault-init ./cmd/renew/
+
+#CGO_ENABLED=0 go build -a -o cmd/renew/kubernetes-vault-renew ./cmd/renew/
+
+# Build the images
+docker build --label com.microfocus.image-version=$VERSION \
+--label com.microfocus.image-name=kubernetes-vault \
+--label com.microfocus.itom.kubernetes-vault=$VERSION \
+--label vendor="Micro Focus International plc" \
+-t localhost:5000/kubernetes-vault:$VERSION \
+-f cmd/controller/Dockerfile cmd/controller/
+
+docker build --label com.microfocus.image-version=$VERSION \
+--label com.microfocus.image-name=kubernetes-vault-init \
+--label com.microfocus.itom.kubernetes-vault-init=$VERSION \
+--label vendor="Micro Focus International plc" \
+-t localhost:5000/kubernetes-vault-init:$VERSION \
+-f cmd/init/Dockerfile cmd/init/
+
+
+docker build --label com.microfocus.image-version=$VERSION \
+--label com.microfocus.image-name=kubernetes-vault-renew \
+--label com.microfocus.itom.kubernetes-vault-renew=$VERSION \
+--label vendor="Micro Focus International plc" \
+-t localhost:5000/kubernetes-vault-renew:$VERSION \
+-f cmd/renew/Dockerfile cmd/renew/
+```
+上面的脚本，就不需要在当前机器上装 go 环境，直接在容器中编译 go 源码，并输出 go 的二进制文件到本地目录。
+`build.sh`的内容，只是编译 go 源码，并输出 二进制文件：
+```bash
+#sed -i -e 's/dl-cdn/dl-4/' /etc/apk/repositories
+# Install tools
+apk --update add gcc git musl-dev
+
+# Install dep
+go get -u github.com/golang/dep/cmd/dep
+
+# Install dependencies
+dep ensure
+
+# Build the service
+CGO_ENABLED=0 go build -a -o cmd/controller/kubernetes-vault ./cmd/controller/
+
+# Build the init container
+CGO_ENABLED=0 go build -a -o cmd/init/kubernetes-vault-init ./cmd/init/
+
+/bin/cp -f ./cmd/init/kubernetes-vault-init ./cmd/renew/
+
+CGO_ENABLED=0 go build -a -o cmd/renew/kubernetes-vault-renew ./cmd/renew/
+```
+
+
 ## Dockerfile 指令
 
 下面针对 `Dockerfile` 中各种指令的最佳编写方式给出建议。
