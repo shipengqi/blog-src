@@ -60,6 +60,7 @@ Options:
     - 小册 大厂H5
     - 小册 前端面试指南
     - 小册 前端优化原理
+    - [前端精读周刊](https://github.com/dt-fe/weekly)
   - Vue	
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
@@ -76,6 +77,7 @@ Options:
     - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
     - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
     - [Nodejs笔记](https://github.com/peze/someArticle)
+    - Node.js：来一打C++扩展
     - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
     - Hubot source code
     - [socket.io source code](https://github.com/socketio/socket.io)
@@ -96,6 +98,8 @@ Options:
     - 极客时间 RPC 深入理解
     - 极客时间 趣谈网络协议
   - Docker, Kubernetes
+    - 深入剖析 Kubernetes
+    - Kubernetes 部署
   - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
   - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
     - 小册 微信小程序开发入门
