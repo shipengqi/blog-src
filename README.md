@@ -88,6 +88,8 @@ Options:
     - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
     - Go 并发编程实战
     - Go 语言学习笔记
+    - 极客时间 Go 语言核心三十六讲
+    - 小册 Go 搭建企业级Web
   - Webpack Usage
     - 小册 webpack 定制前端开发环境
   - Redis, cache
@@ -114,6 +116,7 @@ Options:
     - 阿里技术 双十一
     - 极客时间 微服务
     - 极客时间 秒杀系统
+    - 极客时间 从零开始学架构
     - 推荐系统实战
   - Linux 
     - 命令 curl [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
