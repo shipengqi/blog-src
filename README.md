@@ -67,6 +67,7 @@ Options:
       - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
       - [Vue Analysis](https://github.com/ustbhuangyi/vue-analysis)
     - [Vue CLI](https://cli.vuejs.org/zh/)
+      - 小册 Vue CLI3
     - [Vue SSR](https://ssr.vuejs.org/zh/)
   - [Weex](http://weex.apache.org/cn/guide/)		
   - Node.js
