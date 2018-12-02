@@ -128,6 +128,7 @@ Options:
     - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
   - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
+    - [Computer Science Learning Notes](https://github.com/CyC2018/CS-Notes)
     - [技能图谱](https://github.com/TeamStuQ/skill-map)
     - [九部知识库](https://github.com/frontend9/fe9-library)
     - [掘金翻译计划](https://github.com/xitu/gold-miner)
