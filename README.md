@@ -51,12 +51,14 @@ Options:
 - Reading Scheme
   - Javascript, HTML, CSS
     - 你不知道的 Javascript
+    - Javascript 函数式编程
     - [JS 深入系列](https://github.com/mqyqingfeng/Blog)
     - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
     - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
     - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
     - [前端指南](https://github.com/nanhupatar/FEGuide)
     - [V8 引擎](https://github.com/justjavac/v8.js.cn)
+    - CSS 揭秘
     - 小册 大厂H5
     - 小册 前端面试指南
     - 小册 前端优化原理
@@ -103,6 +105,7 @@ Options:
   - Docker, Kubernetes
     - 深入剖析 Kubernetes
     - Kubernetes 部署
+  - 啊哈！算法
   - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
   - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
     - 小册 微信小程序开发入门
