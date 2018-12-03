@@ -137,6 +137,7 @@ Options:
   - [Computer Science Learning Notes](https://github.com/CyC2018/CS-Notes)
   - [技能图谱](https://github.com/TeamStuQ/skill-map)
   - [九部知识库](https://github.com/frontend9/fe9-library)
+  - [前端开发月报](https://github.com/jsfront/month)
   - [掘金翻译计划](https://github.com/xitu/gold-miner)
   - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
   - 掘金 收藏 list
