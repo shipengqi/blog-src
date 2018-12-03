@@ -48,7 +48,26 @@ Options:
 - [hexo-baidu-url-submit](https://github.com/huiwang/hexo-baidu-url-submit) 主动推送`Hexo`博客新链接至百度搜索引擎
 
 ## TODO
-- Reading Scheme
+- Reading list
+  - 数据结构与算法
+    - 啊哈！算法
+    - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
+    - 剑指 Offer
+    - Lodash source code
+  - 操作系统
+    - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
+    - 鸟哥的 Linux 私房菜
+  - 计算机网络
+    - TCP/IP 详解
+    - 极客时间 RPC 深入理解
+    - 极客时间 趣谈网络协议
+    - [socket.io source code](https://github.com/socketio/socket.io)
+  - 面向对象
+  - 数据库
+    - MySQL 必知必会
+    - 高性能 MySQL
+    - 小册 Redis 深度历险
+    - Redis 设计与实现
   - Javascript, HTML, CSS
     - 你不知道的 Javascript
     - Javascript 函数式编程
@@ -63,7 +82,7 @@ Options:
     - 小册 前端面试指南
     - 小册 前端优化原理
     - [前端精读周刊](https://github.com/dt-fe/weekly)
-  - Vue	
+  - Vue
     - Vue source code
       - [Vue design](https://github.com/HcySunYang/vue-design)
       - [Vue.js 源码解析](https://github.com/answershuto/learnVue)
@@ -71,7 +90,6 @@ Options:
     - [Vue CLI](https://cli.vuejs.org/zh/)
       - 小册 Vue CLI3
     - [Vue SSR](https://ssr.vuejs.org/zh/)
-  - [Weex](http://weex.apache.org/cn/guide/)		
   - Node.js
     - [Node.js Source code](https://github.com/nodejs/node)
     - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
@@ -83,8 +101,6 @@ Options:
     - Node.js：来一打C++扩展
     - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
     - Hubot source code
-    - [socket.io source code](https://github.com/socketio/socket.io)
-    - Lodash source code
     - Unit test (Mocha, nyc)
   - Go
     - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
@@ -93,24 +109,8 @@ Options:
     - Go 语言学习笔记
     - 极客时间 Go 语言核心三十六讲
     - 小册 Go 搭建企业级Web
-  - Webpack Usage
-    - 小册 webpack 定制前端开发环境
-  - Redis, cache
-    - 小册 Redis 深度历险
-    - Redis 设计与实现
-  - TCP, WS, RPC
-    - TCP/IP 详解
-    - 极客时间 RPC 深入理解
-    - 极客时间 趣谈网络协议
-  - Docker, Kubernetes
-    - 深入剖析 Kubernetes
-    - Kubernetes 部署
-  - 啊哈！算法
-  - [Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
-  - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
-    - 小册 微信小程序开发入门
-  - [System design primer](https://github.com/donnemartin/system-design-primer)
-  - 架构
+  - 系统设计
+    - [System design primer](https://github.com/donnemartin/system-design-primer)
     - 人人都是架构师
     - 微服务架构与实践
     - 微服务设计
@@ -118,14 +118,20 @@ Options:
     - 架构探险:从零开始写分布式服务架构
     - 亿级流量网站架构核心技术
     - 阿里技术 双十一
-    - 极客时间 微服务
-    - 极客时间 秒杀系统
+    - 极客时间 微服务核心二十讲
+    - 极客时间 秒杀系统设计
     - 极客时间 推荐系统三十六式
     - 极客时间 从零开始学架构
     - 推荐系统实战
-  - Linux 
-    - 命令 curl [查找命令](http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html?bsh_bid=223636115)
-    - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
+  - 工具
+    - 小册 webpack 定制前端开发环境
+    - 深入剖析 Kubernetes
+    - Kubernetes 部署
+  - 其它
+    - [Weex](http://weex.apache.org/cn/guide/)
+    - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
+      - 小册 微信小程序开发入门
+      - 小册 微信小游戏
   - Recommendations
     - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
     - [Computer Science Learning Notes](https://github.com/CyC2018/CS-Notes)
@@ -133,6 +139,6 @@ Options:
     - [九部知识库](https://github.com/frontend9/fe9-library)
     - [掘金翻译计划](https://github.com/xitu/gold-miner)
     - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
-    - 掘金 收藏
+    - 掘金 收藏 list
 - 优化
   - [七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
