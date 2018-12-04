@@ -6,16 +6,17 @@ comments: false
 
 
 ### 个人简介：
-Pooky
-Web后台开发、Nodejs开发
-上海浦东
+Name: shipengqi
+Email: pooky.shipengqi@gmail.com
+Blog: https://www.shipengqi.top
+Location: Shanghai, China
+Organization: Microfocus
+Job: Node.js Full Stack engineer, Go Lang engineer.
 
 ### 关于本站：
 
-对我而言，自己写博客，目前还达不到那种水平。所以大部分文章都是转载别人的文章，虽说都是抄的，
-但是我觉得抄一遍比阅读几遍理解的要深刻的多，很多细节在阅读的时候可能一眼扫过，抄的时候却一个字也不会落下，
-碰到问题，会去思考，会去查相关的资料，理解以后才会继续下去，而且解决问题的过程中还可能帮助我理解我以前碰到的问题，
-总的来讲，这种方式对我的提高是很有帮助的。
+本博客部分文章是转载自别的博客，也会尝试写一点自己学习的总结和理解，虽说部分是抄的，但是我觉得抄一遍比阅读几遍理解的要深刻的多，碰到问题，会去思考，会去查相关的资料，
+理解以后才会继续下去，而且解决问题的过程中还可能帮助我理解我以前一些比较模糊的点，总的来讲，这种方式对我的提高是很有帮助的。
 
 下面是我平常经常看的几个博客或者 Github，而且我大部分文章也是出（chao）自这些网站：
 
@@ -28,8 +29,7 @@ Web后台开发、Nodejs开发
 还有对我挺有意义的一个，这是我漫漫技术之路上的第一个师傅（大牛）的 Github：[芝麻飞来](https://github.com/magicsky)，对我的帮助不仅仅是技术上的，我很感谢他。
 
 
-博客搭建于Github， 欢迎[Fork](https://github.com/shipengqi/shipengqi.github.io)。
-博客里面很多文章是空白的，没有时间写（就是抄），以后会慢慢补（chao）。也会尝试写一点自己学习的总结和理解。
+博客使用[Hexo](https://hexo.io/zh-cn/docs/)搭建于 Github，欢迎[Fork](https://github.com/shipengqi/shipengqi.github.io)。
 
 ### Hexo搭建指南: 
 

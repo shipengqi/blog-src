@@ -28,7 +28,7 @@ categories: ["编程"]
 
 当然上面可能没有你想要的插件，我把已经下载好的插件放到了[这里](https://pan.baidu.com/s/1VMRNvrfzauwAvQhAOLy1Vw)，提取码是`zf36`，可以自行下载，包括了一下插件：
 
-- Tunnello VPN（收费）
+- Tunnello VPN（收费了）
 - 谷歌访问助手（可用，需要设置 2345 为主页，可以免费激活）
 - 谷歌上网助手（未测试）
 - 谷歌服务助手（测试不可用）
@@ -38,6 +38,6 @@ categories: ["编程"]
 浏览器打开`chrome://extensions/`，直接把插件拖进去安装。
 
 ### Chrome 67 以后版本
-Chrome 67 以后版本无法离线安装，可以用Chrome 插件伴侣来安装插件。我已经下载好放在了[这里](https://pan.baidu.com/s/1QVXauUSn87dJ2N6eo1e_9g)，提取码是`vpr1`。
+Chrome 67 以后版本无法离线安装，可以用**Chrome 插件伴侣**来安装插件。我已经下载好放在了[这里](https://pan.baidu.com/s/1QVXauUSn87dJ2N6eo1e_9g)，提取码是`vpr1`。
 
 使用非常简单，按提示操作即可。
