@@ -81,7 +81,8 @@ Options:
   - 小册 大厂H5
   - 小册 前端面试指南
   - 小册 前端优化原理
-  - [前端精读周刊](https://github.com/dt-fe/weekly)
+  - [前端月刊](https://github.com/jsfront/month)
+  - 前端监控 掘金收藏
 - Vue
   - Vue source code
     - [Vue design](https://github.com/HcySunYang/vue-design)
@@ -90,6 +91,10 @@ Options:
   - [Vue CLI](https://cli.vuejs.org/zh/)
     - 小册 Vue CLI3
   - [Vue SSR](https://ssr.vuejs.org/zh/)
+  - 实战
+    - [基于 vue2 + vuex 构建一个具有 45 个页面的大型单页面应用](https://github.com/bailicangdu/vue2-elm)
+    - [基于vue2.0的实时聊天项目](https://github.com/hua1995116/webchat)
+    - [vuejs仿网易云音乐](https://github.com/hua1995116/musiccloudWebapp)
 - Node.js
   - [Node.js Source code](https://github.com/nodejs/node)
   - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
@@ -137,7 +142,6 @@ Options:
   - [Computer Science Learning Notes](https://github.com/CyC2018/CS-Notes)
   - [技能图谱](https://github.com/TeamStuQ/skill-map)
   - [九部知识库](https://github.com/frontend9/fe9-library)
-  - [前端开发月报](https://github.com/jsfront/month)
   - [掘金翻译计划](https://github.com/xitu/gold-miner)
   - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
   - 掘金 收藏 list
