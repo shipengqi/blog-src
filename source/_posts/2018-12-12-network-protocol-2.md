@@ -15,7 +15,7 @@ tags: ["Http", "TcpIp"]
 
 交换机往往是放在机架顶端的，所以经常称为**TOR（Top Of Rack）交换机**。这一层的交换机常常称为**接入层（Access Layer）**。
 
-![](../images/network-protocol/tor.jpg)
+![](/images/network-protocol/tor.jpg)
 
 当一个机架放不下的时候，就需要多个机架，还需要有交换机将多个机架连接在一起。这些交换机对性能的要求更高，带宽也更大。这些交换机称为**汇聚层交换机（AggregationLayer）**。
 
@@ -30,18 +30,18 @@ TOR交换机也需要高可用，同理接入层和汇聚层的连接也需要�
 最传统的方法是，部署两个接入交换机、两个汇聚交换机。服务器和两个接入交换机都连接，接入交换机和两个汇聚都连接，当然这样会形成环，所以需要启用STP协议，去除环，但是这样两个汇聚就只能一主一备了。
 STP协议里我们学过，只有一条路会起作用。
 
-![](../images/network-protocol/al1.jpg)
+![](/images/network-protocol/al1.jpg)
 
 交换机有一种技术叫作堆叠，所以另一种方法是，将多个交换机形成一个逻辑的交换机，服务器通过多根线分配连到多个接入层交换机上，而接入层交换机多根线分别连接到多个交换机上，并且通过堆叠的私有协议，
 形成双活的连接方式。
 
-![](../images/network-protocol/al2.jpg)
+![](/images/network-protocol/al2.jpg)
 
 汇聚层将大量的计算节点相互连接在一起，形成一个集群。在这个集群里面，服务器之间通过二层互通，这个区域常称为一个**POD（Point Of Delivery）**，有时候也称为一个**可用区（Available Zone）**。
 
 当节点数目再多的时候，一个可用区放不下，需要将多个可用区连在一起，连接多个可用区的交换机称为**核心交换机**。
 
-![](../images/network-protocol/centerl.jpg)
+![](/images/network-protocol/centerl.jpg)
 
 核心交换机吞吐量更大，高可用要求更高，肯定需要堆叠，但是往往仅仅堆叠，不足以满足吞吐量，因而还是需要部署多组核心交换机。核心和汇聚交换机之间为了高可用，也是全互连模式的。
 
@@ -49,7 +49,7 @@ STP协议里我们学过，只有一条路会起作用。
 数据中心，里面很复杂，但是有的公司有多个数据中心，需要将多个数据中心连接起来，或者需要办公室和数据中心连接起来。怎么办？
 走公网不安全，租用专线成本高，使用VPN，安全有不贵。
 
-![](../images/network-protocol/vpn1.jpg)
+![](/images/network-protocol/vpn1.jpg)
 
 **VPN，全名Virtual Private Network，虚拟专用网**，就是利用开放的公众网络，建立专用数据传输通道，将远程的分支机构、移动办公人员等连接起来。
 
@@ -58,7 +58,7 @@ VPN通过隧道技术在公众网络上仿真一条点到点的专线，是通�
 
 以IPsec协议为例：
 
-![](../images/network-protocol/ipsec.jpg)
+![](/images/network-protocol/ipsec.jpg)
 
 **IPsec VPN**。这是基于IP协议的**安全隧道协议**，为了保证在公网上面信息的安全，因而采取了一定的机制保证安全性。
 - 机制一：**私密性**，防止信息泄漏给未经授权的个人，通过加密把数据从明文变成无法读懂的密文，从而确保数据的私密性。前面讲HTTPS的时候，说过加密可以分为对称加密和非对称加密。对称加密速度快一些。
@@ -72,7 +72,7 @@ VPN通过隧道技术在公众网络上仿真一条点到点的专线，是通�
 
 基于以上三个特性，组成了**IPsec VPN的协议簇**。
 
-![](../images/network-protocol/vpn2.jpg)
+![](/images/network-protocol/vpn2.jpg)
 
 - AH（Authentication Header），只能进行数据摘要，不能实现数据加密。
 - ESP（Encapsulating Security Payload），能够进行数据加密和数据摘要。
@@ -89,7 +89,7 @@ DH算法是一个比较巧妙的算法。客户端和服务端约定两个公开
 
 到此客户端和服务端可以根据已有的信息，各自独立算出相同的结果K，就是**对称密钥**。但是这个过程，对称密钥从来没有在通道上传输过，只传输了生成密钥的材料，通过这些材料，截获的人是无法算出的。
 
-![](../images/network-protocol/dh.jpg)
+![](/images/network-protocol/dh.jpg)
 
 **第二个阶段，建立IPsec SA**。在这个SA里面，双方会生成一个随机的对称密钥M，由K加密传给对方，然后使用M进行双方接下来通信的数据。对称密钥M是有过期时间的，会过一段时间，重新生成一次，从而防止被破解。
 
@@ -100,7 +100,7 @@ IPsec SA里面有以下内容：
 
 当IPsec建立好，接下来就可以开始打包封装传输了。
 
-![](../images/network-protocol/ipsecpack.jpg)
+![](/images/network-protocol/ipsecpack.jpg)
 
 左面是原始的IP包，在IP头里面，会指定上一层的协议为TCP。ESP要对IP包进行封装，因而IP头里面的上一层协议为ESP。在ESP的正文里面，ESP的头部有双方商讨好的SPI，以及这次传输的序列号。
 
@@ -108,7 +108,7 @@ IPsec SA里面有以下内容：
 
 有了IPsec VPN之后，客户端发送的明文的IP包，都会被加上ESP头和IP头，在公网上传输，由于加密，可以保证不被窃取，到了对端后，去掉ESP的头，进行解密。
 
-![](../images/network-protocol/vpn3.jpg)
+![](/images/network-protocol/vpn3.jpg)
 
 这种点对点的基于IP的VPN，能满足互通的要求，但是速度往往比较慢，这是由底层IP协议的特性决定的。IP不是面向连接的，是尽力而为的协议，每个IP包自由选择路径，到每一个路由器，都自己去找下一跳，丢了就丢了，
 是靠上一层TCP的重发来保证可靠性。
@@ -156,7 +156,7 @@ IPsec SA里面有以下内容：
 
 数据中心里面的这些模块统称为网络子系统（NSS，Network and Switching Subsystem）。
 
-![](../images/network-protocol/2g.jpg)
+![](/images/network-protocol/2g.jpg)
 
 - **手机通过无线信号连接基站**；
 - **基站一面朝前接无线，一面朝后接核心网**；
@@ -167,7 +167,7 @@ IPsec SA里面有以下内容：
 
 在核心网里面，有个朝前的接待员（SGSN，Service GPRS Supported Node）和朝后连接IP网络的网关型GPRS支持节点（GGSN，Gateway GPRS Supported Node）。
 
-![](../images/network-protocol/2-5g.jpg)
+![](/images/network-protocol/2-5g.jpg)
 
 #### 3G网络
 
@@ -175,7 +175,7 @@ IPsec SA里面有以下内容：
 
 以W-CDMA为例，理论最高2M的下行速度，因而基站改变了，一面朝外的是Node B，一面朝内连接核心网的是无线网络控制器（RNC，Radio Network Controller）。核心网以及连接的IP网络没有什么变化。
 
-![](../images/network-protocol/3g.jpg)
+![](/images/network-protocol/3g.jpg)
 
 #### 4G网络
 基站为eNodeB，包含了原来Node B和RNC的功能，下行速度向百兆级别迈进。另外，核心网实现了控制面和数据面的分离，这个怎么理解呢？
@@ -183,7 +183,7 @@ IPsec SA里面有以下内容：
 在前面的核心网里面，有接待员MSC或者SGSN，你会发现检查是否合法是它负责，转发数据也是它负责，也即控制面和数据面是合二为一的，这样灵活性比较差，因为控制面主要是指令，多是小包，往往需要高的及时性；
 数据面主要是流量，多是大包，往往需要吞吐量。
 
-![](../images/network-protocol/4g.jpg)
+![](/images/network-protocol/4g.jpg)
 
 HSS用于存储用户签约信息的数据库，其实就是你这个号码归属地是哪里的，以及一些认证信息。
 
@@ -195,7 +195,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 ### 手机上网流程
 手机开机之后上网的流程，这个过程称为**Attach**。可以看出来，移动网络还是很复杂的。因为这个过程要建立很多的隧道，分配很多的隧道ID:
 
-![](../images/network-protocol/phonenet.jpg)
+![](/images/network-protocol/phonenet.jpg)
 
 1. 手机开机以后，在附近寻找基站eNodeB，找到后给eNodeB发送Attach Request，说“我来啦，我要上网”。
 2. eNodeB将请求发给MME，说“有个手机要上网”。
@@ -215,7 +215,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 如果你在巴塞罗那，一下飞机，手机开机，周围搜寻到的肯定是巴塞罗那的eNodeB。通过MME去查寻国内运营商的HSS，看你是否合法，是否还有钱。如果允许上网，你的手机和巴塞罗那的SGW会建立一个隧道，
 然后巴塞罗那的SGW和国内运营商的PGW建立一个隧道，然后通过国内运营商的PGW上网。
 
-![](../images/network-protocol/phonenet2.jpg)
+![](/images/network-protocol/phonenet2.jpg)
 
 这样判断你是否能上网的在国内运营商的HSS，控制你上网策略的是国内运营商的PCRF，给手机分配的IP地址也是国内运营商的PGW负责的，给手机分配的IP地址也是国内运营商里统计的。运营商由于是在PGW里面统计的，
 这样你的上网流量全部通过国内运营商即可，只不过巴塞罗那运营商也要和国内运营商进行流量结算。由于你的上网策略是由国内运营商在PCRF中控制的，因而你还是上不了脸书。
@@ -234,7 +234,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 简单比喻，虚拟化软件就像一个“骗子”，向上“骗”虚拟机里面的应用，让它们感觉独享资源，其实自己啥都没有，全部向下从物理机里面弄。
 
 ### 虚拟网卡的原理
-![](../images/network-protocol/vmnetcard.jpg)
+![](/images/network-protocol/vmnetcard.jpg)
 
 首先，虚拟机要有一张网卡。对于qemu-kvm来说，这是通过Linux上的一种TUN/TAP技术来实现的。
 
@@ -263,11 +263,11 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 在物理机上，应该有一个虚拟的交换机，在Linux上有个命令`brctl`，可以常见虚拟网桥`brctl addbr br0`。创建出来之后，将虚拟网卡连接到虚拟网桥上`brctl addif br0 tap0`，将两个虚拟机配置相同的
 子网网段，两台虚拟机就可以互相通信了。
 
-![](../images/network-protocol/vmlink.jpg)
+![](/images/network-protocol/vmlink.jpg)
 
 虚拟机如何连外网呢？
 
-![](../images/network-protocol/vmui.jpg)
+![](/images/network-protocol/vmui.jpg)
 
 这里面，host-only的网络对应的，其实就是上面两个虚拟机连到一个br0虚拟网桥上，而且不考虑访问外部的场景，只要虚拟机之间能够相互访问就可以了。
 
@@ -275,7 +275,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 
 1. 一种方式称为**桥接**。如果在桌面虚拟化软件上选择桥接网络，则在你的笔记本电脑上，就会形成下面的结构。
 
-![](../images/network-protocol/vmlink2.jpg)
+![](/images/network-protocol/vmlink2.jpg)
 
 每个虚拟机都会有虚拟网卡，在你的笔记本电脑上，会发现多了几个网卡，其实是虚拟交换机。这个虚拟交换机将虚拟机连接在一起。在桥接模式下，物理网卡也连接到这个虚拟交换机上，
 物理网卡在桌面虚拟化软件上，在“界面名称”那里选定。
@@ -283,11 +283,11 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 如果使用桥接网络，当你登录虚拟机里看IP地址的时候会发现，你的虚拟机的地址和你的笔记本电脑的，以及你旁边的同事的电脑的网段是一个网段。这是为什么呢？这其实相当于将物理机和虚拟机放在同一个网桥上，
 相当于这个网桥上有三台机器，是一个网段的，全部打平了。我将图画成下面的样子你就好理解了。
 
-![](../images/network-protocol/vmlink3.jpg)
+![](/images/network-protocol/vmlink3.jpg)
 
 在数据中心里面，采取的也是类似的技术，只不过都是Linux，在每台机器上都创建网桥br0，虚拟机的网卡都连到br0上，物理网卡也连到br0上，所有的br0都通过物理网卡出来连接到物理交换机上。
 
-![](../images/network-protocol/vmlink4.jpg)
+![](/images/network-protocol/vmlink4.jpg)
 
 在这种方式下，不但解决了同一台机器的互通问题，也解决了跨物理机的互通问题，因为都在一个二层网络里面，彼此用相同的网段访问就可以了。但是当规模很大的时候，会存在问题。
 
@@ -296,7 +296,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 
 2. 另外一种方式称为**NAT**。如果在桌面虚拟化软件中使用NAT模式，在你的笔记本电脑上会出现如下的网络结构。
 
-![](../images/network-protocol/vmnat.jpg)
+![](/images/network-protocol/vmnat.jpg)
 
 在这种方式下，你登录到虚拟机里面查看IP地址，会发现虚拟机的网络是虚拟机的，物理机的网络是物理机的，两个不相同。虚拟机要想访问物理机的时候，需要将地址NAT成为物理机的地址。
 
@@ -305,7 +305,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 
 在数据中心里面，也是使用类似的方式。这种方式更像是真的将你宿舍里面的情况，搬到一台物理机上来。
 
-![](../images/network-protocol/vmnat2.jpg)
+![](/images/network-protocol/vmnat2.jpg)
 
 虚拟机是你的电脑，路由器和DHCP Server相当于家用路由器或者寝室长的电脑，物理网卡相当于你们宿舍的外网网口，用于访问互联网。所有电脑都通过内网网口连接到一个网桥br0上，
 虚拟机要想访问互联网，需要通过br0连到路由器上，然后通过路由器将请求NAT成为物理网络的地址，转发到物理网络。
@@ -317,7 +317,7 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 
 有一个命令**vconfig**，可以基于物理网卡eth0创建带VLAN的虚拟网卡，所有从这个虚拟网卡出去的包，都带这个VLAN，如果这样，跨物理机的互通和隔离就可以通过这个网卡来实现。
 
-![](../images/network-protocol/vmnat3.jpg)
+![](/images/network-protocol/vmnat3.jpg)
 
 **云计算的关键技术是虚拟化，这里我们重点关注的是，虚拟网卡通过打开TUN/TAP字符设备的方式，将虚拟机内外连接起来**。
 
@@ -332,3 +332,5 @@ MME是核心控制网元，是控制面的核心，当手机通过eNodeB连上�
 某个入口就改出口了。
 
 这就是**软件定义网络（SDN）**。它主要有以下三个特点。
+
+### OpenFlow和OpenvSwitch

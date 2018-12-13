@@ -26,7 +26,7 @@ tags: ["Http", "TcpIp"]
 复杂的程序都要分层。比如，复杂的电商还会分数据库层、缓存层、Compose 层、Controller 层和接入层，每一层专注做本层的事情。
 
 程序是如何工作的？
-![](../images/network-protocol/protocol-layers.jpg)
+![](/images/network-protocol/protocol-layers.jpg)
 
 只要是在网络上跑的包，都是完整的。可以有下层没上层，绝对不可能有上层没下层。
 
@@ -46,9 +46,9 @@ Windows 上是`ipconfig`，在Linux 上是`ifconfig`，`ip addr`。
 
 32 位的IP 地址就被分成了5 类：
 
-![](../images/network-protocol/ipaddr.jpg)
+![](/images/network-protocol/ipaddr.jpg)
 
-![](../images/network-protocol/ipaddr-range.jpg)
+![](/images/network-protocol/ipaddr-range.jpg)
 
 C 类地址能包含的最大主机数量只有254 个，现在估计一个网吧都不够用。
 B 类地址能包含的最大主机数量又太多了。6 万多台机器放在一个网络下面，一般的企业基本达不到这个规模，闲着的地址就是浪费。
@@ -65,7 +65,7 @@ CIDR，打破了原来设计的几类地址的做法，将`32`位的IP 地址一
 
 在日常的工作中，几乎不用划分A 类、B 类或者C 类，所以时间长了，很多人就忘记了这个分类，而只记得CIDR。但是有一点还是要注意的，就是公有IP 地址和私有IP 地址。
 
-![](../images/network-protocol/ipaddr-range.jpg)
+![](/images/network-protocol/ipaddr-range.jpg)
 
 表格最右列是私有IP 地址段。平时我们看到的数据中心里，办公室、家里或学校的IP 地址，一般都是私有IP 地址段。因为这些地址允许组织内部的IT 人员自己管理、自己分配，而
 且可以重复。因此，你学校的某个私有IP 地址段和我学校的可以是一样的。
@@ -161,13 +161,13 @@ MAC 地址的通信范围比较小，局限在一个子网里面。例如，例�
 
 第一步：
 新来的机器使用IP 地址0.0.0.0 发送了一个广播包，目的IP 地址为255.255.255.255。
-![](../images/network-protocol/dhcp1.jpg)
+![](/images/network-protocol/dhcp1.jpg)
 
 第二步：
 **DHCP Server**立刻能知道来了一个“新人”，这个时候，我们可以体会MAC 地址唯一的重要性了。当一台机器带着自己的MAC地址加入一个网络的时候，MAC 是它唯一的身份，
 如果连这个都重复了，就没办法配置了。**只有MAC 唯一，IP 管理员才能知道这是一个新人**。租给它一个IP 地址，这个过程我们称为**DHCP Offer**。同时，DHCP Server 为
 此客户**保留为它提供的IP 地址**，从而不会为其他DHCP 客户分配此IP地址。**DHCP Offer 里面有新的分配的地址**：
-![](../images/network-protocol/dhcp2.jpg)
+![](/images/network-protocol/dhcp2.jpg)
 
 DHCP Server 仍然使用广播地址作为目的地址，因为，此时请求分配IP 的新人还没有自己的IP。
 
@@ -175,7 +175,7 @@ DHCP Server 仍然使用广播地址作为目的地址，因为，此时请求�
 如果有多个DHCP Server，这台新机器会收到多个IP 地址，选择其中一个DHCP Offer，**一般是最先到达的那个**。并且会向网络发送一个DHCP Request 广播数据包，包中包含客户端
 的MAC 地址、接受的租约中的IP 地址、提供此租约的DHCP 服务器地址等，并告诉所有DHCP Server 它将接受哪一台服务器提供的IP 地址，告诉其他DHCP 服务器请求撤销它们提供的IP 地址，
 以便提供给下一个IP 租用请求者。
-![](../images/network-protocol/dhcp3.jpg)
+![](/images/network-protocol/dhcp3.jpg)
 
 由于还没有得到DHCP Server 的最后确认，客户端仍然使用`0.0.0.0`为源IP 地址、`255.255.255.255`为目标地址进行广播。
 
@@ -183,7 +183,7 @@ DHCP Server 仍然使用广播地址作为目的地址，因为，此时请求�
 DHCP Server 接收到客户机的DHCP request 之后，会广播返回给客户机一个DHCP ACK 消息包，表明已经接受客户机的选择，并将这一IP 地址的合法租用信息和其他的配置信息都放入该
 广播包，发给客户机，欢迎它加入网络大家庭。
 
-![](../images/network-protocol/dhcp4.jpg)
+![](/images/network-protocol/dhcp4.jpg)
 
 
 ### IP 地址的收回和续租
@@ -224,7 +224,7 @@ Hub 采取的是广播的模式，如果每一台电脑发出的包，宿舍的�
 第一个问题：这里用到链路层地址，也被称为**MAC 地址**。
 
 第二层的网络包格式：
-![](../images/network-protocol/macpack.jpg)
+![](/images/network-protocol/macpack.jpg)
 
 有了这个目标MAC 地址，数据包在链路上广播，MAC 的网卡才能发现，这个包是给它的。MAC 的网卡把包收进来，然后打开IP 包，发现IP 地址也是自己的，再打开TCP 包，发现端口是自己，也就是
 80，而nginx 就是监听80。
@@ -241,7 +241,7 @@ Hub 采取的是广播的模式，如果每一台电脑发出的包，宿舍的�
 
 在一个局域网里面，当知道了IP 地址，不知道MAC 怎么办呢？靠“吼”。
 
-![](../images/network-protocol/arp.jpg)
+![](/images/network-protocol/arp.jpg)
 
 为了避免每次都用ARP 请求，机器本地也会进行ARP 缓存。当然机器会不断地上线下线，IP 也可能会变，所以ARP 的MAC 地址缓存过一段时间就会过期。
 
@@ -270,7 +270,7 @@ Hub 组网的方式，一旦机器数目增多，问题就出现了。因为Hub 
 
 下图中，两台交换机连接着三个局域网，每个局域网上都有多台机器。如果机器1只知道机器4的IP地址，当它想要访问机器4，把包发出去的时候，它必须要知道机器4 的MAC 地址。
 
-![](../images/network-protocol/network-topology1.jpg)
+![](/images/network-protocol/network-topology1.jpg)
 
 于是机器1 发起广播，机器2 收到这个广播，但是这不是找它的，所以没它什么事。交换机A 一开始是不知道任何拓扑信息的，在它收到这个广播后，采取的策略是，除了广播包来的方向外，它还要转发给
 其他所有的网口。于是机器3 也收到广播信息了，但是这和它也没什么关系。当然，交换机B 也是能够收到广播信息的，但是这时候它也是不知道任何拓扑信息的，因而也是进行广播的策略，将包转发到局域网三
@@ -288,7 +288,7 @@ MAC 地址，所以机器2 会发起一个ARP 请求。这个广播消息会到�
 当整个拓扑结构复杂了，这么多网线，绕过来绕过去，不可避免地会出现一些意料不到的情况。其中常见的问题就是环路问题。
 
 下面途中，就出现了环路。
-![](../images/network-protocol/network-topology2.jpg)
+![](/images/network-protocol/network-topology2.jpg)
 
 想象一下机器1访问机器2的过程。一开始，机器1并不知道机器2的MAC地址，所以它需要发起一个ARP的广播。广播到达机器2，机器2会把MAC地址返回来，看起来没有这两个交换机什么事情。
 
@@ -307,7 +307,7 @@ MAC 地址，所以机器2 会发起一个ARP 请求。这个广播消息会到�
 ### 破除环路，STP协议中那些难以理解的概念
 
 计算机网络中，生成树的算法叫作STP，全称Spanning Tree Protocol。
-![](../images/network-protocol/network-topology3.jpg)
+![](/images/network-protocol/network-topology3.jpg)
 
 
 - **Root Bridge**，也就是**根交换机**。这个比较容易理解，可以比喻为“掌门”交换机，是某棵树的老大，是掌门，最大的大哥。
@@ -328,13 +328,13 @@ MAC 地址，所以机器2 会发起一个ARP 请求。这个广播消息会到�
 - 虚拟隔离，也就是VLAN。或者叫虚拟局域网。使用VLAN，一个交换机上会连属于多个局域网的机器。
 
 交换机怎么区分哪个机器属于哪个局域网？
-![](../images/network-protocol/vlan1.jpg)
+![](/images/network-protocol/vlan1.jpg)
 
 只需要在原来的二层的头上加一个TAG，里面有一个VLAN ID，一共12位。
 
 如果我们买的交换机是支持VLAN的，当这个交换机把二层的头取下来的时候，就能够识别这个VLAN ID。这样只有相同VLAN的包，才会互相转发，不同VLAN的包，是看不到的。
 
-![](../images/network-protocol/vlan2.jpg)
+![](/images/network-protocol/vlan2.jpg)
 
 可以设置交换机每个口所属的VLAN。如果某个口坐的是程序员，他们属于VLAN 10；如果某个口坐的是人事，他们属于VLAN 20；如果某个口坐的是财务，他们属于VLAN30。这样，财务发的包，
 交换机只会转发到VLAN 30的口上。
@@ -346,7 +346,7 @@ MAC 地址，所以机器2 会发起一个ARP 请求。这个广播消息会到�
 ## ICMP与ping：投石问路的侦察兵
 ping 是基于ICMP 协议工作的。ICMP全称Internet Control Message Protocol，就是**互联网控制报文协议**。
 
-![](../images/network-protocol/ping.jpg)
+![](/images/network-protocol/ping.jpg)
 
 - ICMP 相当于网络世界的侦察兵。两种类型的ICMP 报文，一种是主动探查的查询报文，一种异常报告的差错报文。
 - ping 使用查询报文，Traceroute 使用差错报文。
@@ -378,7 +378,7 @@ MAC 地址是一个局域网内才有效的地址。因而，MAC 地址只要过
 我们称为**转发网关**；改变IP 地址的网关，我们称为**NAT 网关**。
 
 #### “欧洲十国游”型
-![](../images/network-protocol/gateway1.jpg)
+![](/images/network-protocol/gateway1.jpg)
 
 服务器A 要访问服务器B。首先，`192.168.4.101`和我不在同一个网段的，需要先发给网关。那网关是谁呢？已经静态配置好了，
 网关是`192.168.1.1`。发送ARP 获取网关的MAC 地址，然后发送包。包的内容是这样的:
@@ -417,7 +417,7 @@ MAC 地址是一个局域网内才有效的地址。因而，MAC 地址只要过
 
 #### “玄奘西行”型
 
-![](../images/network-protocol/gateway2.jpg)
+![](/images/network-protocol/gateway2.jpg)
 
 遇见的第一个问题是，局域网之间没有商量过，各定各的网段，因而IP 段冲突了。最左面大唐的地址是`192.168.1.101`，最右面印度的地址也是`192.168.1.101`，
 如果单从IP 地址上看，简直是自己访问自己，其实是大唐的`192.168.1.101`要访问印度的`192.168.1.101`。怎么解决这个问题呢？既然局域网之间没有商量过，你们各管各的，那到国际上，
@@ -513,7 +513,7 @@ MAC 地址是一个局域网内才有效的地址。因而，MAC 地址只要过
 **网络传输是以包为单位的，二层叫帧，网络层叫包，传输层叫段。我们笼统地称为包。包单独传输，自行选路，在不同的设备封装解封装，不保证到达。**UDP 完全继承了这些特性。
 
 ### UDP 包头
-![](../images/network-protocol/udppack.jpg)
+![](/images/network-protocol/udppack.jpg)
 
 IP 头里面有个8 位协议，这里会存放，数据里面到底是TCP 还是UDP。解析玩UDP，一台机器上跑着这么多的应用程序，应该给谁？
 无论应用程序使用TCP 还是UDP 传数据，都要监听一个端口。正是这个端口，用来区分应用程序。
@@ -530,7 +530,7 @@ IP 头里面有个8 位协议，这里会存放，数据里面到底是TCP 还�
 
 ## TCP协议（上）：因性恶而复杂，先恶后善反轻松
 ### TCP 包头
-![](../images/network-protocol/tcppack.jpg)
+![](/images/network-protocol/tcppack.jpg)
 
 - 包的序号，为了解决乱序的问题。
 - 确认序号，发出去的包要确认，不然怎么知道有没有收到。没有收到就重发。为了解决不丢包的问题。
@@ -551,7 +551,7 @@ IP 头里面有个8 位协议，这里会存放，数据里面到底是TCP 还�
 
 起始序号是随时间变化的，32位，每4S加一。
 
-![](../images/network-protocol/handshake.jpg)
+![](/images/network-protocol/handshake.jpg)
 
 ### 四次挥手
 
@@ -571,7 +571,7 @@ A：好的，拜拜
 一种情况是，A 说完“不玩了”之后，直接跑路，是会有问题的，因为B 还没有发起结束，而如果A 跑路，B 就算发起结束，也得不到回答，B 就不知道该怎么办了。另一种情况是，A 说完“不玩了”，
 B 直接跑路，也是有问题的，因为A 不知道B 是还有事情要处理，还是过一会儿会发送结束。
 
-![](../images/network-protocol/handshake.jpg)
+![](/images/network-protocol/handshake.jpg)
 
 A 收到“B 说知道了”，就进入`FIN_WAIT_2`的状态，如果这个时候B 直接跑路，则A 将永远在这个状态。TCP 协议里面并没有对这个状态的处理，但是Linux 有，可以调整`tcp_fin_timeout`这个参数，
 设置一个超时时间。
@@ -609,14 +609,14 @@ A 直接跑路还有一个问题是，A 的端口就直接空出来了，但是B
 在TCP 里，接收端会给发送端报一个窗口的大小，叫**Advertised window**。这个窗口的大小应该等于上面的第二部分加上第三部分，就是已经交代了没做完的加上马上要交代的。超过这个窗口的，接收端做不
 过来，就不能发送了。
 
-![](../images/network-protocol/aw.jpg)
+![](/images/network-protocol/aw.jpg)
 
 对于接收端来讲，它的缓存里记录的内容要简单一些。
 - 第一部分：接受并且确认过的。也就是我领导交代给我，并且我做完的。
 - 第二部分：还没接收，但是马上就能接收的。也即是我自己的能够接受的最大工作量。
 - 还没接收，也没法接收的。也即超过工作量的部分，实在做不完。
 
-![](../images/network-protocol/recvbuffer.jpg)
+![](/images/network-protocol/recvbuffer.jpg)
 - MaxRcvBuffer：最大缓存的量；
 - LastByteRead 之后是已经接收了，但是**还没被应用层读取的**；
 - NextByteExpected 是第一部分和第二部分的分界线。
@@ -661,33 +661,33 @@ NextByteExpected 和LastByteRead 的差其实是还没被应用层读取的部�
 
 先假设窗口不变的情况，窗口始终为9。4 的确认来的时候，会右移一个，这个时候第13 个包也可以发送了。
 
-![](../images/network-protocol/rwnd1.jpg)
+![](/images/network-protocol/rwnd1.jpg)
 
 这个时候，假设发送端发送过猛，会将第三部分的10、11、12、13 全部发送完毕，之后就停止发送了，未发送可发送部分为0。
 
-![](../images/network-protocol/rwnd2.jpg)
+![](/images/network-protocol/rwnd2.jpg)
 
 当对于包5 的确认到达的时候，在客户端相当于窗口再滑动了一格，这个时候，才可以有更多的包可以发送了，例如第14 个包才可以发送。
 
-![](../images/network-protocol/rwnd3.jpg)
+![](/images/network-protocol/rwnd3.jpg)
 
 如果接收方实在处理的太慢，导致缓存中没有空间了，可以通过确认信息修改窗口的大小，甚至可以设置为0，则发送方将暂时停止发送。
 
 我们假设一个极端情况，接收端的应用一直不读取缓存中的数据，当数据包6 确认后，窗口大小就不能再是9 了，就要缩小一个变为8。
 
-![](../images/network-protocol/rwnd4.jpg)
+![](/images/network-protocol/rwnd4.jpg)
 
 这个新的窗口8 通过6 的确认消息到达发送端的时候，你会发现窗口没有平行右移，而是仅仅左面的边右移了，窗口的大小从9 改成了8。
 
-![](../images/network-protocol/rwnd5.jpg)
+![](/images/network-protocol/rwnd5.jpg)
 
 如果接收端还是一直不处理数据，则随着确认的包越来越多，窗口越来越小，直到为0。
 
-![](../images/network-protocol/rwnd6.jpg)
+![](/images/network-protocol/rwnd6.jpg)
 
 当这个窗口通过包14 的确认到达发送端的时候，发送端的窗口也调整为0，停止发送。
 
-![](../images/network-protocol/rwnd7.jpg)
+![](/images/network-protocol/rwnd7.jpg)
 
 如果这样的话，发送方会定时发送窗口探测数据包，看是否有机会调整窗口的大小。当接收方比较慢的时候，**要防止低能窗口综合征，别空出一个字节来就赶快告诉发送方，
 然后马上又填满了，可以当窗口太小的时候，不更新窗口，直到达到一定大小，或者缓冲区一半为空，才更新窗口**。
@@ -703,7 +703,7 @@ NextByteExpected 和LastByteRead 的差其实是还没被应用层读取的部�
 
 如果我们设置发送窗口，使得发送但未确认的包为为通道的容量，就能够撑满整个管道。
 
-![](../images/network-protocol/cwnd1.jpg)
+![](/images/network-protocol/cwnd1.jpg)
 
 如图所示，假设往返时间为8s，去4s，回4s，每秒发送一个包，每个包1024byte。已经过去了8s，则8 个包都发出去了，其中前4 个包已经到达接收端，但是ACK 还没有返回，不能算发送成功。
 5-8后四个包还在路上，还没被接收。这个时候，整个管道正好撑满，在发送端，已发送未确认的为8 个包，正好等于带宽，也即每秒发送1 个包，乘以来回时间8s。
@@ -730,7 +730,7 @@ TCP 的拥塞控制主要来避免两种现象，包丢失和超时重传。一�
 为了优化这两个问题，后来有了TCP BBR 拥塞算法。它企图找到一个平衡点，就是通过不断的加快发送速度，将管道填满，但是不要填满中间设备的缓存，因为这样时延会增加，在这个平衡点
 可以很好的达到高带宽和低时延的平衡。
 
-![](../images/network-protocol/cwnd2.jpg)
+![](/images/network-protocol/cwnd2.jpg)
 
 ## HTTP协议：看个新闻原来这么麻烦
 `http://www.163.com`是个URL，叫作**统一资源定位符**。之所以叫统一，是因为它是有格式的。`HTTP`称为协议，`www.163.com`是一个域名，表示互联网上的一个位置。有的URL 会有更详细的位置标识，
@@ -743,7 +743,7 @@ TCP 的拥塞控制主要来避免两种现象，包丢失和超时重传。一�
 ### HTTP 请求的构建
 建立了连接以后，浏览器就要发送HTTP 的请求。
 
-![](../images/network-protocol/httpformat.jpg)
+![](/images/network-protocol/httpformat.jpg)
 
 HTTP 的报文的三大部分：
 - 请求行，
@@ -760,7 +760,7 @@ URL 就是`http://www.163.com`，版本为HTTP 1.1。方法有几种类型,`get`
 
 对于这种高并发场景下的系统，在真正的业务逻辑之前，都需要有个接入层，将这些静态资源的请求拦在最外面。
 
-![](../images/network-protocol/arch.jpg)
+![](/images/network-protocol/arch.jpg)
 
 和这一节关系比较大的就是Nginx 这一层，它如何处理HTTP协议呢？对于静态资源，有Vanish 缓存层。当缓存过期的时候，才会访问真正的Tomcat 应用集群。
 
@@ -771,7 +771,7 @@ HTTP 协议是基于TCP 协议的，所以它使用面向连接的方式发送�
 IP层 -> ARP获取MAC -> 路由器 -> 找到机器 -> 解析MAC IP TCP 根据端口号 -> 找到HTTP服务，
 ### HTTP 返回的构建
 
-![](../images/network-protocol/httpresformat.jpg)
+![](/images/network-protocol/httpresformat.jpg)
 
 返回报文的三大部分：
 - 状态行，
@@ -804,11 +804,11 @@ HTTP 2.0 还将所有的传输信息分割为更小的消息和帧，并对它�
 HTTP 2.0 成功解决了HTTP 1.1 的队首阻塞问题，同时，也不需要通过HTTP 1.x 的pipeline 机制用多条TCP 连接来实现并行请求与响应；减少了TCP 连接数对服务器性能的影响，同时将页面
 的多个数据css、js、jpg 等通过一个数据链接进行传输，能够加快页面组件的传输速度。
 
-![](../images/network-protocol/http2stream1.jpg)
+![](/images/network-protocol/http2stream1.jpg)
 
 HTTP 2.0 其实是将三个请求变成三个流，将数据分成帧，乱序发送到一个TCP 连接中。
 
-![](../images/network-protocol/http2stream2.jpg)
+![](/images/network-protocol/http2stream2.jpg)
 
 HTTP 2.0 成功解决了HTTP 1.1 的队首阻塞问题，同时，也不需要通过HTTP 1.x 的pipeline 机制用多条TCP 连接来实现并行请求与响应；减少了TCP 连接数对服务器性能的影响，同时将页面
 的多个数据css、js、jpg 等通过一个数据链接进行传输，能够加快页面组件的传输速度。
@@ -825,7 +825,7 @@ QUIC 协议通过基于UDP 自定义的类似TCP 的连接、重试、多路复�
 ### HTTPS 的工作模式
 非对称加密在性能上不如对称加密，那是否能将两者结合起来呢？例如，公钥私钥主要用于传输对称加密的秘钥，而真正的双方大数据量的通信都是通过对称加密进行的。
 
-![](../images/network-protocol/https.jpg)
+![](/images/network-protocol/https.jpg)
 
 证书校验这一步，一般浏览器的"证书管理器"会有"受信任的根证书颁发机构"列表。如果数字证书记载的网址，与你正在浏览的网址不一致，就说明这张证书可能被冒用，浏览器会发出警告。
 如果这张数字证书不是由受信任的机构颁发的，浏览器会发出另一种警告。
@@ -863,7 +863,7 @@ CA 的CA，反正直到一个授信的CA，就可以了。
 
 编码过程：
 
-![](../images/network-protocol/encode.jpg)
+![](/images/network-protocol/encode.jpg)
 
 #### 视频编码的标准
 ITU-T（国际电信联盟电信标准化部门，ITU Telecommunication Standardization Sector）与MPEG 联合制定了**H.264/MPEG-4 AVC**。
@@ -886,7 +886,7 @@ ITU-T（国际电信联盟电信标准化部门，ITU Telecommunication Standard
 
 直播过程:
 
-![](../images/network-protocol/livestreming.jpg)
+![](/images/network-protocol/livestreming.jpg)
 
 #### 编码：如何将丰富多彩的图片变成二进制流？
 虽然我们说视频是一张张图片的序列，但是如果每张图片都完整，就太大了，因而会将视频序列分成三种帧:
@@ -896,14 +896,14 @@ ITU-T（国际电信联盟电信标准化部门，ITU Telecommunication Standard
 
 **I 帧最完整，B 帧压缩率最高，而压缩后帧的序列，应该是在IBBP 的间隔出现的。这就是通过时序进行编码。**
 
-![](../images/network-protocol/framing.jpg)
+![](/images/network-protocol/framing.jpg)
 
 在一帧中，分成多个片，每个片中分成多个宏块，每个宏块分成多个子块，这样将一张大的图分解成一个个小块，可以方便进行**空间上的编码**。
 
 尽管时空非常立体的组成了一个序列，但是总归还是要压缩成一个二进制流。这个流是有结构的，是一个个的**网络提取层单元（NALU，Network Abstraction Layer Unit）**。变成这种格式就是为了传输，
 因为网络上的传输，默认的是一个个的包，因而这里也就分成了一个个的单元。
 
-![](../images/network-protocol/nalu.jpg)
+![](/images/network-protocol/nalu.jpg)
 
 **一个视频，可以拆分成一系列的帧，每一帧拆分成一系列的片，每一片都放在一个NALU 里面，NALU 之间都是通过特殊的起始标识符分隔，在每一个I 帧的第一片前面，要插入单独保存SPS 和PPS 的NALU，
 最终形成一个长长的NALU 序列**。
@@ -937,16 +937,16 @@ RTMP 在收发数据的时候并不是以Message 为单位的，而是把Message
 
 数据推送到流媒体服务器过程：
 
-![](../images/network-protocol/pushstream.jpg)
+![](/images/network-protocol/pushstream.jpg)
 
 然后直播的观众就可以通过RTMP 协议从流媒体服务器上拉取，但是这么多的用户量，都去同一个地方拉取，服务器压力会很大，而且用户分布在全国甚至全球，如果都去统一的一个地方下载，也会时延比较长，
 需要有**分发网络**。
 
-![](../images/network-protocol/deliverynetwork.jpg)
+![](/images/network-protocol/deliverynetwork.jpg)
 
 #### 拉流：观众的客户端如何看到视频
 
-![](../images/network-protocol/pullstream.jpg)
+![](/images/network-protocol/pullstream.jpg)
 
 ## P2P协议：我下小电影，99%急死你
 下载最简单的方式HTTP，但是下载很慢，可以使用FTP（文件传输协议）。
@@ -995,7 +995,7 @@ FTP 采用两个TCP 连接来传输一个文件：
 任何一个BitTorrent 启动之后，它都有两个角色。一个是peer，监听一个TCP 端口，用来上传和下载文件，这个角色表明，我这里有某个文件。另一个角色DHT node，监听一个UDP 的端口，通过这个角色，
 这个节点加入了一个DHT 的网络。
 
-![](../images/network-protocol/dht.jpg)
+![](/images/network-protocol/dht.jpg)
 
 在DHT 网络里面，每一个DHT node 都有一个ID。这个ID 是一个很长的串。每个DHT node 都有责任掌握一些知识，也就是文件索引，也即它应该知道某些文件是保存在哪些节点上。
 它只需要有这些知识就可以了，而它自己本身不一定就是保存这个文件的节点。
@@ -1042,7 +1042,7 @@ node new 会计算文件1 的哈希值，并根据这个哈希值了解到，和
 DNS 在日常生活中非常重要。每个人上网，都需要访问它。一旦它出了故障，整个互联网都将瘫痪。另外，上网的人分布在全世界各地，如果大家都去同一个地方访问某一台服务器，时延将会非常大。因而，**DNS 服务器，
 一定要设置成高可用、高并发和分布式的**。
 
-![](../images/network-protocol/dnsarch.jpg)
+![](/images/network-protocol/dnsarch.jpg)
 
 - 根DNS 服务器：返回顶级域DNS 服务器的IP 地址
 - 顶级域DNS 服务器：返回权威DNS 服务器的IP 地址
@@ -1063,7 +1063,7 @@ DNS 在日常生活中非常重要。每个人上网，都需要访问它。一�
 7. 权威DNS 服务器查询后将对应的IP 地址`X.X.X.X`告诉本地DNS。
 8. 本地DNS 再将IP 地址返回客户端，客户端和目标建立连接。
 
-![](../images/network-protocol/dnsparse.jpg)
+![](/images/network-protocol/dnsparse.jpg)
 
 ### 负载均衡
 站在客户端角度，这是一次**DNS 递归查询过程**。因为本地DNS 全权为它效劳，它只要坐等结果即可。在这个过程中，DNS 除了可以通过名称映射为IP 地址，它还可以做另外一件事，就是**负载均衡**。
@@ -1085,7 +1085,7 @@ DNS 还可以做**全局负载均衡**。
 假设全国有多个数据中心，托管在多个运营商，每个数据中心三个可用区（Available Zone）。对象存储通过跨可用区部署，实现高可用性。在每个数据中心中，都至少部署两个内部负载均衡器，内
 部负载均衡器后面对接多个对象存储的前置服务器（Proxy-server）。
 
-![](../images/network-protocol/dnslb.jpg)
+![](/images/network-protocol/dnslb.jpg)
 
 1. 当一个客户端要访问`object.yourcompany.com`的时候，需要将域名转换为IP 地址进行访问，所以它要请求本地DNS 解析器。
 2. 本地DNS 解析器先查看看本地的缓存是否有这个记录。如果有则直接使用，因为上面的过程太复杂了，如果每次都要递归解析，就太麻烦了。
@@ -1221,7 +1221,7 @@ SDK 中的缓存会严格按照缓存过期时间，如果缓存没有命中，�
 由于边缘节点数目比较多，但是每个集群规模比较小，不可能缓存下来所有东西，因而可能无法命中，这样就会在边缘节点之上。有区域节点，规模就要更大，缓存的数据会更多，命中的概率也就更大。在区域节点
 之上是中心节点，规模更大，缓存数据更多。如果还不命中，就只好回源网站访问了。
 
-![](../images/network-protocol/cdn.jpg)
+![](/images/network-protocol/cdn.jpg)
 
 这就是**CDN 的分发系统的架构**。CDN 系统的缓存，也是一层一层的，能不访问后端真正的源，就不打扰它。这也是电商网站物流系统的思路，北京局找不到，找华北局，华北局找不到，再找北方局。
 
@@ -1231,7 +1231,7 @@ SDK 中的缓存会严格按照缓存过期时间，如果缓存没有命中，�
 
 CDN 分发网络也是一个分布在多个区域、多个运营商的分布式系统，用基于DNS 的全局负载均衡的思路。
 
-![](../images/network-protocol/cdnparse.jpg)
+![](/images/network-protocol/cdnparse.jpg)
 
 图中实线是在有CDN的情况下，在`web.com`这个权威DNS 服务器上，会设置一个CNAME 别名，指向另外一个域名`www.web.cdn.com`，返回给本地DNS 服务器。
 
