@@ -98,6 +98,7 @@ Options:
     - [vuejs仿网易云音乐](https://github.com/hua1995116/musiccloudWebapp)
 - Node.js
   - [Node.js Source code](https://github.com/nodejs/node)
+  - Node.js 核心模块
   - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
   - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
   - [profiler](https://segmentfault.com/a/1190000012414666)
