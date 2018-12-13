@@ -66,6 +66,7 @@ Options:
 - 数据库
   - MySQL 必知必会
   - 高性能 MySQL
+  - [SQL教程](https://www.liaoxuefeng.com/wiki/001508284671805d39d23243d884b8b99f440bfae87b0f4000)
   - 小册 Redis 深度历险
   - Redis 设计与实现
 - Javascript, HTML, CSS
