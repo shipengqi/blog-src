@@ -5,15 +5,15 @@ comments: false
 ---
 
 
-### 个人简介：
-Name: shipengqi
-Email: pooky.shipengqi@gmail.com
-Blog: https://www.shipengqi.top
-Location: Shanghai, China
-Organization: Microfocus
-Job: Node.js Full Stack engineer, Go Lang engineer.
+### 个人简介
+**Name:** shipengqi
+**Email:** pooky.shipengqi@gmail.com
+**Blog:** https://www.shipengqi.top
+**Location:** Shanghai, China
+**Organization:** Microfocus
+**Job: Node.js Full Stack** engineer, **Go** Lang engineer.
 
-### 关于本站：
+### 关于本站
 
 本博客文章部分是转载自别的博客，大部分是我自己的学习笔记，也尝试写一点自己的总结和理解，虽说有些是抄的，但是我觉得抄一遍比阅读几遍理解的要深刻的多，碰到问题，会去思考，会去查相关的资料，
 理解以后才会继续下去，而且解决问题的过程中还可能帮助我理解我一些比较模糊的点，总的来讲，这种方式对我很有帮助。
@@ -29,12 +29,11 @@ Job: Node.js Full Stack engineer, Go Lang engineer.
 - [IMWeb 前端博客](http://imweb.io/topic/tab/all)
 - [美团点评技术团队](https://tech.meituan.com/)
 
-还有一个 [芝麻飞来](https://github.com/magicsky)，这是我漫漫技术之路上的第一个师傅（大牛）的 Github，在我一度怀疑自己的时候，他给了我很多帮助，感谢。
+最后还有 [芝麻飞来](https://github.com/magicsky)，这是我漫漫技术之路上的第一个师傅（大牛）的 Github，在我一度怀疑自己的时候，他给了我很多帮助，感谢。
 
-博客使用[Hexo](https://hexo.io/zh-cn/docs/)搭建于 Github，欢迎[Fork](https://github.com/shipengqi/shipengqi.github.io)。
+博客使用 [Hexo](https://hexo.io/zh-cn/docs/)搭建于 Github，欢迎[Fork](https://github.com/shipengqi/shipengqi.github.io)。
 
-### Hexo搭建指南: 
-
+### Hexo搭建指南
 - [Hexo](https://hexo.io/zh-cn/docs/)
 - [Next主题](http://theme-next.iissnan.com/)
 
