@@ -145,6 +145,7 @@ Options:
     - 小册 微信小程序开发入门
     - 小册 微信小游戏
 - Recommendations
+  - [Java知识扫盲](https://github.com/doocs/advanced-java?utm_source=gold_browser_extension)
   - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
   - [Computer Science Learning Notes](https://github.com/CyC2018/CS-Notes)
   - [技能图谱](https://github.com/TeamStuQ/skill-map)
