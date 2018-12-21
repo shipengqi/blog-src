@@ -103,6 +103,7 @@ Options:
   - Node.js 核心模块
   - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
   - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
+  - [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
   - [profiler](https://segmentfault.com/a/1190000012414666)
   - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
   - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
