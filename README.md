@@ -138,6 +138,7 @@ Options:
   - [System design primer](https://github.com/donnemartin/system-design-primer)
 - 工具
   - 极客时间 深入剖析 Kubernetes
+  - 小册 Kubernetes 上手到实践
   - 小册 webpack 定制前端开发环境
 - 其它
   - [Weex](http://weex.apache.org/cn/guide/)
