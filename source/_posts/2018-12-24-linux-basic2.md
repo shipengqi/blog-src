@@ -234,6 +234,105 @@ xfs 文件系统在数据的分布上，主要规划为三个部份，一个数�
 此外，inode与 block 都是系统需要用到时， 这才动态配置产生，所以格式化动作超级快。
 
 #### 文件系统活动登录区
-
+这个区域主要用来记录文件系统的变化，有点像是日志区。
 #### 实时运行区
+当文件要被创建时，xfs 会在这个区段找到一个到数个 extent 区块，将文件放置在这个区块，等到分配完毕后，再写入到 data section 的inode 和 block 中。
+这个 extent 区块的大小得要在格式化的时候就先指定，最小值是 4K 最大可到 1G。
 
+## 文件系统的简单操作
+- df：列出文件系统的整体磁盘使用量；
+- du：评估文件系统的磁盘使用量（常用在推估目录所占容量）
+
+```bash
+df [-ahikHTm] [目录或文件名]
+选项与参数：
+-a  ：列出所有的文件系统，包括系统特有的 /proc 等文件系统；
+-k  ：以 KBytes 的容量显示各文件系统；
+-m  ：以 MBytes 的容量显示各文件系统；
+-h  ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；
+-H  ：以 M=1000K 取代 M=1024K 的进位方式；
+-T  ：连同该 partition 的 filesystem 名称 （例如 xfs） 也列出；
+-i  ：不用磁盘容量，而以 inode 的数量来显示
+
+du [-ahskm] 文件或目录名称
+选项与参数：
+-a  ：列出所有的文件与目录容量，因为默认仅统计目录下面的文件量而已。
+-h  ：以人们较易读的容量格式 （G/M） 显示；
+-s  ：列出总量而已，而不列出每个各别的目录占用容量；
+-S  ：不包括子目录下的总计，与 -s 有点差别。
+-k  ：以 KBytes 列出容量显示；
+-m  ：以 MBytes 列出容量显示；
+```
+
+### 实体链接与符号链接： ln
+Linux 下面的链接文件有两种，一种是类似 Windows 的捷径功能的文件，可以让你快速的链接到目标文件（或目录）；另一种则是**通过文件系统的 inode 链接来产生新文件名，
+而不是产生新文件。这种称为实体链接（hard link）**。
+
+#### hard link
+- 每个文件都会占用一个 inode ，文件内容由 inode 的记录来指向
+- 想要读取该文件，必须要经过目录记录的文件名来指向到正确的 inode 号码才能读取。
+
+也就是说，其实文件名只与目录有关，但是文件内容则与 inode 有关。那么有没有可能有多个文件名对应到同一个 inode 号码？有的！那就是 hard link 的由来。
+所以简单的说：**hard link 只是在某个目录下新增一笔文件名链接到某 inode 号码的关连记录而已**。（文件系统会分配一个 inode 与至少一块 block 给该目录。其中，inode 记录该目录的相关权限
+与属性，并可记录分配到的那块 block 号码； 而 block 则是记录在这个目录下的文件名与该文件名占用的 inode 号码数据。）也就是说，新增一个文件名，会在目录的 block 记录文件名与对应的 inode
+号码。
+
+hard link 是有限制的：
+- 不能跨 Filesystem；
+- 不能 link 目录。
+
+#### Symbolic Link （符号链接，亦即是捷径）
+Symbolic link 就是在创建一个独立的文件，而这个文件会让数据的读取指向他 link 的那个文件的文件名！由于只是利用文件来做为指向的动作，所以，当来源文件被删除之后，symbolic link 的文件
+会一直说“无法打开某文件！”。实际上就是找不到原始“文件名”而已。
+
+Symbolic Link 与 Windows 的捷径可以给他划上等号，由 Symbolic link 所创建的文件为一个独立的新的文件，所以会占用掉 inode 与 block 。
+
+```bash
+[root@study ~]# ln -s /etc/crontab crontab2
+[root@study ~]# ll -i /etc/crontab /root/crontab2
+34474855 -rw-r--r--. 2 root root 451 Jun 10  2014 /etc/crontab
+53745909 lrwxrwxrwx. 1 root root  12 Jun 23 22:31 /root/crontab2 -&gt; /etc/crontab
+```
+
+上表的结果我们可以知道两个文件指向不同的 inode 号码，当然就是两个独立的文件存在！ 而且链接文件的重要内容就是他会写上目标文件的“文件名”， 你可以发现为什么上表中链接文件的大小为 12 Bytes 呢？
+因为箭头（->）右边的文件名“/etc/crontab”总共有 12 个英文，每个英文占用 1 个 Bytes ，所以文件大小就是 12Bytes了！
+
+## 磁盘的分区、格式化、检验与挂载
+
+- `lsblk`列出系统上的所有磁盘列表
+```bash
+lsblk [-dfimpt] [device]
+选项与参数：
+-d  ：仅列出磁盘本身，并不会列出该磁盘的分区数据
+-f  ：同时列出该磁盘内的文件系统名称
+-i  ：使用 ASCII 的线段输出，不要使用复杂的编码 （再某些环境下很有用）
+-m  ：同时输出该设备在 /dev 下面的权限数据 （rwx 的数据）
+-p  ：列出该设备的完整文件名！而不是仅列出最后的名字而已。
+-t  ：列出该磁盘设备的详细数据，包括磁盘伫列机制、预读写的数据量大小等
+
+[root@study ~]# lsblk
+NAME               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+fd0                   2:0    1    4K  0 disk
+sda                   8:0    0  200G  0 disk
+├─sda1                8:1    0    2G  0 part /boot
+├─sda2                8:2    0   58G  0 part
+│ ├─rhel-root       253:0    0  191G  0 lvm  /
+│ └─rhel-swap       253:1    0    6G  0 lvm
+└─sda3                8:3    0  140G  0 part
+  └─rhel-root       253:0    0  191G  0 lvm  /
+sr0                  11:0    1 1024M  0 rom
+```
+上面输出的信息：
+- NAME：就是设备的文件名，会省略`/dev`等前导目录！
+- MAJ:MIN：其实核心认识的设备都是通过这两个代码来熟悉的！分别是主要：次要设备代码！
+- RM：是否为可卸载设备 （removable device），如光盘、USB 磁盘等等
+- SIZE：容量
+- RO：是否为只读设备的意思
+- TYPE：是磁盘 （disk）、分区 （partition） 还是只读存储器 （rom） 等输出
+- MOUTPOINT：挂载点
+
+
+- `blkid`列出设备的 UUID 等参数
+- `parted`列出磁盘的分区表类型与分区信息
+```bash
+```
