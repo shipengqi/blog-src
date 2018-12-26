@@ -299,7 +299,7 @@ Symbolic Link 与 Windows 的捷径可以给他划上等号，由 Symbolic link 
 
 ## 磁盘的分区、格式化、检验与挂载
 
-- `lsblk`列出系统上的所有磁盘列表
+1. `lsblk`列出系统上的所有磁盘列表
 ```bash
 lsblk [-dfimpt] [device]
 选项与参数：
@@ -312,16 +312,18 @@ lsblk [-dfimpt] [device]
 
 [root@study ~]# lsblk
 NAME               MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-fd0                   2:0    1    4K  0 disk
-sda                   8:0    0  200G  0 disk
-├─sda1                8:1    0    2G  0 part /boot
-├─sda2                8:2    0   58G  0 part
+sr0                  11:0    1 1024M  0 rom
+vda                   8:0    0  200G  0 disk
+├─vda1                8:1    0    2G  0 part /boot
+├─vda2                8:2    0   58G  0 part
 │ ├─rhel-root       253:0    0  191G  0 lvm  /
 │ └─rhel-swap       253:1    0    6G  0 lvm
-└─sda3                8:3    0  140G  0 part
+└─vda3                8:3    0  140G  0 part
   └─rhel-root       253:0    0  191G  0 lvm  /
-sr0                  11:0    1 1024M  0 rom
 ```
+
+从上面的输出我们可以很清楚的看到，目前的系统主要有个 sr0 以及一个 vda 的设备，而 vda 的设备下面又有三个分区， 其中 vda3 甚至还有因为 LVM 产生的文件系统
+
 上面输出的信息：
 - NAME：就是设备的文件名，会省略`/dev`等前导目录！
 - MAJ:MIN：其实核心认识的设备都是通过这两个代码来熟悉的！分别是主要：次要设备代码！
@@ -332,7 +334,441 @@ sr0                  11:0    1 1024M  0 rom
 - MOUTPOINT：挂载点
 
 
-- `blkid`列出设备的 UUID 等参数
-- `parted`列出磁盘的分区表类型与分区信息
+2. `blkid`列出设备的 UUID 等参数
+3. `parted`列出磁盘的分区表类型与分区信息
 ```bash
+parted device_name print
 ```
+
+### 磁盘分区： gdisk/fdisk
+**MBR 分区表使用 fdisk 分区，GPT 分区表使用 gdisk 分区**。
+
+#### gdisk
+```bash
+[root@study ~]# gdisk 设备名称
+```
+
+**你应该要通过`lsblk`或`blkid`先找到磁盘，再用`parted /dev/xxx print`来找出内部的分区表类型，之后才用`gdisk`或`fdisk`来操作系统**。
+
+### 磁盘格式化（创建文件系统）
+分区完毕后自然就是要进行文件系统的格式化。
+
+#### XFS 文件系统 mkfs.xfs
+**“格式化”其实应该称为“创建文件系统 （make filesystem）”才对，所以使用的指令是 mkfs**。创建的 xfs 文件系统：
+```bash
+mkfs.xfs [-b bsize] [-d parms] [-i parms] [-l parms] [-L label] [-f] \
+                         [-r parms] 设备名称
+选项与参数：
+关於单位：下面只要谈到“数值”时，没有加单位则为 Bytes 值，可以用 k,m,g,t,p （小写）等来解释
+          比较特殊的是 s 这个单位，它指的是 sector 的“个数”喔！
+-b  ：后面接的是 block 容量，可由 512 到 64k，不过最大容量限制为 Linux 的 4k 喔！
+-d  ：后面接的是重要的 data section 的相关参数值，主要的值有：
+      agcount=数值  ：设置需要几个储存群组的意思（AG），通常与 CPU 有关
+      agsize=数值   ：每个 AG 设置为多少容量的意思，通常 agcount/agsize 只选一个设置即可
+      file          ：指的是“格式化的设备是个文件而不是个设备”的意思！（例如虚拟磁盘）
+      size=数值     ：data section 的容量，亦即你可以不将全部的设备容量用完的意思
+      su=数值       ：当有 RAID 时，那个 stripe 数值的意思，与下面的 sw 搭配使用
+      sw=数值       ：当有 RAID 时，用于储存数据的磁盘数量（须扣除备份碟与备用碟）
+      sunit=数值    ：与 su 相当，不过单位使用的是“几个 sector（512Bytes大小）”的意思
+      swidth=数值   ：就是 su*sw 的数值，但是以“几个 sector（512Bytes大小）”来设置
+-f  ：如果设备内已经有文件系统，则需要使用这个 -f 来强制格式化才行！
+-i  ：与 inode 有较相关的设置，主要的设置值有：
+      size=数值     ：最小是 256Bytes 最大是 2k，一般保留 256 就足够使用了！
+      internal=[0&#124;1]：log 设备是否为内置？默认为 1 内置，如果要用外部设备，使用下面设置
+      logdev=device ：log 设备为后面接的那个设备上头的意思，需设置 internal=0 才可！
+      size=数值     ：指定这块登录区的容量，通常最小得要有 512 个 block，大约 2M 以上才行！
+-L  ：后面接这个文件系统的标头名称 Label name 的意思！
+-r  ：指定 realtime section 的相关设置值，常见的有：
+      extsize=数值  ：就是那个重要的 extent 数值，一般不须设置，但有 RAID 时，
+                      最好设置与 swidth 的数值相同较佳！最小为 4K 最大为 1G 。
+```
+
+#### EXT4 文件系统 mkfs.ext4
+要格式化为 ext4 的传统 Linux 文件系统的话，可以使用`mkfs.ext4`这个指令。
+```bash
+mkfs.ext4 [-b size] [-L label] 设备名称
+选项与参数：
+-b  ：设置 block 的大小，有 1K, 2K, 4K 的容量，
+-L  ：后面接这个设备的标头名称。
+```
+
+### 文件系统挂载与卸载
+**挂载点是目录，而这个目录就是进入磁盘分区（其实是文件系统）的入口**。不过要进行挂载前，最好先确定几件事：
+- 单一文件系统不应该被重复挂载在不同的挂载点（目录）中；
+- 单一目录不应该重复挂载多个文件系统；
+- 要作为挂载点的目录，理论上应该都是空目录才是。
+
+要将文件系统挂载到 Linux 系统上，就要使用`mount`这个指令：
+```bash
+[root@study ~]# mount -a
+[root@study ~]# mount [-l]
+[root@study ~]# mount [-t 文件系统] LABEL=''  挂载点
+[root@study ~]# mount [-t 文件系统] UUID=''   挂载点
+[root@study ~]# mount [-t 文件系统] 设备文件名  挂载点
+选项与参数：
+-a  ：依照配置文件 [/etc/fstab](../Text/index.html#fstab) 的数据将所有未挂载的磁盘都挂载上来
+-l  ：单纯的输入 mount 会显示目前挂载的信息。加上 -l 可增列 Label 名称！
+-t  ：可以加上文件系统种类来指定欲挂载的类型。常见的 Linux 支持类型有：xfs, ext3, ext4,
+      reiserfs, vfat, iso9660（光盘格式）, nfs, cifs, smbfs （后三种为网络文件系统类型）
+-n  ：在默认的情况下，系统会将实际挂载的情况实时写入 /etc/mtab 中，以利其他程序的运行。
+      但在某些情况下（例如单人维护模式）为了避免问题会刻意不写入。此时就得要使用 -n 选项。
+-o  ：后面可以接一些挂载时额外加上的参数！比方说帐号、密码、读写权限等：
+      async, sync:   此文件系统是否使用同步写入 （sync） 或非同步 （async） 的
+                     内存机制，请参考[文件系统运行方式](../Text/index.html#harddisk-filerun)。默认为 async。
+      atime,noatime: 是否修订文件的读取时间（atime）。为了性能，某些时刻可使用 noatime
+      ro, rw:        挂载文件系统成为只读（ro） 或可读写（rw）
+      auto, noauto:  允许此 filesystem 被以 mount -a 自动挂载（auto）
+      dev, nodev:    是否允许此 filesystem 上，可创建设备文件？ dev 为可允许
+      suid, nosuid:  是否允许此 filesystem 含有 suid/sgid 的文件格式？
+      exec, noexec:  是否允许此 filesystem 上拥有可执行 binary 文件？
+      user, nouser:  是否允许此 filesystem 让任何使用者执行 mount ？一般来说，
+                     mount 仅有 root 可以进行，但下达 user 参数，则可让
+                     一般 user 也能够对此 partition 进行 mount 。
+      defaults:      默认值为：rw, suid, dev, exec, auto, nouser, and async
+      remount:       重新挂载，这在系统出错，或重新更新参数时，很有用
+```
+
+#### 挂载 xfs/ext4/vfat 等文件系统
+```bash
+范例：找出 /dev/vda4 的 UUID 后，用该 UUID 来挂载文件系统到 /data/xfs 内
+[root@study ~]# blkid /dev/vda4
+/dev/vda4: UUID="e0a6af55-26e7-4cb7-a515-826a8bd29e90" TYPE="xfs"
+
+[root@study ~]# mount UUID="e0a6af55-26e7-4cb7-a515-826a8bd29e90" /data/xfs
+mount: mount point /data/xfs does not exist  # 非正规目录！所以手动创建它！
+
+[root@study ~]# mkdir -p /data/xfs
+[root@study ~]# mount UUID="e0a6af55-26e7-4cb7-a515-826a8bd29e90" /data/xfs
+[root@study ~]# df /data/xfs
+Filesystem     1K-blocks  Used Available Use% Mounted on
+/dev/vda4        1038336 32864   1005472   4% /data/xfs
+# 顺利挂载，且容量约为 1G 左右没问题！
+```
+
+#### 挂载 CD 或 DVD 光盘
+```bash
+范例：将你用来安装 Linux 的 CentOS 原版光盘拿出来挂载到 /data/cdrom！
+[root@study ~]# blkid
+.....（前面省略）.....
+/dev/sr0: UUID="2015-04-01-00-21-36-00" LABEL="CentOS 7 x86_64" TYPE="iso9660" PTTYPE="dos"
+
+[root@study ~]# mkdir /data/cdrom
+[root@study ~]# mount /dev/sr0 /data/cdrom
+mount: /dev/sr0 is write-protected, mounting read-only
+
+[root@study ~]# df /data/cdrom
+Filesystem     1K-blocks    Used Available Use% Mounted on
+/dev/sr0         7413478 7413478         0 100% /data/cdrom
+# 怎么会使用掉 100% ？是啊！因为是 DVD 啊！所以无法再写入了！
+```
+
+**光驱一挂载之后就无法退出光盘片了！除非你将他卸载才能够退出**！从上面的数据你也可以发现，因为是光盘嘛！所以**磁盘使用率达到 100% ，因为你无法直接写入任何数据到光盘当中**！
+此外，如果你**使用的是图形界面，那么系统会自动的帮你挂载这个光盘到`/media/`里面去！也可以不卸载就直接退出**！ 但是文字界面没有这个福利就是了。
+
+#### 挂载 vfat 中文U盘 （USB磁盘）
+```bash
+范例：找出你的U盘设备的 UUID，并挂载到 /data/usb 目录中
+[root@study ~]# blkid
+/dev/sda1: UUID="35BC-6D6B" TYPE="vfat"
+
+[root@study ~]# mkdir /data/usb
+[root@study ~]#   mount -o codepage=950,iocharset=utf8 UUID="35BC-6D6B" /data/usb
+[root@study ~]# # mount -o codepage=950,iocharset=big5 UUID="35BC-6D6B" /data/usb
+[root@study ~]# df /data/usb
+Filesystem     1K-blocks  Used Available Use% Mounted on
+/dev/sda1        2092344     4   2092340   1% /data/usb
+```
+
+如果带有中文文件名的数据，那么可以在挂载时指定一下挂载文件系统所使用的语系数据。在 man mount 找到 vfat 文件格式当中可以使用 codepage 来处理！中文语系的代码为 950。
+
+#### 重新挂载根目录与挂载不特定目录
+目录树最重要的地方就是根目录了，所以根目录根本就不能够被卸载的！问题是，如果你的挂载参数要改变， 或者是根目录出现“只读”状态时，如何重新挂载：
+```bash
+范例：将 / 重新挂载，并加入参数为 rw 与 auto
+[root@study ~]# mount -o remount,rw,auto /
+```
+
+#### umount （将设备文件卸载）
+```bash
+umount [-fn] 设备文件名或挂载点
+选项与参数：
+-f  ：强制卸载！可用在类似网络文件系统 （NFS） 无法读取到的情况下；
+-l  ：立刻卸载文件系统，比 -f 还强！
+-n  ：不更新 /etc/mtab 情况下卸载。
+```
+
+## 设置开机挂载
+手动处理`mount`不是很人性化，我们需要让系统“自动”在开机时进行挂载，直接到`/etc/fstab`里面去修修就可以了。
+
+### 开机挂载 /etc/fstab 及 /etc/mtab
+
+系统挂载的一些限制：
+- 根目录`/`是必须挂载的﹐而且一定要先于其它 mount point 被挂载进来。
+- 其它 mount point 必须为已创建的目录﹐可任意指定﹐但一定要遵守必须的系统目录架构原则 （FHS）
+- 所有 mount point 在同一时间之内﹐只能挂载一次。
+- 所有 partition 在同一时间之内﹐只能挂载一次。
+- 如若进行卸载﹐必须先将工作目录移到 mount point（及其子目录）之外。
+
+`/etc/fstab`这个文件的内容:
+```bash
+[root@study ~]# cat /etc/fstab
+# Device                              Mount point  filesystem parameters    dump fsck
+/dev/mapper/centos-root                   /       xfs     defaults            0 0
+UUID=94ac5f77-cb8a-495e-a65b-2ef7442b837c /boot   xfs     defaults            0 0
+/dev/mapper/centos-home                   /home   xfs     defaults            0 0
+/dev/mapper/centos-swap                   swap    swap    defaults            0 0
+```
+
+其实`/etc/fstab`（filesystem table）就是在我们利用`mount`指令进行挂载时，将所有的选项与参数写入到这个文件中。
+
+## 内存交换空间（swap）
+早期因为内存不足，因此那个**可以暂时将内存的程序拿到硬盘中暂放的内存交换空间（swap）就显的非常的重要**。否则，如果突然间某支程序用掉你大部分的内存，那你的系统恐怕有损毁的情况发生。
+
+在安装 Linux 之前，大家常常会告诉你： 安装时一定需要的两个 partition ，一个是根目录，另外一个就是 swap（内存交换空间）。
+
+一般来说，如果硬件的配备资源足够的话，那么 swap 应该不会被我们的系统所使用到， swap 会被利用到的时刻通常就是实体内存不足的情况了。
+
+**我们知道 CPU 所读取的数据都来自于内存，那当内存不足的时候，为了让后续的程序可以顺利的运行，因此在内存中暂不使用的程序与数据就会被挪到 swap 中了。
+此时内存就会空出来给需要执行的程序载入**。
+
+虽然目前（2015）主机的内存都很大，至少都有 4GB 以上，不过对于服务，由于你不会知道何时会有大量来自网络的要求，因此最好还是能够预留一些 swap 来缓冲一下系统的内存用量。
+
+### 使用实体分区创建swap
+1. 分区：先使用 gdisk 在你的磁盘中分区出一个分区给系统作为 swap 。由于 Linux 的 gdisk 默认会将分区的 ID 设置为 Linux 的文件系统，所以你可能还得要设置一下 system ID 就是了。
+2. 格式化：利用创建 swap 格式的“mkswap 设备文件名”就能够格式化该分区成为 swap 格式啰
+3. 使用：最后将该 swap 设备启动，方法为：“swapon 设备文件名”。
+4. 观察：最终通过 free 与 swapon -s 这个指令来观察一下内存的用量
+
+
+## 压缩文件的用途与技术
+什么是“文件压缩”？
+我们使用的计算机系统中都是使用所谓的 Bytes 单位来计量的！不过，事实上，计算机最小的计量单位应该是 bits 才对啊。此外，我们也知道 1 Byte = 8 bits 。
+如果今天我们只是记忆一个数字，亦即是 1 这个数字呢？他会如何记录？
+
+由于我们记录数字是 1 ，考虑计算机所谓的二进制喔，如此一来，1 会在最右边占据1个 bit ，而其他的 7 个 bits 将会自动的被填上 0 ！那 7 个 bits 应该是“空的”才对！不过，为了要满足目前我们的操作系统数据的存取，
+所以就会将该数据转为 Byte 的型态来记录了！而一些聪明的计算机工程师就利用一些复杂的计算方式， 将这些没有使用到的空间“丢”出来，以让文件占用的空间变小！这就是压缩的技术！
+
+另外一种压缩技术也很有趣，他是将重复的数据进行统计记录的。举例来说，如果你的数据为“111....”共有100个1时， 那么压缩技术会记录为“100个1”而不是真的有100个1的位存在！这样也能够精简文
+件记录的容量。
+
+这个“压缩”与“解压缩”的动作有什么好处？最大的好处就是压缩过的文件大小变小了，所以你的硬盘容量无形之中就可以容纳更多的数据。此外，在一些网络数据的传输中，也会由于数据量的降低，
+好让网络带宽可以用来作更多的工作！而不是老是卡在一些大型的文件传输上面！目前很多的 WWW 网站也是利用文件压缩的技术来进行数据的传送，好让网站带宽的可利用率上升。
+
+## 常见的压缩指令
+在Linux的环境中，压缩文件的扩展名大多是：“.tar, .tar.gz, .tgz, .gz, .Z, .bz2, *.xz”。
+```bash
+*.Z         compress 程序压缩的文件；
+*.zip       zip 程序压缩的文件；
+*.gz        gzip 程序压缩的文件；
+*.bz2       bzip2 程序压缩的文件；
+*.xz        xz 程序压缩的文件；
+*.tar       tar 程序打包的数据，并没有压缩过；
+*.tar.gz    tar 程序打包的文件，其中并且经过 gzip 的压缩
+*.tar.bz2   tar 程序打包的文件，其中并且经过 bzip2 的压缩
+*.tar.xz    tar 程序打包的文件，其中并且经过 xz 的压缩
+```
+
+**`tar`是一个打包指令，同时还可以通过 gzip/bzip2/xz 的支持，将该文件同时进行压缩**
+
+## 什么是 Shell
+操作系统其实是一组软件，由于这组软件在控制整个硬件与管理系统的活动监测，如果这组软件能被使用者随意的操作，若使用者应用不当，将会使得整个系统崩溃！因为操作系统管理的就是整个硬件功能。
+
+但是我们总是需要让使用者操作系统的，所以就有了在操作系统上面发展的应用程序。使用者可以通过应用程序来指挥核心， 让核心达成我们所需要的硬件任务。我们可以发现应用程序其实是在最外层，
+就如同鸡蛋的外壳一样，因此这个咚咚也就被称呼为壳程序（shell）。
+
+shell的功能只是提供使用者操作系统的一个接口，因此shell 需要可以调用其他软件。例如man, chmod, chown, vi, fdisk, mkfs 等等指令，这些指令都是独立的应用程序。但是通过 shell可以操作
+这些程序，让这些应用程序调用核心来运行所需的工作。常用的shell 有`bash`，`tcsh`等。
+
+### bash shell 功能
+
+- history
+bash 能记忆使用过的指令。这么多的**指令记录在`~/.bash_history`。`~/.bash_history`记录的是前一次登陆以前所执行过的指令，至于这一次登陆所执行的指令都被暂存在内存中，当你成功的登出系统后，
+该指令记忆才会记录到`.bash_history`当中**。
+
+- 命令与文件补全
+[tab] 按键。
+
+- 命令别名
+`alias lm='ls -al'`。
+
+- shell scripts
+
+### bash 的进站与欢迎讯息： /etc/issue, /etc/motd
+bash 进站画面在`/etc/issue`里面。
+```bash
+[root@shcCDFrh75vm7 etc]# cat issue
+\S
+Kernel \r on an \m
+```
+
+- `\d`本地端时间的日期；
+- `\l`显示第几个终端机接口；
+- `\m`显示硬件的等级 （i386/i486/i586/i686...）；
+- `\n`显示主机的网络名称；
+- `\O`显示 domain name；
+- `\r`操作系统的版本 （相当于 uname -r）
+- `\t`显示本地端时间的时间；
+- `\S`操作系统的名称；
+- `\v`操作系统的版本。
+
+`/etc/issue.net`是提供给 telnet 这个远端登陆程序用的。当我们使用 telnet 连接到主机时，主机的登陆画面就会显示`/etc/issue.net`而不是`/etc/issue`。
+
+如果想要让使用者登陆后取得一些讯息，例如您想要让大家都知道的讯息，那么可以将讯息加入`/etc/motd`里面：
+```bash
+[root@study ~]# vim /etc/motd
+Hello everyone,
+Our server will be maintained at 2015/07/10 0:00 ~ 24:00.
+Please don't login server at that time. ^_^
+```
+
+## 数据流重导向
+1. 标准输入　　（stdin） ：代码为 0 ，使用`< 或`<<`
+2. 标准输出　　（stdout）：代码为 1 ，使用`>`或`>>`
+3. 标准错误输出（stderr）：代码为 2 ，使用`2>`或`2>>`
+
+- `1>`：以覆盖的方法将“正确的数据”输出到指定的文件或设备上；
+- `1>>`：以累加的方法将“正确的数据”输出到指定的文件或设备上；
+- `2>`：以覆盖的方法将“错误的数据”输出到指定的文件或设备上；
+- `2>>`：以累加的方法将“错误的数据”输出到指定的文件或设备上；
+
+### /dev/null 垃圾桶黑洞设备与特殊写法
+如果我知道错误讯息会发生，所以要将错误讯息忽略掉而不显示或储存，这个`/dev/null`可以吃掉任何导向这个设备的信息。
+
+### 命令执行的判断依据：`;`,`&&`,`||`
+
+#### `;`
+```bash
+cmd; cmd
+```
+在指令与指令中间利用分号`;`隔开，分号前的指令执行完后就会立刻接着执行后面的指令，但是指令之间没有相关性。
+
+#### `$?`（指令回传值） 与`&&`或`||`
+如果两个指令彼此之间是有相关性的，前一个指令是否成功的执行与后一个指令是否要执行有关，那就用到`&&`或`||`。
+
+**指令回传值：若前一个指令执行的结果为正确，在 Linux 下面会回传一个`$? = 0`的值**。
+
+- `cmd1 && cmd2`
+  - 若 cmd1 执行完毕且正确执行（`$?=0`），则开始执行 cmd2。
+  - 若 cmd1 执行完毕且为错误（`$?≠0`），则 cmd2 不执行。
+- `cmd1 || cmd2`
+  - 若 cmd1 执行完毕且正确执行（`$?=0`），则 cmd2 不执行。
+  - 若 cmd1 执行完毕且为错误（`$?≠0`），则开始执行 cmd2。
+
+例如`ls /tmp/vbirding && echo "exist" || echo "not exist"`，意思是说，当 ls /tmp/vbirding 执行后，若正确，就执行 echo "exist" ，若有问题，就执行 echo "not exist" 。
+
+`ls /tmp/vbirding || echo "not exist" && echo "exist"`:
+1. 若`ls /tmp/vbirding`不存在，因此回传一个非为 0 的数值；
+2. 接下来经过`||`的判断，发现前一个指令回传非为 0 的数值，因此，程序开始执行`echo "not exist"`，而`echo "not exist"`程序肯定可以执行成功，因此会回传一个 0 值给后面的指令；
+3. 经过`&&`的判断，咦！是 0 啊！所以就开始执行`echo "exist"`。
+
+会同时出现`not exist`与`exist` 。
+
+## pipe
+管道命令`|`使用：
+![](/images/linux-basic/bashpipe.png)
+
+在每个`|`后面接的第一个数据必定是“指令”！而且这个指令必须要能够接受 standard input 的数据才行，这样的指令才可以是为管道指令，例如 less, more, head, tail 等都是可以
+接受 standard input 的管道命令。例如 ls, cp, mv 等就不是管道命令了！因为 ls, cp, mv 并不会接受来自 stdin 的数据。
+
+## Linux 的帐号与群组
+### 使用者识别码： UID 与 GID
+虽然我们登陆 Linux 主机的时候，输入的是我们的帐号，但是其实 Linux 主机并不会直接认识你的“帐号名称”的，他仅认识 ID。 由于计算机仅认识 0 与 1，所以主机对于数字比较有概念的；
+至于帐号只是为了让人们容易记忆而已。而你的 ID 与帐号的对应就在`/etc/passwd`当中。
+
+每个登陆的使用者至少都会取得两个 ID ，一个是使用者 ID （User ID ，简称 UID）、一个是群组 ID （Group ID ，简称 GID）。
+
+文件如何判别他的拥有者与群组？其实就是利用 UID 与 GID！每一个文件都会有所谓的拥有者 ID 与拥有群组 ID ，当我们有要显示文件属性的需求时，系统会依据`/etc/passwd`与`/etc/group`的内容，
+找到 UID/GID 对应的帐号与群组名称再显示出来。
+
+登陆时，输入帐号密码后，系统帮你处理了什么？
+1. 先找寻`/etc/passwd`里面是否有你输入的帐号？如果没有则跳出，如果有的话则将该帐号对应的 UID 与 GID（在`/etc/group`中） 读出来，另外，该帐号的主文件夹与 shell 设置也一并读出
+2. 再来则是核对密码表啦！这时 Linux 会进入`/etc/shadow`里面找出对应的帐号与 UID，然后核对一下你刚刚输入的密码与里头的密码是否相符
+3. 如果一切都 OK 的话，就进入 Shell 控管的阶段
+
+由上面的流程我们知道，跟使用者帐号有关的有两个非常重要的文件，一个是管理使用者 UID/GID 重要参数的`/etc/passwd`，一个则是专门管理密码相关数据的`/etc/shadow`。
+
+#### `/etc/passwd`文件结构
+- 每一行都代表一个帐号。
+- 里头很多帐号本来就是系统正常运行所必须要的，我们可以简称他为**系统帐号**。例如 bin, daemon, adm, nobody 等等。
+
+```bash
+[root@shcCDFrh75vm7 ~]# head -n 4 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+```
+
+在每个Linux下第一行都是`root`，每一行使用`:`分隔，分为七个部分：
+- 帐号名称：用来提供给对数字不太敏感的人类使用来登陆系统的！需要用来对应 UID。例如 root 的 UID 对应就是0（第三字段）；
+- 密码：早期 Unix 系统的密码就是放在这字段上！但是因为这个文件的特性是所有的程序都能够读取，这样一来很容易造成密码数据被窃取，因此后来就将这个字段的密码数据给他改
+放到`/etc/shadow`中了。所以这里你会看到一个`x`。
+- UID： 这个就是使用者识别码
+  - 当 UID 是 0 时，代表这个帐号是“系统管理员”！所以当你要让其他的帐号名称也具有 root 的权限时，将该帐号的 UID 改为 0 即可。这也就是说，一部系统上面的系统管理员不见得只有 root！
+  不过，很不建议有多个帐号的 UID 是 0，容易让系统管理员混乱
+  - UID 范围在1~999，那么就是保留给系统使用的 ID，其实除了 0 之外，其他的 UID 权限与特性并没有不一样。默认 1000 以下的数字让给系统作为保留帐号只是一个习惯。由于系统上面启动的网络服
+  务或daemon服务希望使用较小的权限去运行，因此不希望使用 root 的身份去执行这些服务，所以我们就得要提供这些运行中程序的拥有者帐号才行。这些系统帐号通常是不可登陆的，根据系统帐号的由来，
+  通常这类帐号又约略被区分为两种：1~200：由 distributions 自行创建的系统帐号；201~999：若使用者有系统帐号需求时，可以使用的帐号 UID。
+  - UID 范围在1000~60000，给一般使用者用的。事实上，目前的 linux 核心 （3.10.x 版）已经可以支持到 4294967295 （2^32-1） 这么大的 UID 号码
+- GID： 这个与`/etc/group`有关！其实`/etc/group`的观念与`/etc/passwd`差不多，只是他是用来规范群组名称与 GID 的对应而已
+- 使用者信息说明栏： 这个字段基本上并没有什么重要用途，只是用来解释这个帐号的意义而已
+- 主文件夹： 这是使用者的主文件夹，以上面为例， root 的主文件夹在`/root`，所以当 root 登陆之后，就会立刻跑到`/root`目录里头。默认的使用者主文件夹在`/home/yourIDname`。
+- Shell：当使用者登陆系统后就会取得一个 Shell 来与系统的核心沟通以进行使用者的操作任务。就是在这个字段指定。
+
+#### `/etc/shadow`文件结构
+很多程序的运行都与权限有关，而权限与 UID/GID 有关！因此各程序当然需要读取`/etc/passwd`来了解不同帐号的权限。 因此`/etc/passwd`的权限需设置为`-rw-r--r--`这样的情况。
+早期的密码也有加密过，但却放置到`/etc/passwd`的第二个字段上！这样一来很容易被有心人士所窃取的， 加密过的密码也能够通过暴力破解法去 trial and error （试误） 找出。
+
+所以后来发展出将密码移动到`/etc/shadow`这个文件分隔开来的技术，而且还加入很多的密码限制参数在`/etc/shadow`里头。
+```bash
+[root@shcCDFrh75vm7 ~]# head -n 4 /etc/shadow
+root:$6$PcVZ4yj4vlMjqmkL$RUHwggR7gPD0SnjTF1WnStHi2If0hSJnc4M/oVTfD0omJxVGhQgnQhBKRNPiwcBSeL72IerSphnEVdaomgjx./::0:99999:7:::
+bin:*:17492:0:99999:7:::
+daemon:*:17492:0:99999:7:::
+adm:*:17492:0:99999:7:::
+```
+
+- 帐号名称
+- 密码： 这个字段内的数据才是真正的密码，而且是经过编码的密码
+- 最近更动密码的日期
+- 密码不可被更动的天数：（与第 3 字段相比） 第四个字段记录了：这个帐号的密码在最近一次被更改后需要经过几天才可以再被变更。是 0 的话， 表示密码随时可以更动的意思。
+- 密码需要重新变更的天数：（与第 3 字段相比） 经常变更密码是个好习惯！为了强制要求使用者变更密码，这个字段可以指定在最近一次更改密码后， 在多少天数内需要再次的变更密码才行。
+- 密码需要变更期限前的警告天数：（与第 5 字段相比） 当帐号的密码有效期限快要到的时候 （第 5 字段），系统会依据这个字段的设置，发出“警告”言论给这个帐号。
+- 密码过期后的帐号宽限时间（密码失效日）：（与第 5 字段相比） 密码有效日期为“更新日期（第3字段）”+“重新变更日期（第5字段）”，过了该期限后使用者依旧没有更新密码，那该密码就算过期了。
+- 帐号失效日期： 这个日期跟第三个字段一样，都是使用 1970 年以来的总日数设置。这个字段表示： 这个帐号在此字段规定的日期之后，将无法再使用。
+- 保留： 最后一个字段是保留的，看以后有没有新功能加入。
+
+#### `/etc/group`文件结构
+这个文件记录 GID 与群组名称的对应。
+```bash
+[root@study ~]# head -n 4 /etc/group
+root:x:0:
+bin:x:1:
+daemon:x:2:
+sys:x:3:
+```
+
+- 群组名称。
+- 群组密码：通常不需要设置，这个设置通常是给“群组管理员”使用的，目前很少有这个机会设置群组管理员！同样的，密码已经移动到`/etc/gshadow`去，因此这个字段只会存在一个`x`
+- GID：就是群组的 ID。我们`/etc/passwd`第四个字段使用的 GID 对应的群组名，就是由这里对应出来的！
+- 此群组支持的帐号名称：我们知道一个帐号可以加入多个群组，那某个帐号想要加入此群组时，将该帐号填入这个字段即可。举例来说，如果我想要让 dmtsai 与 alex 也加入 root 这个群组，
+那么在第一行的最后面加上“dmtsai,alex”，注意不要有空格，使成为“ root:x:0:dmtsai,alex ”就可以。
+
+#### 有效群组（effective group）与初始群组（initial group）
+
+每个使用者在他的 /etc/passwd 里面的第四栏有GID，那个 GID 就是所谓的“初始群组（initial group）。当使用者一登陆系统，立刻就拥有这个群组的相关权限的意思。
+因为是初始群组， 使用者一登陆就会主动取得，不需要在`/etc/group`的第四个字段写入该帐号的。
+
+但是非 initial group 的其他群组可就不同了。举上面这个例子来说，我将 dmtsai 加入 users 这个群组当中，由于 users 这个群组并非是 dmtsai 的初始群组，因此，
+我必须要在`/etc/group`这个文件中，找到 users 那一行，并且将 dmtsai 这个帐号加入第四栏， 这样 dmtsai 才能够加入 users 这个群组。
+
+如何知道我所有支持的群组？：
+```bash
+[dmtsai@study ~]$ groups
+dmtsai wheel users
+```
+可知道当前用户同时属于 dmtsai, wheel 及 users 这三个群组，一个输出的群组即为有效群组（effective group）了。
+
+如果创建一个新的文件或者是新的目录，新文件的群组是当时的有效群组了（effective group）。
+
+## 帐号管理
