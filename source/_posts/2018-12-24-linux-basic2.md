@@ -772,3 +772,94 @@ dmtsai wheel users
 如果创建一个新的文件或者是新的目录，新文件的群组是当时的有效群组了（effective group）。
 
 ## 帐号管理
+### 新增与移除使用者
+创建一个可用的帐号需要帐号与密码。那帐号可以使用`useradd`来新建使用者，密码的给予则使用`passwd`这个指令：
+```bash
+useradd [-u UID] [-g 初始群组] [-G 次要群组] [-mM] [-c 说明栏] [-d 主文件夹绝对路径] [-s shell] 使用者帐号名
+选项与参数：
+-u  ：后面接的是 UID ，是一组数字。直接指定一个特定的 UID 给这个帐号
+-g  ：后面接的那个群组名称就是我们上面提到的 initial group
+      该群组的 GID 会被放置到 /etc/passwd 的第四个字段内。
+-G  ：后面接的群组名称则是这个帐号还可以加入的群组。
+      这个选项与参数会修改 /etc/group 内的相关数据！
+-M  ：强制！不要创建使用者主文件夹！（系统帐号默认值）
+-m  ：强制！要创建使用者主文件夹！（一般帐号默认值）
+-c  ：这个就是 /etc/passwd 的第五栏的说明内容
+-d  ：指定某个目录成为主文件夹，而不要使用默认值。务必使用绝对路径！
+-r  ：创建一个系统的帐号，这个帐号的 UID 会有限制
+-s  ：后面接一个 shell ，若没有指定则默认是 /bin/bash 的啦～
+-e  ：后面接一个日期，格式为“YYYY-MM-DD”此项目可写入 shadow 第八字段，亦即帐号失效日的设置项目
+-f  ：后面接 shadow 的第七字段项目，指定密码是否会失效。0为立刻失效，-1 为永远不失效（密码只会过期而强制于登陆时重新设置而已。）
+```
+
+还需要使用`passwd 帐号`来给予密码才算是完成了使用者创建的流程。
+```bash
+# 修改帐号密码
+passwd [--stdin] [帐号名称]
+
+#
+passwd [-l] [-u] [--stdin] [-S] [-n 日数] [-x 日数] [-w 日数] [-i 日期] 帐号
+选项与参数：
+--stdin ：可以通过来自前一个管线的数据，作为密码输入，对 shell script 有帮助！
+-l  ：是 Lock 的意思，会将 /etc/shadow 第二栏最前面加上 ! 使密码失效；
+-u  ：与 -l 相对，是 Unlock 的意思！
+-S  ：列出密码相关参数，亦即 shadow 文件内的大部分信息。
+-n  ：后面接天数，shadow 的第 4 字段，多久不可修改密码天数
+-x  ：后面接天数，shadow 的第 5 字段，多久内必须要更动密码
+-w  ：后面接天数，shadow 的第 6 字段，密码过期前的警告天数
+-i  ：后面接“日期”，shadow 的第 7 字段，密码失效日期
+```
+
+**注意使用`passwd`后面没有帐号，表示修改自己的密码。尤其是root帐号。**
+
+#### useradd 参考档
+为何“ useradd vbird1 ”会主动在`/home/vbird1`创建起使用者的主文件夹？主文件夹内有什么数据且来自哪里？为何默认使用的是`/bin/bash`这个`shell`？
+
+useradd 的默认值可以使用下面的方法调用出来:
+```bash
+[root@study ~]# useradd -D
+GROUP=100        #默认的群组
+HOME=/home        #默认的主文件夹所在目录
+INACTIVE=-1        #密码失效日，在 shadow 内的第 7 栏
+EXPIRE=            #帐号失效日，在 shadow 内的第 8 栏
+SHELL=/bin/bash        #默认的 shell
+SKEL=/etc/skel        #使用者主文件夹的内容数据参考目录
+CREATE_MAIL_SPOOL=yes   #是否主动帮使用者创建邮件信箱（mailbox）
+```
+
+#### usermod
+`usermod`用于修改帐号的先关数据。
+```bash
+[root@study ~]# usermod [-cdegGlsuLU] username
+选项与参数：
+-c  ：后面接帐号的说明，即 /etc/passwd 第五栏的说明栏，可以加入一些帐号的说明。
+-d  ：后面接帐号的主文件夹，即修改 /etc/passwd 的第六栏；
+-e  ：后面接日期，格式是 YYYY-MM-DD 也就是在 /etc/shadow 内的第八个字段数据啦！
+-f  ：后面接天数，为 shadow 的第七字段。
+-g  ：后面接初始群组，修改 /etc/passwd 的第四个字段，亦即是 GID 的字段！
+-G  ：后面接次要群组，修改这个使用者能够支持的群组，修改的是 /etc/group 啰～
+-a  ：与 -G 合用，可“增加次要群组的支持”而非“设置”喔！
+-l  ：后面接帐号名称。亦即是修改帐号名称， /etc/passwd 的第一栏！
+-s  ：后面接 Shell 的实际文件，例如 /bin/bash 或 /bin/csh 等等。
+-u  ：后面接 UID 数字啦！即 /etc/passwd 第三栏的数据；
+-L  ：暂时将使用者的密码冻结，让他无法登陆。其实仅改 /etc/shadow 的密码栏。
+-U  ：将 /etc/shadow 密码栏的 ! 拿掉，解冻
+```
+
+usermod 的选项与 useradd 非常类似！ 这是因为 usermod 也是用来微调 useradd 增加的使用者参数。
+
+#### userdel
+```bash
+userdel [-r] username
+选项与参数：
+-r  ：连同使用者的主文件夹也一起删除
+```
+
+
+#### id
+`id`这个指令则可以查询某人或自己的相关 UID/GID 等等的信息。
+```bash
+id [username]
+```
+
+### 新增与移除群组
