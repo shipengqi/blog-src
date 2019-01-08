@@ -813,7 +813,7 @@ passwd [-l] [-u] [--stdin] [-S] [-n 日数] [-x 日数] [-w 日数] [-i 日期] 
 **注意使用`passwd`后面没有帐号，表示修改自己的密码。尤其是root帐号。**
 
 #### useradd 参考档
-为何“ useradd vbird1 ”会主动在`/home/vbird1`创建起使用者的主文件夹？主文件夹内有什么数据且来自哪里？为何默认使用的是`/bin/bash`这个`shell`？
+为何`useradd vbird1`会主动在`/home/vbird1`创建起使用者的主文件夹？主文件夹内有什么数据且来自哪里？为何默认使用的是`/bin/bash`这个`shell`？
 
 useradd 的默认值可以使用下面的方法调用出来:
 ```bash
@@ -828,7 +828,7 @@ CREATE_MAIL_SPOOL=yes   #是否主动帮使用者创建邮件信箱（mailbox）
 ```
 
 #### usermod
-`usermod`用于修改帐号的先关数据。
+`usermod`用于修改帐号的相关数据。
 ```bash
 [root@study ~]# usermod [-cdegGlsuLU] username
 选项与参数：
@@ -863,3 +863,207 @@ id [username]
 ```
 
 ### 新增与移除群组
+#### groupadd
+```bash
+[root@study ~]# groupadd [-g gid] [-r] 群组名称
+选项与参数：
+-g  ：后面接某个特定的 GID ，用来直接给予某个 GID ～
+-r  ：创建系统群组！与 /etc/login.defs 内的 GID_MIN 有关。
+```
+
+#### groupmod
+修改group 相关参数。
+```bash
+[root@study ~]# groupmod [-g gid] [-n group_name] 群组名
+选项与参数：
+-g  ：修改既有的 GID 数字；
+-n  ：修改既有的群组名称
+```
+
+**如果要删除某个group，必须要确认`/etc/passwd`内的帐号没有任何人使用该群组作为 initial group**，否则无法删除。但是可以通过下面的范式删除：
+- 修改这个group的 GID
+- 删除使用这个群组为initial group 的这个使用者
+
+#### gpasswd 群组管理员功能
+gpasswd创建一个群组管理员，让某个群组具有一个管理员，这个群组管理员可以管理哪些帐号可以加入/移出该群组。
+```bash
+# 关于系统管理员（root）做的动作：
+[root@study ~]# gpasswd groupname
+[root@study ~]# gpasswd [-A user1,...] [-M user3,...] groupname
+[root@study ~]# gpasswd [-rR] groupname
+选项与参数：
+    ：若没有任何参数时，表示给予 groupname 一个密码（/etc/gshadow）
+-A  ：将 groupname 的主控权交由后面的使用者管理（该群组的管理员）
+-M  ：将某些帐号加入这个群组当中！
+-r  ：将 groupname 的密码移除
+-R  ：让 groupname 的密码栏失效
+
+# 关于群组管理员（Group administrator）做的动作：
+[someone@study ~]$ gpasswd [-ad] user groupname
+选项与参数：
+-a  ：将某位使用者加入到 groupname 这个群组当中！
+-d  ：将某位使用者移除出 groupname 这个群组当中。
+```
+
+## 主机的细部权限规划：ACL 的使用
+Linux 的权限概念非常重要， 但是传统的权限仅有三种身份 （owner, group, others） 搭配三种权限 （r,w,x） 而已，
+并没有办法单纯的针对某一个使用者或某一个群组来设置特定的权限需求，此时就得要使用 ACL 这个机制。
+
+**ACL 是 Access Control List 的缩写，主要的目的是在提供传统的 owner,group,others 的 read,write,execute 权限之外的细部权限设置。**ACL
+可以针对单一使用者，单一文件或目录来进行 r,w,x 的权限规范，对于需要特殊权限的使用状况非常有帮助。
+
+ACL 几乎已经默认加入在所有常见的 Linux 文件系统的挂载参数中。
+
+### ACL 的设置：getfacl, setfacl
+- getfacl：取得某个文件/目录的 ACL 设置项目；
+- setfacl：设置某个目录/文件的 ACL 规范。
+
+## 使用者身份切换
+- 使用一般帐号：系统平日操作的好习惯。尽量以一般身份使用者来操作 Linux，等到需要设置系统环境时，才变换身份成为 root 来进行系统管理。
+- 用较低权限启动系统服务，例如apache，可以创建一个名为 apache 的使用者来启动 apache 软件，如此一来，如果这个程序被攻破，至少系统还不至于就损毁了。
+
+### 使用者身份切换的两种方式
+- `su`命令
+- `sudo cmd`
+
+#### su
+```bash
+[root@study ~]# su [-lm] [-c 指令] [username]
+选项与参数：
+-   ：单纯使用 - 如“ su - ”代表使用 login-shell 的变量文件读取方式来登陆系统；
+      若使用者名称没有加上去，则代表切换为 root 的身份。
+-l  ：与 - 类似，但后面需要加欲切换的使用者帐号！也是 login-shell 的方式。
+-m  ：-m 与 -p 是一样的，表示“使用目前的环境设置，而不读取新使用者的配置文件”
+-c  ：仅进行一次指令，所以 -c 后面可以加上指令喔
+```
+
+`su`的用法是这样的：
+- 要完整的切换到新使用者的环境，必须要使用“ su - username ”或“ su -l username ”， 才会连同 PATH/USER/MAIL 等变量都转成新使用者的环境；
+- 如果仅想要执行一次 root 的指令，可以利用`su - -c cmd`的方式来处理；
+- 使用 root 切换成为任何使用者时，并不需要输入新使用者的密码；
+
+#### sudo
+su 需要了解新切换的使用者密码（常常是需要 root 的密码）， sudo 的执行则仅需要自己的密码。**仅有规范到`/etc/sudoers`内的用户才能够执行 sudo 这个指令**。
+除非是信任用户，否则一般用户默认是不能操作 sudo 的。
+```bash
+[root@study ~]# sudo [-b] [-u 新使用者帐号]
+选项与参数：
+-b  ：将后续的指令放到背景中让系统自行执行，而不与目前的 shell 产生影响
+-u  ：后面可以接欲切换的使用者，若无此项则代表切换身份为 root 。
+```
+
+sudo 默认仅有 root 能使用，因为 sudo 的执行是这样的流程：
+1. 当使用者执行 sudo 时，系统于`/etc/sudoers`文件中搜寻该使用者是否有执行 sudo 的权限；
+2. 若使用者具有可执行 sudo 的权限后，便让使用者“输入使用者自己的密码”来确认；
+3. 若密码输入成功，便开始进行 sudo 后续接的指令（但 root 执行 sudo 时，不需要输入密码）；
+4. 若欲切换的身份与执行者身份相同，那也不需要输入密码。
+
+#### visudo 与`/etc/sudoers`
+除了 root 之外的其他帐号，若想要使用 sudo 执行属于 root 的权限指令，则 root 需要先使用 visudo 去修改`/etc/sudoers`，
+**`/etc/sudoers`是有设置语法的，如果设置错误那会造成无法使用 sudo 指令的不良后果。因此才会使用 visudo 去修改**。
+
+
+## `/sbin/nologin`与 PAM 模块
+`passwd`文件结构里面我们就谈过系统帐号，系统帐号的shell 就是使用`/sbin/nologin`。系统帐号是不需要登陆的，所以我们就给他这个无法登陆的合法 shell。
+使用了这个 shell 的用户即使有了密码，你想要登陆时他也无法登陆，因为会出现如下的讯息：
+```bash
+This account is currently not available.
+```
+“无法登陆”指的仅是：“这个使用者无法使用 bash 或其他 shell 来登陆系统”。
+
+### PAM 模块
+之前谈到过`/etc/login.defs`文件中，关于密码长度应该默认是 5 个字串长度，但是该设置值已经被 PAM 模块所取代了，那么 PAM 是什么？
+
+在过去，我们想要对一个使用者进行认证 （authentication），得要要求使用者输入帐号密码， 然后通过自行撰写的程序来判断该帐号密码是否正确。也因为如此，
+我们常常得使用不同的机制来判断帐号密码， 所以搞的一部主机上面拥有多个各别的认证系统，也造成帐号密码可能不同步的验证问题。
+
+为了解决这个问题因此有了 PAM （Pluggable Authentication Modules, 嵌入式模块） 的机制。
+PAM 仅是一套验证的机制，又可以提供给其他程序所调用引用，因此不论你使用什么程序，都可以使用 PAM 来进行验证，如此一来，就能够让帐号密码或者是其他方式的验证具有一致的结果。
+
+PAM 是一个独立的 API 存在，只要任何程序有需求时，可以向 PAM 发出验证要求的通知， PAM 经过一连串的验证后，将验证的结果回报给该程序，然后该程序就能够利用验证的结果来进行
+可登陆或显示其他无法使用的讯息。
+
+#### PAM 模块设置语法
+以 passwd 这个指令的调用 PAM 来说明，当你执行 passwd 后，这支程序调用 PAM 的流程是：
+1. 使用者开始执行`/usr/bin/passwd`这支程序，并输入密码；
+2. passwd 调用 PAM 模块进行验证；
+3. PAM 模块会到`/etc/pam.d/`找寻与程序 （passwd） 同名的配置文件；
+4. 依据`/etc/pam.d/passwd`内的设置，引用相关的 PAM 模块逐步进行验证分析；
+5. 将验证结果 （成功、失败以及其他讯息） 回传给 passwd 这支程序；
+6. passwd 这支程序会根据 PAM 回传的结果决定下一个动作 （重新输入新密码或者通过验证）
+
+重点其实是`/etc/pam.d/`里面的配置文件，以及配置文件所调用的 PAM 模块进行的验证工作。
+```bash
+[root@study ~]# cat /etc/pam.d/passwd
+#PAM-1.0  => PAM版本的说明而已！
+auth       include      system-auth   => 每一行都是一个验证的过程
+account    include      system-auth
+password   substack     system-auth
+-password   optional    pam_gnome_keyring.so use_authtok
+password   substack     postlogin
+验证类别   控制标准     PAM 模块与该模块的参数
+```
+
+`include`这个关键字，他代表的是“请调用后面的文件来作为这个类别的验证”， 所以，上述的每一行都要重复调用`/etc/pam.d/system-auth`那个文件来进行验证的意思。
+
+##### 第一个字段：验证类别 （Type）
+验证类别主要分为四种:
+- auth，主要用来检验使用者的身份验证，这种类别通常是需要密码来检验的， 所以后续接的模块是用来检验使用者的身份。
+- account，大部分是在进行 authorization （授权），这种类别则主要在检验使用者是否具有正确的使用权限， 举例来说，当你使用一个过期的密码来登陆时，当然就无法正确的登陆了。
+- session，管理的就是使用者在这次登陆 （或使用这个指令） 期间，PAM 所给予的环境设置。 这个类别通常用在记录使用者登陆与登出时的信息。
+- password，主要在提供验证的修订工作，举例来说，就是修改/变更密码。
+
+**四个验证的类型通常是有顺序的**，不过也有例外就是了。 会有顺序的原因是，（1）我们总是得要先验证身份 （auth） 后， （2）系统才能够借由使用者的身份给予适当的授权与权限设置 （account），
+而且（3）登陆与登出期间的环境才需要设置， 也才需要记录登陆与登出的信息 （session）。如果在运行期间需要密码修订时，（4）才给予 password 的类别。
+
+
+##### 第二个字段：验证的控制旗标 （control flag）
+就是“验证通过的标准”。四种控制方式：
+- required，此验证若成功则带有 success （成功） 的标志，若失败则带有 failure 的标志，但不论成功或失败都会继续后续的验证流程。 由于后续的验证流程可以继续进行，
+因此相当有利于数据的登录。
+- requisite，验证失败则立刻回报原程序 failure 的标志，并终止后续的验证流程。验证成功则带有 success 的标志并继续后续的验证流程。
+- sufficient，验证成功则立刻回传 success 给原程序，并终止后续的验证流程；若验证失败则带有 failure 标志并继续后续的验证流程。 这玩意儿与 requisits 刚好相反。
+- optional，控制项目大多是在显示讯息而已，并不是用在验证方面的。
+
+## Linux 主机上的使用者讯息
+### 查询使用者： w, who, last, lastlog
+- `id`，了解到一个使用者的相关信息
+- `last`，CentOS 5.x 版以后， last 可以列出从系统创建之后到目前为止的所有登陆者信息。
+- `w`或者`who`，查询当前登陆在系统上面的使用者
+- `lastlog`，查询每个帐号的最近登陆的时间，lastlog 会去读取`/var/log/lastlog`文件，结果将数据输出
+
+### 使用者对谈：write, mesg, wall
+是否可以跟系统上面的使用者谈天说地？利用 write 这个指令即可。 write 可以直接将讯息传给接收者。例如：我们的 Linux 目前有 vbird1 与 root 两个人在线上，
+root 要跟 vbird1 讲话，可以这样做：
+```bash
+[root@study ~]# write 使用者帐号 [使用者所在终端接口]
+
+[root@study ~]# who
+vbird1   tty3         2015-07-22 01:55  &lt;==有看到 vbird1 在线上
+root     tty4         2015-07-22 01:56
+
+[root@study ~]# write vbird1 pts/2
+Hello, there:
+Please don't do anything wrong...  &lt;==这两行是 root 写的信息！
+# 结束时，请按下 [crtl]-d 来结束输入。此时在 vbird1 的画面中，会出现：
+
+Message from root@study.centos.vbird on tty4 at 01:57 ...
+Hello, there:
+Please don't do anything wrong...
+EOF
+```
+
+`mesg`不接受消息，但是root的消息还是会接收。
+
+## 磁盘配额 （Quota）
+在 Linux 系统中，由于是多用户多任务的环境，所以会有多人共同使用一个硬盘空间的情况发生， 如果其中有少数几个使用者大量的占掉了硬盘空间的话，那势必压缩其他使用者的使用权力。
+因此管理员应该适当的限制硬盘的容量给使用者，以妥善的分配系统资源。
+
+
+### Quota 的一般用途
+比较常使用的几个情况是：
+- 针对 WWW server ，例如：每个人的网页空间的容量限制
+- 针对 mail server，例如：每个人的邮件空间限制。
+- 限制某一群组所能使用的最大磁盘配额 （使用群组限制）
+- 限制某一使用者的最大磁盘配额
+- 限制某一目录 （directory, project） 的最大磁盘配额
