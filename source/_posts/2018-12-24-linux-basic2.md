@@ -374,7 +374,7 @@ mkfs.xfs [-b bsize] [-d parms] [-i parms] [-l parms] [-L label] [-f] \
 -f  ：如果设备内已经有文件系统，则需要使用这个 -f 来强制格式化才行！
 -i  ：与 inode 有较相关的设置，主要的设置值有：
       size=数值     ：最小是 256Bytes 最大是 2k，一般保留 256 就足够使用了！
-      internal=[0&#124;1]：log 设备是否为内置？默认为 1 内置，如果要用外部设备，使用下面设置
+      internal=[0|1]：log 设备是否为内置？默认为 1 内置，如果要用外部设备，使用下面设置
       logdev=device ：log 设备为后面接的那个设备上头的意思，需设置 internal=0 才可！
       size=数值     ：指定这块登录区的容量，通常最小得要有 512 个 block，大约 2M 以上才行！
 -L  ：后面接这个文件系统的标头名称 Label name 的意思！
@@ -1039,12 +1039,12 @@ root 要跟 vbird1 讲话，可以这样做：
 [root@study ~]# write 使用者帐号 [使用者所在终端接口]
 
 [root@study ~]# who
-vbird1   tty3         2015-07-22 01:55  &lt;==有看到 vbird1 在线上
+vbird1   tty3         2015-07-22 01:55  <==有看到 vbird1 在线上
 root     tty4         2015-07-22 01:56
 
 [root@study ~]# write vbird1 pts/2
 Hello, there:
-Please don't do anything wrong...  &lt;==这两行是 root 写的信息！
+Please don't do anything wrong...  <==这两行是 root 写的信息！
 # 结束时，请按下 [crtl]-d 来结束输入。此时在 vbird1 的画面中，会出现：
 
 Message from root@study.centos.vbird on tty4 at 01:57 ...
@@ -1116,7 +1116,7 @@ EOF
 一般来说，系统默认是保留`/etc/cron.deny`。
 
 ```bash
-[root@study ~]# crontab [-u username] [-l&#124;-e&#124;-r]
+[root@study ~]# crontab [-u username] [-l|-e|-r]
 选项与参数：
 -u  ：只有 root 才能进行这个任务，亦即帮其他使用者创建/移除 crontab 工作调度；
 -e  ：编辑 crontab 的工作内容
@@ -1148,7 +1148,7 @@ EOF
 - 安全的检验
 - 周与日月不可同时并存
 
-## 程序管理与 SELinux
+## 程序管理
 一个程序被载入到内存当中运行，那么在内存内的那个数据就被称为程序（process）。
 
 program：通常为 binary program ，放置在储存媒体中 （如硬盘、光盘、软盘、磁带等）， 为实体文件的型态存在；
@@ -1193,4 +1193,437 @@ signal ：代表给予后面接的那个工作什么样的指示啰！用 man 7 
 ```bash
 [root@study ~]# nohup [指令与参数]
 [root@study ~]# nohup [指令与参数] &
+```
+
+#### 查看进程
+##### ps
+```bash
+[root@study ~]# ps aux  观察系统所有的程序数据
+[root@study ~]# ps -lA  也是能够观察所有系统的数据
+[root@study ~]# ps axjf 连同部分程序树状态
+选项与参数：
+-A  ：所有的 process 均显示出来，与 -e 具有同样的效用；
+-a  ：不与 terminal 有关的所有 process ；
+-u  ：有效使用者 （effective user） 相关的 process ；
+x   ：通常与 a 这个参数一起使用，可列出较完整信息。
+输出格式规划：
+l   ：较长、较详细的将该 PID 的的信息列出；
+j   ：工作的格式 （jobs format）
+-f  ：做一个更为完整的输出。
+```
+
+##### ps -l
+仅观察自己的 bash 相关进程。
+```bash
+[root@study ~]# ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S     0 14830 13970  0  80   0 - 52686 poll_s pts/0    00:00:00 sudo
+4 S     0 14835 14830  0  80   0 - 50511 wait   pts/0    00:00:00 su
+4 S     0 14836 14835  0  80   0 - 29035 wait   pts/0    00:00:00 bash
+0 R     0 15011 14836  0  80   0 - 30319 -      pts/0    00:00:00 ps
+```
+
+- F：代表这个 process flags，说明这个程序的总结权限，常见号码有：
+  - 若为 4 表示此进程的权限为 root ；
+  - 若为 1 则表示此子进程仅进行复制（fork）而没有实际执行（exec）。
+- S：代表这个进程的状态 （STAT），主要的状态有：
+  - R （Running）：正在运行中；
+  - S （Sleep）：目前正在睡眠状态（idle），但可以被唤醒（signal）。
+  - D ：不可被唤醒的睡眠状态，通常这支进程可能在等待 I/O 的情况（ex>打印）
+  - T ：停止状态（stop），可能是在工作控制（后台暂停）或除错 （traced） 状态；
+  - Z （Zombie）：僵尸状态，进程已经终止但却无法被移除至内存外。
+- UID/PID/PPID：代表“此进程被该 UID 所拥有/进程的 PID 号码/此进程的父进程 PID 号码”
+- C：代表 CPU 使用率，单位为百分比；
+- PRI/NI：Priority/Nice 的缩写，代表此进程被 CPU 所执行的优先顺序，数值越小代表该进程越快被 CPU 执行。
+- ADDR/SZ/WCHAN：都与内存有关，ADDR 是 kernel function，指出该进程在内存的哪个部分，如果是个 running 的进程，
+一般就会显示`-`/ SZ 代表此进程用掉多少内存 / WCHAN 表示目前进程是否运行中，同样的，若为`-`表示正在运行中。
+- TTY：登陆者的终端机位置，若为远端登陆则使用动态终端接口 （pts/n）；
+- TIME：使用掉的 CPU 时间，注意，是此进程实际花费 CPU 运行的时间，而不是系统时间；
+- CMD：就是 command 的缩写，造成此进程的触发程序的指令是什么。
+
+##### ps aux
+列出目前所有的正在内存当中的程序。
+```bash
+[root@study ~]# ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2  60636  7948 ?        Ss   Aug04   0:01 /usr/lib/systemd/systemd ...
+root         2  0.0  0.0      0     0 ?        S    Aug04   0:00 [kthreadd]
+.....（中间省略）.....
+root     14830  0.0  0.1 210744  3988 pts/0    S    Aug04   0:00 sudo su -
+root     14835  0.0  0.1 202044  2996 pts/0    S    Aug04   0:00 su -
+root     14836  0.0  0.1 116140  2960 pts/0    S    Aug04   0:00 -bash
+.....（中间省略）.....
+root     18459  0.0  0.0 123372  1380 pts/0    R+   00:25   0:00 ps aux
+```
+
+- USER：该 process 属于那个使用者帐号的？
+- PID ：该 process 的程序识别码。
+- %CPU：该 process 使用掉的 CPU 资源百分比；
+- %MEM：该 process 所占用的实体内存百分比；
+- VSZ ：该 process 使用掉的虚拟内存量 （KBytes）
+- RSS ：该 process 占用的固定的内存量 （KBytes）
+- TTY ：该 process 是在那个终端机上面运行，若与终端机无关则显示 ?，另外， tty1-tty6 是本机上面的登陆者程序，若为 pts/0 等等的，则表示为由网络连接进主机的程序。
+- STAT：该程序目前的状态，状态显示与 ps -l 的 S 旗标相同 （R/S/T/Z）
+- START：该 process 被触发启动的时间；
+- TIME ：该 process 实际使用 CPU 运行的时间。
+- COMMAND：该程序的实际指令为何？
+
+
+##### `ps axjf`和`ps -lA`
+- `ps -lA`，显示出所有的程序，与 ps -l 的输出情况相同。
+- `ps axjf`，列出类似进程树的进程显示
+
+##### top 动态观察进程的变化
+相对于`ps`是获取一个时间点的进程状态，`top`则可以持续侦测进程运行的状态：
+```bash
+[root@study ~]# top [-d 数字] | top [-bnp]
+选项与参数：
+-d  ：后面可以接秒数，就是整个程序画面更新的秒数。默认是 5 秒；
+-b  ：以批次的方式执行 top,通常会搭配数据流重导向来将批次的结果输出成为文件。
+-n  ：与 -b 搭配，意义是，需要进行几次 top 的输出结果。
+-p  ：指定某些个 PID 来进行观察监测而已。
+在 top 执行过程当中可以使用的按键指令：
+    ? ：显示在 top 当中可以输入的按键指令；
+    P ：以 CPU 的使用资源排序显示；
+    M ：以 Memory 的使用资源排序显示；
+    N ：以 PID 来排序;
+    T ：由该 Process 使用的 CPU 时间累积 （TIME+） 排序。
+    k ：给予某个 PID 一个讯号  （signal）
+    r ：给予某个 PID 重新制订一个 nice 值。
+    q ：离开 top 软件的按键。
+
+# 每两秒钟更新一次 top
+[root@study ~]# top -d 2
+[root@study ~]# top -d 2
+top - 00:53:59 up  6:07,  3 users,  load average: 0.00, 0.01, 0.05
+Tasks: 179 total,   2 running, 177 sleeping,   0 stopped,   0 zombie
+%Cpu（s）:  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  2916388 total,  1839140 free,   353712 used,   723536 buff/cache
+KiB Swap:  1048572 total,  1048572 free,        0 used.  2318680 avail Mem
+
+ PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+18804 root      20   0  130028   1872   1276 R   0.5  0.1   0:00.02 top
+    1 root      20   0   60636   7948   2656 S   0.0  0.3   0:01.70 systemd
+    2 root      20   0       0      0      0 S   0.0  0.0   0:00.01 kthreadd
+    3 root      20   0       0      0      0 S   0.0  0.0   0:00.00 ksoftirqd/0
+```
+
+- 第一行（top...）：这一行显示的信息分别为：
+  - 目前的时间，亦即是 00:53:59 那个项目；
+  - 开机到目前为止所经过的时间，亦即是 up 6:07, 那个项目；
+  - 已经登陆系统的使用者人数，亦即是 3 users, 项目；
+  - 系统在 1, 5, 15 分钟的平均工作负载。代表的是 1, 5, 15 分钟，系统平均要负责运行几个程序（工作）的意思。 越小代表系统越闲置，若高于 1 得要注意你的系统程序是否太过繁复了！
+- 第二行（Tasks...）：显示的是目前进程的总量与个别进程在什么状态（running, sleeping, stopped, zombie）。 比较需要注意的是最后的 zombie 那个数值，如果不是 0,
+好好看看到底是那个 process 变成僵尸了
+- 第三行（%Cpus...）：显示的是 CPU 的整体负载，每个项目可使用`?`查阅。需要特别注意的是 wa ，代表的是 I/O wait， 通常你的系统会变慢都是 I/O 产生的问题比较大！
+因此这里得要注意这个项目耗用 CPU 的资源. 另外，如果是多核心的设备，可以按下数字键“1”来切换成不同 CPU 的负载率。
+- 第四行与第五行：表示目前的实体内存与虚拟内存 （Mem/Swap） 的使用情况。**如果 swap 被用的很大量，表示系统的实体内存实在不足**
+
+##### pstree
+```bash
+[root@study ~]# pstree [-A|U] [-up]
+选项与参数：
+-A  ：各程序树之间的连接以 ASCII 字符来连接；
+-U  ：各程序树之间的连接以万国码的字符来连接。在某些终端接口下可能会有错误；
+-p  ：并同时列出每个 process 的 PID；
+-u  ：并同时列出每个 process 的所属帐号名称。
+```
+
+#### 进程的执行顺序
+CPU 一秒钟可以运行多达数 G 的微指令次数，通过核心的 CPU 调度可以让各进程被 CPU 所切换运行， 因此每个进程在一秒钟内或多或少都会被 CPU 执行部分的指令码。
+
+##### Priority 与 Nice 值
+**Linux 给予进程一个所谓的“优先执行序 （priority, PRI）”， 这个 PRI 值越低代表越优先的意思。不过这个 PRI 值是由核心动态调整的， 使用者无法直接调整 PRI 值的。
+如果你想要调整程序的优先执行序时，就得要通过 Nice 值了**。
+```
+PRI（new） = PRI（old） + nice
+```
+
+- nice 值可调整的范围为`-20 ~ 19`；
+- root 可随意调整自己或他人程序的 Nice 值，且范围为`-20 ~ 19`；
+- 一般使用者仅可调整自己程序的 Nice 值，且范围仅为`0 ~ 19`（避免一般用户抢占系统资源）；
+- 一般使用者仅可将 nice 值越调越高，例如本来 nice 为 5 ，则未来仅能调整到大于 5；
+
+如何给予某个程序 nice 值呢？有两种方式，分别是：
+- 一开始执行程序就立即给予一个特定的 nice 值：用**nice 指令**；
+- 调整某个已经存在的 PID 的 nice 值：用**renice 指令**。
+
+```bash
+[root@study ~]# nice [-n 数字] command
+选项与参数：
+-n  ：后面接一个数值，数值的范围 -20 ~ 19。
+
+# 用 root 给一个 nice 值为 -5 ，用于执行 vim ，并观察该程序
+[root@study ~]# nice -n -5 vim &
+```
+
+通常系统的后台工作中，某些比较不重要的程序：例如备份工作，建议将nice值调大。
+
+```bash
+[root@study ~]# renice [number] PID
+选项与参数：
+PID ：某个程序的 ID
+
+# 找出自己的 bash PID ，并将该 PID 的 nice 调整到 -5
+[root@study ~]# renice -5 14836
+14836 （process ID） old priority 10, new priority -5
+```
+
+### 查看系统资源
+#### 观察内存使用情况 `free`
+```bash
+[root@study ~]# free [-b|-k|-m|-g|-h] [-t] [-s N -c N]
+选项与参数：
+-b  ：直接输入 free 时，显示的单位是 KBytes，我们可以使用 b（Bytes）, m（MBytes）
+      k（KBytes）, 及 g（GBytes） 来显示单位喔！也可以直接让系统自己指定单位 （-h）
+-t  ：在输出的最终结果，显示实体内存与 swap 的总量。
+-s  ：可以让系统每几秒钟输出一次，不间断的一直输出的意思！对于系统观察挺有效！
+-c  ：与 -s 同时处理～让 free 列出几次的意思
+```
+
+一般来说，**swap 最好不要被使用，尤其 swap 最好不要被使用超过 20% 以上， 如果发现 swap 的用量超过 20% ，那么，最好还是买实体内存来插吧。因为，Swap 的性能跟实体内存实在差很多，
+而系统会使用到 swap， 绝对是因为实体内存不足了才会这样做的**。
+
+#### 查阅系统与核心相关信息 `uname`
+```bash
+[root@study ~]# uname [-asrmpi]
+选项与参数：
+-a  ：所有系统相关的信息，包括下面的数据都会被列出来；
+-s  ：系统核心名称
+-r  ：核心的版本
+-m  ：本系统的硬件名称，例如 i686 或 x86_64 等；
+-p  ：CPU 的类型，与 -m 类似，只是显示的是 CPU 的类型！
+-i  ：硬件的平台 （ix86）
+```
+
+#### 观察系统启动时间与工作负载 `uptime`
+显示出目前系统已经开机多久的时间，以及 1, 5, 15 分钟的平均负载就是了。这个 uptime 可以显示出 top 画面的最上面一行。
+
+#### netstat
+这个指令比较常被用在网络的监控方面。
+```bash
+[root@study ~]# netstat -[atunlp]
+选项与参数：
+-a  ：将目前系统上所有的连线、监听、Socket 数据都列出来
+-t  ：列出 tcp 网络封包的数据
+-u  ：列出 udp 网络封包的数据
+-n  ：不以程序的服务名称，以埠号 （port number） 来显示；
+-l  ：列出目前正在网络监听 （listen） 的服务；
+-p  ：列出该网络服务的程序 PID
+
+# 列出目前系统已经创建的网络连线与 unix socket 状态
+[root@study ~]# netstat
+Active Internet connections （w/o servers） <==与网络较相关的部分
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 172.16.15.100:ssh       172.16.220.234:48300    ESTABLISHED
+Active UNIX domain sockets （w/o servers）  <==与本机的程序自己的相关性（非网络）
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  2      [ ]         DGRAM                    1902     @/org/freedesktop/systemd1/notify
+unix  2      [ ]         DGRAM                    1944     /run/systemd/shutdownd
+....（中间省略）....
+unix  3      [ ]         STREAM     CONNECTED     25425    @/tmp/.X11-unix/X0
+unix  3      [ ]         STREAM     CONNECTED     28893
+unix  3      [ ]         STREAM     CONNECTED     21262
+```
+
+先来看看网际网络连线情况的部分：
+- Proto ：网络的封包协定，主要分为 TCP 与 UDP 封包；
+- Recv-Q：非由使用者程序链接到此 socket 的复制的总 Bytes 数；
+- Send-Q：非由远端主机传送过来的 acknowledged 总 Bytes 数；
+- Local Address ：本地端的 IP:port 情况
+- Foreign Address：远端主机的 IP:port 情况
+- State ：连线状态，主要有创建（ESTABLISED）及监听（LISTEN）；
+
+除了网络上的连线之外，其实 Linux 系统上面的程序是可以接收不同程序所发送来的信息，那就是 Linux 上头的socket file。
+- Proto ：一般就是 unix；
+- RefCnt：连接到此 socket 的程序数量；
+- Flags ：连线的旗标；
+- Type ：socket 存取的类型。主要有确认连线的 STREAM 与不需确认的 DGRAM 两种；
+- State ：若为 CONNECTED 表示多个程序之间已经连线创建。
+- Path ：连接到此 socket 的相关程序的路径！或者是相关数据输出的路径。
+
+#### dmesg
+分析核心产生的信息。不管是开机时候还是系统运行过程中，反正只要是核心产生的信息，都会被记录到内存中的某个保护区段。
+dmesg 这个指令就能够将该区段的讯息读出来。可以加入这个管线指令`| more`来使画面暂停。
+
+```bash
+# 输出所有的核心开机时的信息
+[root@study ~]# dmesg | more
+```
+
+#### vmstat
+侦测系统资源变化。
+```bash
+[root@study ~]# vmstat [-a] [延迟 [总计侦测次数]] <==CPU/内存等信息
+[root@study ~]# vmstat [-fs]                      <==内存相关
+[root@study ~]# vmstat [-S 单位]                  <==设置显示数据的单位
+[root@study ~]# vmstat [-d]                       <==与磁盘有关
+[root@study ~]# vmstat [-p 分区]                <==与磁盘有关
+选项与参数：
+-a  ：使用 inactive/active（活跃与否） 取代 buffer/cache 的内存输出信息；
+-f  ：开机到目前为止，系统复制 （fork） 的程序数；
+-s  ：将一些事件 （开机至目前为止） 导致的内存变化情况列表说明；
+-S  ：后面可以接单位，让显示的数据有单位。例如 K/M 取代 Bytes 的容量；
+-d  ：列出磁盘的读写总量统计表
+-p  ：后面列出分区，可显示该分区的读写总量统计表
+```
+
+## SELinux
+SELinux 是 Security Enhanced Linux 的缩写，安全强化的 Linux 之意。
+
+SELinux 当初设计的目标：避免资源的误用。
+
+系统的帐号主要分为系统管理员 （root） 与一般用户，而这两种身份能否使用系统上面的文件资源则与 rwx 的权限设置有关。
+这种存取文件系统的方式被称为**自主式存取控制 （Discretionary Access Control, DAC）**。基本上，就是依据程序的拥有者与文件资源的 rwx 权限来决定有无存取的能力。问题：
+
+- root 具有最高的权限：如果不小心某支程序被有心人士取得， 且该程序属于 root 的权限，那么这支程序就可以在系统上进行任何资源的存取。
+- 使用者可以取得程序来变更文件资源的存取权限：如果你不小心将某个目录的权限设置为 777 ，由于对任何人的权限会变成 rwx ，因此该目录就会被任何人所任意存取
+
+为了避免 DAC 容易发生的问题，因此 SELinux 导入了**委任式存取控制 （Mandatory Access Control, MAC）** 的方法。
+
+**他可以针对特定的程序与特定的文件资源来进行权限的控管！也就是说，即使你是 root，那么在使用不同的程序时，你所能取得的权限并不一定是 root ，而得要看当时该程序的设置而定。**
+
+**针对控制的“主体”变成了“程序”而不是使用者**。
+
+### SELinux 的运行模式
+**SELinux 是通过 MAC 的方式来控管程序，他控制的主体是程序， 而目标则是该程序能否读取的“文件资源”**。
+
+- 主体 （Subject）： SELinux 主要想要管理的就是程序（process）
+- 目标 （Object）： 主体程序能否存取的“目标资源”一般就是文件系统
+- 策略 （Policy）： 由于程序与文件数量庞大，因此 SELinux 会依据某些服务来制订基本的存取安全性策略。这些策略内还会有详细的规则（rule）来指定不同的服务开放某些资源的存取与否。
+在目前的 CentOS 7.x 里面仅有提供三个主要的策略，分别是：
+  - targeted：针对网络服务限制较多，针对本机限制较少，是默认的策略；
+  - minimum：由 target 修订而来，仅针对选择的程序来保护！
+  - mls：完整的 SELinux 限制，限制方面较为严格。建议使用默认的 targeted 策略即可。
+- 安全性本文 （security context）： 主体能不能存取目标除了策略指定之外，主体与目标的安全性本文必须一致才能够顺利存取。这个安全性本文 （security context） 有点类似文件系统
+的 rwx，安全性本文的内容与设置是非常重要的！如果设置错误，你的某些服务（主体程序）就无法存取文件系统（目标资源），当然就会一直出现“权限不符”的错误讯息了。
+
+![](/images/linux-basic/selinux_1.gif)
+
+#### 安全性本文 （Security Context）
+安全性本文存在于主体程序中与目标文件资源中。程序在内存内，所以安全性本文可以存入是没问题。那文件的安全性本文是放置到文件的 inode 内的。
+
+先来看看`/root`下面的文件的安全性本文：
+```bash
+[root@study ~]# ls -Z
+-rw-------. root root system_u:object_r:admin_home_t:s0     anaconda-ks.cfg
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0     initial-setup-ks.cfg
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 regular_express.txt
+```
+安全性本文主要用冒号分为三个字段，这三个字段的意义为：
+```bash
+Identify:role:type
+身份识别:角色:类型
+```
+
+- 身份识别（Identify），帐号方面的身份识别，几种常见的类型：
+  - unconfined_u：不受限的用户，也就是说，该文件来自于不受限的程序所产生的。 例如，一般默认的 bash 环境是不受 SELinux 管制。
+  - system_u：系统用户，大部分就是系统自己产生的文件
+- 角色（Role），通过角色字段，我们可以知道这个数据是属于程序、文件资源还是代表使用者。一般的角色有：
+  - object_r：代表的是文件或目录等文件资源，这应该是最常见的
+  - system_r：代表的就是程序
+- 类型（Type），在默认的 targeted 策略中，重要的在于这个类型（type）字段，一个主体程序能不能读取到这个文件资源，与类型字段有关。类型字段在文件与程序的定义不太相同，分别是：
+  - type：在文件资源 （Object） 上面称为类型 （Type）
+  - domain：在主体程序 （Subject） 则称为领域 （domain）
+
+domain 需要与 type 搭配，则该程序才能够顺利的读取文件资源。
+
+
+#### SELinux 三种模式的启动、关闭与观察
+- enforcing：强制模式，代表 SELinux 运行中，且已经正确的开始限制 domain/type 了；
+- permissive：宽容模式：代表 SELinux 运行中，不过仅会有警告讯息并不会实际限制 domain/type 的存取。这种模式可以运来作为 SELinux 的 debug 之用；
+- disabled：关闭，SELinux 并没有实际运行。
+
+![](/images/linux-basic/sselinux_3.jpg)
+
+宽容（permissive）模式，这种模式也是不会将主体程序抵挡（所以箭头是可以直接穿透的），不过万一没有通过策略规则，或者是安全本文的比对时，那么该读写动作将会被纪录起来（log），
+可作为未来检查问题的判断依据。
+
+#### SELinux 的启动与关闭
+**如果改变了策略则需要重新开机；如果由 enforcing 或 permissive 改成 disabled ，或由 disabled 改成其他两个，那也必须要重新开机。这是因为 SELinux 是整合到核心里面去的，
+只可以在 SELinux 运行下切换成为强制（enforcing）或宽容（permissive）模式，不能够直接关闭 SELinux 的**。
+
+如果从 disable 转到启动 SELinux 的模式时，**由于系统必须要针对文件写入安全性本文的信息，因此开机过程会花费不少时间在等待重新写入 SELinux 安全性本文**。
+开机成功后，再使用`getenforce`或`sestatus`来观察看看有否成功的启动到 Enforcing 的模式：
+```bash
+[root@study ~]# setenforce [0|1]
+选项与参数：
+0 ：转成 permissive 宽容模式；
+1 ：转成 Enforcing 强制模式
+
+# 将 SELinux 在 Enforcing 与 permissive 之间切换与观察
+[root@study ~]# setenforce 0
+[root@study ~]# getenforce
+Permissive
+```
+setenforce 无法在 Disabled 的模式下面进行模式的切换。
+
+## 系统服务（daemons）
+从 CentOS 7.x 以后， 改用 systemd 这个启动服务管理机制，systemd 有什么好处？
+- 平行处理所有服务，加速开机流程： 旧的 init 启动脚本是“一项一项任务依序启动”的模式，因此不相依的服务也是得要一个一个的等待。
+-  systemd 全部就是仅有一只 systemd 服务搭配 systemctl 指令来处理，无须其他额外的指令来支持。不像 systemV 还要 init, chkconfig, service... 等等指令。
+此外， systemd 由于常驻内存，因此任何要求 （on-demand） 都可以立即处理后续的 daemon 启动的任务。
+- systemd 可以自订服务相依性的检查。
+- 依 daemon 功能分类， systemd 先定义所有的服务为一个服务单位 （unit），并将该 unit 归类到不同的服务类型 （type） 去。systemd 将服务单位 （unit） 区分为 service, socket, target,
+path, snapshot, timer 等多种不同的类型（type），方便分类与记忆。
+- 将多个 daemons 集合成为一个群组
+-  systemd 是可以相容于 init 的启动脚本的，因此，旧的 init 启动脚本也能够通过 systemd 来管理
+
+### systemd 的配置文件放置目录
+- `/usr/lib/systemd/system/`：每个服务最主要的启动脚本设置，有点类似的`/etc/init.d`下面的文件；
+- `/run/systemd/system/`：系统执行过程中所产生的服务脚本，这些脚本的优先序要比`/usr/lib/systemd/system/`高
+- `/etc/systemd/system/`：管理员依据主机系统的需求所创建的执行脚本，其实这个目录有点像`/etc/rc.d/rc5.d/Sxx `类的功能，执行优先序又比`/run/systemd/system/`高
+
+也就是说，到底系统开机会不会执行某些服务其实是看`/etc/systemd/system/`下面的设置。该目录下面就是一大堆链接文件。而实际执行的 systemd 启动脚本配置文件，
+其实都是放置在`/usr/lib/systemd/system/`下面的。因此如果你想要修改某个服务启动的设置，应该要去`/usr/lib/systemd/system/`下面修改。
+
+### systemd 的 unit 类型分类说明
+
+|  扩展名     | 主要服务功能   |
+| --------   | -----  |
+| `.service`  | 一般服务类型 （service unit）：主要是系统服务，包括服务器本身所需要的本机服务以及网络服务都是，这也是最常见的类型 |
+| `.socket`  | 内部程序数据交换的 socket unit ：主要是 IPC （Inter-process communication） 的传输讯息 socket file 功能。  |
+| `.target`  | 执行环境类型 （target unit）：其实是一群 unit 的集合 |
+| `.mount`，`.automount`  | 文件系统挂载相关的服务 （automount unit / mount unit）：例如来自网络的自动挂载、NFS 文件系统挂载等与文件系统相关性较高的程序管理。 |
+| `.path`  | 侦测特定文件或目录类型 （path unit）：某些服务需要侦测某些特定的目录来提供伫列服务，例如最常见的打印服务，就是通过侦测打印伫列目录来启动打印功能 |
+| `.timer`  | 循环执行的服务 （timer unit）：这个东西有点类似 anacrontab 喔！不过是由 systemd 主动提供的，比 anacrontab 更加有弹性 |
+
+## systemctl 管理服务
+```bash
+[root@study ~]# systemctl [command] [unit]
+command 主要有：
+start     ：立刻启动后面接的 unit
+stop      ：立刻关闭后面接的 unit
+restart   ：立刻关闭后启动后面接的 unit，亦即执行 stop 再 start 的意思
+reload    ：不关闭后面接的 unit 的情况下，重新载入配置文件，让设置生效
+enable    ：设置下次开机时，后面接的 unit 会被启动
+disable   ：设置下次开机时，后面接的 unit 不会被启动
+status    ：目前后面接的这个 unit 的状态，会列出有没有正在执行、开机默认执行否、登录等信息等！
+is-active ：目前有没有正在运行中
+is-enable ：开机时有没有默认要启用这个 unit
+```
+
+### 通过 systemctl 观察系统上所有的服务
+```bash
+[root@study ~]# systemctl [command] [--type=TYPE] [--all]
+command:
+    list-units      ：依据 unit 列出目前有启动的 unit。若加上 --all 才会列出没启动的。
+    list-unit-files ：依据 /usr/lib/systemd/system/ 内的文件，将所有文件列表说明。
+--type=TYPE：就是之前提到的 unit type，主要有 service, socket, target 等
+```
+
+### 通过 systemctl 分析各服务之间的相依性
+```bash
+[root@study ~]# systemctl list-dependencies [unit] [--reverse]
+选项与参数：
+--reverse ：反向追踪谁使用这个 unit 的意思
+
+[root@study ~]# systemctl list-dependencies
+default.target
+├─abrt-ccpp.service
+├─abrt-oops.service
+├─vsftpd.service
+├─basic.target
+│ ├─alsa-restore.service
+│ ├─alsa-state.service
 ```
