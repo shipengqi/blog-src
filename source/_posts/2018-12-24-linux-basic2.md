@@ -1,5 +1,5 @@
 ---
-title: 笔记 鸟哥的Linux私房菜（中）
+title: 笔记 鸟哥的Linux私房菜（下）
 date: 2018-12-24 15:26:39
 categories: ["Linux"]
 ---
@@ -1627,3 +1627,44 @@ default.target
 │ ├─alsa-restore.service
 │ ├─alsa-state.service
 ```
+
+## 登录文件
+登录文件可以记录系统在什么时间、哪个主机、哪个服务、出现了什么信息等信息，这些信息也包括使用者识别数据、系统故障排除须知等信息。如果能够善用这些登录文件信息的话，系统出现错误时，将可以在第一时间发现，
+而且也能够从中找到解决的方案，而不是昏头转向的乱问。
+
+**登录文件记录系统在什么时候由哪个程序做了什么样的行为时，发生了何种的事件等等**。
+
+### Linux 常见的登录文件
+- `/var/log/boot.log`：开机的时候系统核心会去侦测与启动硬件，接下来开始各种核心支持的功能启动等。这些流程都会记录在`/var/log/boot.log`里面！ 不过这个文件只会存在这次开机启动的信息，
+前次开机的信息并不会被保留下来！
+- `/var/log/cron`：crontab 调度有没有实际被进行？ 进行过程有没有发生错误？你的`/etc/crontab`是否撰写正确？在这个登录文件内查询看看。
+- `/var/log/dmesg`：记录系统在开机的时候核心侦测过程所产生的各项信息。由于 CentOS 默认将开机时核心的硬件侦测过程取消显示， 因此额外将数据记录一份在这个文件中；
+- `/var/log/lastlog`：可以记录系统上面所有的帐号最近一次登陆系统时的相关信息。
+- `/var/log/maillog`或`/var/log/mail/*`：记录邮件的往来信息，其实主要是记录 postfix（SMTP 协定提供者）与 dovecot（POP3 协定提供者）所产生的讯息。 SMTP 是发信所使用的通讯协定，
+POP3 则是收信使用的通讯协定。 postfix 与 dovecot 则分别是两套达成通讯协定的软件。
+- `/var/log/messages`：**这个文件相当的重要，几乎系统发生的错误讯息（或者是重要的信息）都会记录在这个文件中；如果系统发生莫名的错误时，这个文件是一定要查阅的登录文件之一**。
+- `/var/log/secure`：基本上，只要牵涉到**需要输入帐号密码**的软件，那么当登陆时（不管登陆正确或错误）都会被记录在此文件中。包括系统的 login 程序、图形接口登陆所使用的 gdm 程序、
+su, sudo 等程序、还有网络连线的 ssh, telnet 等程序， 登陆信息都会被记载在这里；
+- `/var/log/wtmp`,`/var/log/faillog`：这两个文件可以记录正确登陆系统者的帐号信息（wtmp）与错误登陆时所使用的帐号信息（faillog）！**对于追踪一般帐号者的使用行为很有帮助**！
+- `/var/log/httpd/`, `/var/log/samba/`：不同的网络服务会使用它们自己的登录文件来记载它们自己产生的各项讯息！上述的目录内则是个别服务所制订的登录文件。
+
+#### 登录文件内容的一般格式
+拿登录时一定会记载帐号信息的`/var/log/secure`为例:
+```bash
+[root@study ~]# cat /var/log/secure
+Aug 17 18:38:06 study login: pam_unix（login:session）: session opened for user root by LOGIN（uid=0）
+Aug 17 18:38:06 study login: ROOT LOGIN ON tty1
+Aug 17 18:38:19 study login: pam_unix（login:session）: session closed for user root
+Aug 18 23:45:17 study sshd[18913]: Accepted password for dmtsai from 192.168.1.200 port 41524 ssh2
+Aug 18 23:45:17 study sshd[18913]: pam_unix（sshd:session）: session opened for user dmtsai by （uid=0）
+Aug 18 23:50:25 study sudo: dmtsai : TTY=pts/0 ; PWD=/home/dmtsai ; USER=root ; COMMAND=/bin/su -
+Aug 18 23:50:25 study su: pam_unix（su-l:session）: session opened for user root by dmtsai（uid=0）
+|--日期/时间---|--H--|-服务与相关函数-|-----------讯息说明------>
+```
+
+以第一笔数据来说明，该数据是说：“在 08/17 的 18:38 左右，在名为 study 的这部主机系统上，由 login 这个程序产生的讯息，内容显示 root 在 tty1 登陆了，而相关的权限给予是通过 pam_unix 模块处理的
+（共两行数据）。”
+
+#### 分析登录文件
+##### CentOS 默认提供的 logwatch
+CentOS 7.x 上面默认的 logwatch 这个套件所提供的分析工具， 他会每天分析一次登录文件，并且将数据以 email 的格式寄送给 root。
