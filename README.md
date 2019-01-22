@@ -83,6 +83,7 @@ Options:
   - [前端指南](https://github.com/nanhupatar/FEGuide)
   - [V8 引擎](https://github.com/justjavac/v8.js.cn)
   - CSS 揭秘
+  - [CSS Inspiration](https://github.com/chokcoco/CSS-Inspiration)
   - [前端月刊](https://github.com/jsfront/month)
   - 前端监控 掘金收藏
 - Vue
