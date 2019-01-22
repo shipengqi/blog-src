@@ -10,8 +10,8 @@ CentOs下安装Go。
 <!-- more -->
 
 ## 下载源码包：
-官网下载地址为：https://golang.org/dl/。
-下载 go1.9.1.linux-amd64.tar.gz。
+官网[下载地址](https://golang.org/dl/)。
+下载`go1.9.1.linux-amd64.tar.gz`。
 ## go的默认路径是`/usr/local`下，所以将下载的源码包解压至 `/usr/local`目录。、
 ``` bash
 tar -C /usr/local -xzf go1.9.1.linux-amd64.tar.gz
