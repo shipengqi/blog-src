@@ -118,6 +118,7 @@ Options:
   - Go 语言学习笔记
   - 极客时间 Go 语言核心三十六讲
   - 小册 Go 搭建企业级Web
+  - [Go 深入解析](https://tiancaiamao.gitbooks.io/go-internals/content/zh/)
   - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
   - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
 - 系统设计
