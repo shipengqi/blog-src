@@ -80,6 +80,8 @@ Options:
   - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
   - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
   - [33 js concepts 中文版](https://github.com/stephentian/33-js-concepts)
+  - [前端知识集锦](https://github.com/KieSun/Front-end-knowledge)
+  - [前端面试之道](https://github.com/InterviewMap/CS-Interview-Knowledge-Map)
   - [前端指南](https://github.com/nanhupatar/FEGuide)
   - [V8 引擎](https://github.com/justjavac/v8.js.cn)
   - CSS 揭秘
