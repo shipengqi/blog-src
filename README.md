@@ -120,7 +120,8 @@ Options:
   - Go 语言学习笔记
   - 极客时间 Go 语言核心三十六讲
   - 小册 Go 搭建企业级Web
-  - [Go 深入解析](https://tiancaiamao.gitbooks.io/go-internals/content/zh/)
+  - [Learn Go with tests](https://github.com/quii/learn-go-with-tests)
+  - [Learning Go](https://github.com/mikespook/Learning-Go-zh-cn)
   - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
   - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
 - 系统设计
@@ -161,3 +162,5 @@ Options:
 
 ## TODO
 - 优化：[七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
+https://github.com/yangwenmai/learning-golang
+https://github.com/Miej/GoDeeper
