@@ -104,6 +104,7 @@ Options:
 - Node.js
   - [Node.js Source code](https://github.com/nodejs/node)
   - Node.js 核心模块
+  - Node.js 内存管理与垃圾回收
   - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
   - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
   - [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
@@ -120,6 +121,8 @@ Options:
   - Go 语言学习笔记
   - 极客时间 Go 语言核心三十六讲
   - 小册 Go 搭建企业级Web
+  - Go 内存管理与垃圾回收
+  - Go 并发调度
   - [Learn Go with tests](https://github.com/quii/learn-go-with-tests)
   - [Learning Go](https://github.com/mikespook/Learning-Go-zh-cn)
   - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
@@ -130,6 +133,7 @@ Options:
   - 极客时间 推荐系统三十六式
   - 极客时间 从零开始学微服务
   - 极客时间 微服务核心二十讲
+  - 架构师之路
   - 人人都是架构师
   - 架构解密:从分布式到微服务
   - 架构探险:从零开始写分布式服务架构
