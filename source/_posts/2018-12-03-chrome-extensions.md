@@ -8,7 +8,8 @@ categories: ["编程"]
 
 <!-- more -->
 
-## 下载插件
+## 访问谷歌
+### 下载插件
 
 因为我可以在公司访问 Google，所以我在公司先把插件下载好，到家里安装。在应用商店是不能直接下载插件的。但是可应通过这个[网站](https://chrome-extension-downloader.com/)下载。
 1. 先在 Chrome 应用商店找到插件，复制连接。
@@ -19,7 +20,7 @@ categories: ["编程"]
 
 ![](/images/chrome-extensions/chrome2.jpg)
 
-### 不能访问 Google 的情况下
+#### 不能访问 Google 的情况下
 可以尝试在第三方的 Chrome插件下载网站。
 
 - [crx4chrome](https://www.crx4chrome.com/)
@@ -34,11 +35,17 @@ categories: ["编程"]
 - 谷歌上网助手（未测试）
 - 谷歌服务助手（测试不可用）
 
-## 安装插件
-### Chrome 67 以前版本
+### 安装插件
+#### Chrome 67 以前版本
 浏览器打开`chrome://extensions/`，直接把插件拖进去安装。
 
-### Chrome 67 以后版本
+#### Chrome 67 以后版本
 Chrome 67 以后版本无法离线安装，可以用**Chrome 插件伴侣**来安装插件。我已经下载好放在了[这里](https://pan.baidu.com/s/1QVXauUSn87dJ2N6eo1e_9g)，提取码是`vpr1`。
 
 使用非常简单，按提示操作即可。
+
+## 其他插件
+- Octotree，在页面侧边展示出Github仓库的目录树。
+- FeHelper，web前端助手，相当于一个工具箱，包括JSON格式化、二维码生成与解码、信息编解码、代码压缩、美化、页面取色、Markdown与HTML互转、
+网页滚动截屏、正则表达式、时间转换工具、编码规范检测、页面性能检测、Ajax接口调试、密码生成器、JSON比对工具、网页编码设置、便签笔记等。
+- JSON Editor，一个Json格式化工具

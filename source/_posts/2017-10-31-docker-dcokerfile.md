@@ -59,6 +59,9 @@ ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /
 
 因此在 `COPY` 和 `ADD` 指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用 `COPY` 指令，仅在需要自动解压缩的场合使用 `ADD`。
 
+> **注意，COPY 和 ADD 命令：只复制目录中的内容而不包含目录自身。比如`COPY nickdir .`，不会把`nickdir`目录复制到容器，需要在目标路径中指定这个目录的名称
+比如`COPY nickdir ./nickdir`，才会把`nickdir`目录复制到容器。**
+
 ### CMD 容器启动命令
 
 `CMD` 指令的格式和 `RUN` 相似，也是两种格式：
