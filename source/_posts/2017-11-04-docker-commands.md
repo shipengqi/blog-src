@@ -400,7 +400,7 @@ docker search -s 10 java
 ```
 ## 本地镜像管理
 ```bash
-docker [images|rmi|tag|build|history|save|import]
+docker [images|rmi|tag|build|history|save|load|import]
 ```
 
 ### docker images
@@ -489,6 +489,22 @@ docker save [OPTIONS] IMAGE [IMAGE...]
 #将镜像share/ubuntu:v3 生成my_ubuntu_v3.tar文档
 docker save -o my_ubuntu_v3.tar share/ubuntu:v3
 ```
+
+### docker load
+从一个 tar 包中加载一个镜像。
+```bash
+docker load [OPTIONS]
+```
+
+- `-i`，`--input`: 从tar存档文件中读取，而不是从STDIN中读取
+- `--quiet`，`-q`: 抑制 load 输出
+
+```bash
+docker load < busybox.tar.gz
+
+docker load --input fedora.tar
+```
+
 ### docker import
 从归档文件中创建镜像。
 
@@ -506,6 +522,14 @@ docker export 7691a814370e > ubuntu.tar
 #从镜像归档文件ubuntu.tar创建镜像，命名为share/ubuntu:v4
 docker import  ubuntu.tar share/ubuntu:v4 
 ```
+
+### docker load 和 docker import 的区别
+`docker save images_name`：将一个镜像导出为文件，再使用`docker load`命令将文件导入为一个镜像，会保存该镜像的的所有历史记录。比`docker export`命令导出的文件大，
+很好理解，因为会保存镜像的所有历史记录。
+
+`docker export container_id`：将一个容器导出为文件，再使用`docker import`命令将容器导入成为一个新的镜像，但是相比`docker save`命令，容器文件会丢失所有元数据和历史记录，
+仅保存容器当时的状态，相当于虚拟机快照。
+
 ## info|version
 ``` bash
 docker [info|version]

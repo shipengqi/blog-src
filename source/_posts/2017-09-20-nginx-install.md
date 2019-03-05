@@ -38,7 +38,7 @@ tags: ["Nginx"]
 sudo touch /etc/yum.repos.d/nginx.repo
 sudo vim /etc/yum.repos.d/nginx.repo
 ```
-填入以下内容 {version} 是os版本 6 for RHEL 6.6,7 for RHEL 7.1
+**填入以下内容`{version}`是 OS 版本 6 for RHEL 6.6 , 7 for RHEL 7.1，注意版本是 6 或 7**
 ``` bash
 [nginx]
 name=nginx repo
@@ -112,7 +112,7 @@ sudo systemctl start nginx
 curl http://<your ip>
 ```
 
-#Nginx 源码编译安装
+## Nginx 源码编译安装
 
 - 开始安装：
     - 下载源码包：`wget http://nginx.org/download/nginx-1.8.1.tar.gz`

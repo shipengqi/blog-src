@@ -119,6 +119,7 @@ Options:
 - Go
   - Go 并发编程实战
   - Go 语言学习笔记
+  - [GO 入门指南](https://github.com/Unknwon/the-way-to-go_ZH_CN)
   - 极客时间 Go 语言核心三十六讲
   - 小册 Go 搭建企业级Web
   - Go 内存管理与垃圾回收
