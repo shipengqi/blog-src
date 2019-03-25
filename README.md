@@ -34,7 +34,7 @@ Options:
 
   --proxy
     配置代理，参数可选，没有参数即使用默认代理。
-    配合deploy使用, e.g: --proxy="http://proxy.com"
+    配合 deploy 使用, e.g: --proxy="http://proxy.com"
     注意"="必须有
 ```
 
@@ -124,10 +124,13 @@ Options:
   - 小册 Go 搭建企业级Web
   - Go 内存管理与垃圾回收
   - Go 并发调度
+  - [Go 42](https://github.com/ffhelicopter/Go42)
   - [Learn Go with tests](https://github.com/quii/learn-go-with-tests)
   - [Learning Go](https://github.com/mikespook/Learning-Go-zh-cn)
   - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
   - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
+  - [learning-golang](https://github.com/yangwenmai/learning-golang)
+  - [GoDeeper](https://github.com/Miej/GoDeeper)
 - 系统设计
   - 极客时间 从零开始学架构
   - 极客时间 秒杀系统设计
@@ -146,6 +149,7 @@ Options:
   - 微服务架构与实践
   - 微服务设计
   - [System design primer](https://github.com/donnemartin/system-design-primer)
+  - [支付系统](https://github.com/skr-shop/manuals)
 - 工具
   - 极客时间 深入剖析 Kubernetes
   - 小册 Kubernetes 上手到实践
@@ -168,5 +172,3 @@ Options:
 
 ## TODO
 - 优化：[七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
-https://github.com/yangwenmai/learning-golang
-https://github.com/Miej/GoDeeper
