@@ -86,6 +86,7 @@ Options:
   - [V8 引擎](https://github.com/justjavac/v8.js.cn)
   - CSS 揭秘
   - [CSS Inspiration](https://github.com/chokcoco/CSS-Inspiration)
+  - [前端各种专题](https://github.com/veedrin/horseshoe)
   - [前端月刊](https://github.com/jsfront/month)
   - 前端监控 掘金收藏
 - Vue
@@ -109,9 +110,11 @@ Options:
   - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
   - [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
   - [profiler](https://segmentfault.com/a/1190000012414666)
-  - [深入理解Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
-  - [Nodejs学习笔记](https://github.com/chyingp/nodejs-learning-guide)
-  - [Nodejs笔记](https://github.com/peze/someArticle)
+  - [深入理解 Node.js：核心思想与源码分析](https://github.com/yjhjstz/deep-into-node)
+  - [Nodejs 学习笔记](https://github.com/chyingp/nodejs-learning-guide)
+  - [Nodejs 笔记](https://github.com/peze/someArticle)
+  - [Stream 模块](https://github.com/zoubin/streamify-your-node-program)
+  - [Node.js 调优指南](https://github.com/aliyun-node/Node.js-Troubleshooting-Guide)
   - Node.js：来一打C++扩展
   - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
   - Hubot source code
