@@ -21,7 +21,143 @@ Docker 官方文档 [Best practices for writing Dockerfiles](https://docs.docker
 
 ### 使用多阶段构建
 
-在 `Docker 17.05` 以上版本中，你可以使用 [多阶段构建](../image/multistage-builds.md) 来减少所构建镜像的大小。
+在 `Docker 17.05` 以上版本中，你可以使用 **多阶段构建** 来减少所构建镜像的大小。
+
+在 `Docker 17.05` 版本之前，我们构建 Docker 镜像时，通常会采用两种方式：
+
+#### 全部放入一个 Dockerfile
+将所有的构建过程编包含在一个 `Dockerfile` 中，包括项目及其依赖库的编译、测试、打包等流程，这里可能会带来的一些问题：
+- 镜像层次多，镜像体积较大，部署时间变长
+- 源代码存在泄露的风险
+
+#### 分散到多个 Dockerfile
+事先在一个 Dockerfile 将项目及其依赖库编译测试打包好后，再将其拷贝到运行环境中，这种方式需要我们编写两个 `Dockerfile` 和一些编译脚本才能将其两
+个阶段自动整合起来，这种方式虽然可以很好地规避第一种方式存在的风险，但明显部署过程较复杂。
+
+例如，`Dockerfile.build` 文件
+```dockerfile
+FROM golang:1.9-alpine
+
+RUN apk --no-cache add git
+
+WORKDIR /go/src/github.com/go/helloworld
+
+COPY app.go .
+
+RUN go get -d -v github.com/go-sql-driver/mysql \
+  && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+```
+
+`Dockerfile.copy` 文件
+```dockerfile
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+COPY app .
+
+CMD ["./app"]
+```
+
+新建 `build.sh`
+```dockerfile
+#!/bin/sh
+echo Building go/helloworld:build
+
+docker build -t go/helloworld:build . -f Dockerfile.build
+
+docker create --name extract go/helloworld:build
+docker cp extract:/go/src/github.com/go/helloworld/app ./app
+docker rm -f extract
+
+echo Building go/helloworld:2
+
+docker build --no-cache -t go/helloworld:2 . -f Dockerfile.copy
+rm ./app
+```
+运行脚本即可构建镜像：
+```sh
+./build.sh
+```
+
+#### 多阶段构建
+为解决以上问题，`Docker v17.05` 开始支持多阶段构建，编写 `Dockerfile` 文件：
+```dockerfile
+FROM golang:1.9-alpine as builder
+
+RUN apk --no-cache add git
+
+WORKDIR /go/src/github.com/go/helloworld/
+
+RUN go get -d -v github.com/go-sql-driver/mysql
+
+COPY app.go .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest as prod
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+COPY --from=0 /go/src/github.com/go/helloworld/app .
+
+CMD ["./app"]
+```
+
+另一个例子是 [TiDB](https://github.com/pingcap/tidb) 的 `Dockerfile`：
+```dockerfile
+# Builder image
+FROM golang:1.12-alpine as builder
+
+RUN apk add --no-cache \
+    wget \
+    make \
+    git \
+    gcc \
+    musl-dev
+
+RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64 \
+ && chmod +x /usr/local/bin/dumb-init
+
+COPY . /go/src/github.com/pingcap/tidb
+
+WORKDIR /go/src/github.com/pingcap/tidb/
+
+RUN make
+
+# Executable image
+FROM alpine
+
+COPY --from=builder /go/src/github.com/pingcap/tidb/bin/tidb-server /tidb-server
+COPY --from=builder /usr/local/bin/dumb-init /usr/local/bin/dumb-init
+
+WORKDIR /
+
+EXPOSE 4000
+
+ENTRYPOINT ["/usr/local/bin/dumb-init", "/tidb-server"]
+```
+
+#### 构建时从其他镜像复制文件
+上面第一个例子中我们使用 `COPY --from=0 /go/src/github.com/go/helloworld/app .` 从上一阶段的镜像中复制文件，我们也可以复制任意镜像中的文件。如，第二个例子中：
+```dockerfile
+COPY --from=builder /go/src/github.com/pingcap/tidb/bin/tidb-server /tidb-server
+```
+
+#### 只构建某一阶段的镜像
+可以使用 `as` 来为某一阶段命名，例如
+```dockerfile
+FROM golang:1.9-alpine as builder
+```
+
+例如当我们只想构建 `builder` 阶段的镜像时，增加 `--target=builder` 参数即可
+```sh
+docker build --target builder -t username/imagename:tag .
+```
 
 ### 避免安装不必要的包
 
