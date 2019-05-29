@@ -117,6 +117,7 @@ Options:
   - [Node.js 调优指南](https://github.com/aliyun-node/Node.js-Troubleshooting-Guide)
   - Node.js：来一打C++扩展
   - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
+  - [underscore-analysis](https://github.com/lessfish/underscore-analysis)
   - Hubot source code
   - Unit test (Mocha, nyc)
 - Go
