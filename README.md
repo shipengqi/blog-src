@@ -177,3 +177,4 @@ Options:
 
 ## TODO
 - 优化：[七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
+- 修改主题：`theme: next` `language: zh-Hans`
