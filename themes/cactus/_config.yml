@@ -19,7 +19,8 @@ nav:
   Writing: /archives/
   Categories: /categories/
   Tags: /tags/
-  Projects: https://github.com/shipengqi
+  # Projects: https://github.com/shipengqi
+  Search: /search/
 
 
 # Links to your social media accounts.

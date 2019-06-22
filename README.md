@@ -175,6 +175,76 @@ Options:
   - [免费的计算机编程类中文书籍](https://github.com/justjavac/free-programming-books-zh_CN?utm_source=gold_browser_extension)
   - 掘金 收藏 list
 
+
+## 主题
+### next
+`next` 主题需要修改 站点配置：
+```yml
+# Site
+title: Learning
+subtitle: Learning
+language: zh-Hans
+
+## Themes: https://hexo.io/themes/
+theme: next
+
+#search:
+#  path: search.xml
+#  field: post
+#  content: true
+
+algolia:
+  applicationID: '07FOXYZ6PF'
+  indexName: 'blog'
+  apiKey: 'fff267b07b3a0db8d496a17fe3601667'
+  chunkSize: 5000
+```
+
+`next` 使用 `algolia` 实现搜索功能。
+
+### cactus
+`cactus` 主题需要修改 站点配置：
+```yml
+# Site
+title: Learning
+subtitle: Learning
+language: en
+
+## Themes: https://hexo.io/themes/
+theme: cactus
+
+search:
+  path: search.xml
+  field: post
+  content: true
+
+#algolia:
+#  applicationID: '07FOXYZ6PF'
+#  indexName: 'blog'
+#  apiKey: 'fff267b07b3a0db8d496a17fe3601667'
+#  chunkSize: 5000
+
+#compress
+neat_enable: false
+neat_html:
+  enable: true
+  exclude:
+neat_css:
+  enable: true
+  exclude:
+    - '*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'
+```
+
+`cactus` 主题在 `source` 下增加了 `_data` 和 `search` 目录。
+
+`cactus` 使用 `hexo-generator-search` 实现搜索功能。
+
 ## TODO
 - 优化：[七牛云静态资源存储插件](https://github.com/gyk001/hexo-qiniu-sync)
-- 修改主题：`theme: next` `language: zh-Hans`

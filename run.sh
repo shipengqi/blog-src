@@ -30,7 +30,8 @@ port=8081
 useProxy="false"
 proxy="http://web-proxy.il.softwaregrp.net:8080"
 executeCommand="start"
-TEMP=`getopt -o hsdp: --long help,start,deploy,port:,proxy:: -n './run.sh --help' -- "$@"`
+theme="cactus"
+TEMP=`getopt -o hsdp: --long help,start,deploy,theme,port:,proxy:: -n './run.sh --help' -- "$@"`
 if [ $? != 0 ]; then
     echo "Terminating..."
     exit 1
@@ -51,6 +52,10 @@ do
         ;;
         -d|--deploy)
             executeCommand="deploy"
+            shift
+        ;;
+        --theme)
+            theme=$2
             shift
         ;;
         -p|--port)
@@ -91,18 +96,27 @@ function deploy() {
     if [[ ${useProxy} == "true" ]];then
         set_proxy
     fi
-    hexo clean
-    hexo g
-    export HEXO_ALGOLIA_INDEXING_KEY=fff267b07b3a0db8d496a17fe3601667
-    hexo algolia
-    hexo d
+    if [[ ${theme} == "next" ]];then
+        hexo clean
+        hexo g
+        export HEXO_ALGOLIA_INDEXING_KEY=fff267b07b3a0db8d496a17fe3601667
+        hexo algolia
+        hexo d
+        exit 0
+    fi
+    if [[ ${theme} == "cactus" ]];then
+        hexo clean
+        hexo g
+        hexo d
+        exit 0
+    fi
 }
 
 function set_proxy() {
   export http_proxy=$proxy
   export https_proxy=$http_proxy
   export HTTP_PROXY=$http_proxy
-  export HTTPS_PROXY=$http_proxys
+  export HTTPS_PROXY=$http_proxy
   export no_proxy=127.0.0.1,localhost,.hpe.com,.hp.com,.hpeswlab.net
   export NO_PROXY=$no_proxy
 }
@@ -110,6 +124,10 @@ function set_proxy() {
 if [[ ${executeCommand} == "start" ]];then
 	start
 elif [[ ${executeCommand} == "deploy" ]];then
+   if [[ ${theme} != "next" && ${theme} != "cactus" ]];then
+     echo "Unsupported theme."
+     exit 1
+   fi
 	deploy
 else
 	show_help

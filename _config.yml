@@ -104,20 +104,21 @@ baidu_url_submit:
   token: MSpvujKZoY66JsZC
   path: baidu_urls.txt
 
-#search:
-#  path: search.xml
-#  field: post
+search:
+  path: search.xml
+  field: post
+  content: true
 #  format: html
 #  limit: 10000
 
-algolia:
-  applicationID: '07FOXYZ6PF'
-  indexName: 'blog'
-  apiKey: 'fff267b07b3a0db8d496a17fe3601667'
-  chunkSize: 5000
+#algolia:
+#  applicationID: '07FOXYZ6PF'
+#  indexName: 'blog'
+#  apiKey: 'fff267b07b3a0db8d496a17fe3601667'
+#  chunkSize: 5000
 
 #compress
-neat_enable: true
+neat_enable: false
 neat_html:
   enable: true
   exclude:
