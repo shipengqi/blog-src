@@ -22,6 +22,9 @@ Options:
     配置代理，参数可选，没有参数即使用默认代理。
     配合deploy使用, e.g: --proxy="http://proxy.com"
     注意"="必须有
+
+  --theme
+    配合 deploy 使用, 部属时需要制定使用的主题，默认是 cactus
 EOF
 }
 
