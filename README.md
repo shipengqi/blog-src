@@ -39,7 +39,7 @@ yarn install # or npm install
 
 ## 主题
 ### next
-`next` 主题需要修改 站点配置：
+[`next` 主题](http://theme-next.iissnan.com/)需要修改**站点配置**：
 ```yml
 # Site
 title: Learning
@@ -64,7 +64,7 @@ algolia:
 `next` 使用 `algolia` 实现搜索功能。
 
 ### cactus
-`cactus` 主题需要修改 站点配置：
+[`cactus` 主题](https://github.com/probberechts/hexo-theme-cactus)需要修改**站点配置**：
 ```yml
 # Site
 title: Learning
