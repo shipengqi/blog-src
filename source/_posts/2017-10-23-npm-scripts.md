@@ -1,8 +1,7 @@
 ---
 title: NPM scripts使用
 date: 2017-10-23 22:54:07
-categories: ["NodeJs"]
-tags: ["NPM"]
+categories: ["Node.js"]
 ---
 
 `npm`脚本功能是最常用的功能之一。`npm run` 是 `npm run-script` 的缩写。运行 `npm run <script_name>`会执行当前项目的`package.json` 中 `scripts` 属性下的这段脚本。

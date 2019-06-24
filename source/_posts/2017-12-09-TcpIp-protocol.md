@@ -2,7 +2,6 @@
 title: TCP/IP 模型
 date: 2017-12-09 16:43:56
 categories: ["Protocol"]
-tags: ["TcpIp"]
 ---
 
 我们每天使用互联网，你是否想过，它是如何实现的？

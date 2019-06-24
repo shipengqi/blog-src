@@ -1,7 +1,7 @@
 ---
 title: Nodejs的模块加载机制
 date: 2017-10-09 19:42:33
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 Node.js的模块分为两类：

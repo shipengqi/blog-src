@@ -2,7 +2,6 @@
 title: JDK安装
 date: 2018-01-29 15:50:50
 categories: ["Linux"]
-tags: ["JDK"]
 ---
 
 JDK 官网下载地址 ：<http://www.oracle.com/technetwork/java/javase/downloads/>

@@ -2,7 +2,6 @@
 title: Maven安装
 date: 2018-01-29 16:15:29
 categories: ["Linux"]
-tags: ["Maven"]
 ---
 
 Maven官网下载地址：<http://maven.apache.org/download.cgi>

@@ -2,7 +2,7 @@
 title: Babel 入门
 date: 2017-12-05 19:54:36
 categories: ["Javascript"]
-tags: ["ES6", "babel"]
+tags: ["ES6"]
 ---
 
 [Babel](https://babeljs.io/) 是一个广泛使用的 ES6 转码器，可以将 ES6 代码转为 ES5 代码，从而在现有环境执行。这意味着，你可以用 ES6 的方式编写程序，又不用担心现有环境是否支持。

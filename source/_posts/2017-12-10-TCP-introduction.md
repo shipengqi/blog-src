@@ -2,7 +2,6 @@
 title: TCP 协议简介
 date: 2017-12-10 16:43:56
 categories: ["Protocol"]
-tags: ["TcpIp"]
 ---
 
 互联网由一整套协议构成。`TCP`协议 是在其中的一层（传输层），有着自己的分工。

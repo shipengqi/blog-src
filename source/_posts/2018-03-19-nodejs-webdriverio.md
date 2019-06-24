@@ -1,8 +1,7 @@
 ---
 title: Nodejs webdriver.io
 date: 2018-03-19 17:44:15
-categories: ["NodeJs"]
-tags: ["Automation test"]
+categories: ["Node.js"]
 ---
 
 [webdriver.io 官网](http://webdriver.io/)

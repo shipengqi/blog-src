@@ -1,7 +1,7 @@
 ---
 title: NodeJs 生成API文档
 date: 2018-04-08 14:22:02
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 [JSDoc](http://usejsdoc.org/)是一个根据`Javascript`文件中的代码注释，生成`API`文档的工具。

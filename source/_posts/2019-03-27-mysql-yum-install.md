@@ -1,7 +1,7 @@
 ---
 title: CentOs 安装配置 MySQL
 date: 2019-03-27 13:20:10
-categories: ["Linux"]
+categories: ["数据库"]
 tags: ["MySQL"]
 ---
 

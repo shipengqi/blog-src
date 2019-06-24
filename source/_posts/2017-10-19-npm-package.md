@@ -1,11 +1,10 @@
 ---
-title: NPM package.json详解
+title: NPM package.json 详解
 date: 2017-10-19 21:03:08
-categories: ["NodeJs"]
-tags: ["NPM"]
+categories: ["Node.js"]
 ---
 
-使用`npm init`命令初始化一个`package.json`文件，描述这个NPM包的所有相关信息，包括作者、简介、包依赖、构建等信息，格式是严格的JSON格式。
+使用 `npm init` 命令初始化一个 `package.json` 文件，描述这个 NPM 包的所有相关信息，包括作者、简介、包依赖、构建等信息，格式是严格的 JSON 格式。
 
 <!-- more -->
 

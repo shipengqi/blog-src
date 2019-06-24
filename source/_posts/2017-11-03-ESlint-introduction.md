@@ -2,7 +2,6 @@
 title: ESlint使用
 date: 2017-11-03 15:23:07
 categories: ["Javascript"]
-tags: ["ESlint"]
 ---
 
 ESLint 是JavaScript的代码检查工具，使用它可以避免低级错误和统一代码的风格。ESlint 被设计为是完全可配置的，这意味着你可以关闭每一个规则，只运行基本语法验证，或混合和匹配绑定的规则和自定义规则，以让 ESLint 更适合于你的项目。

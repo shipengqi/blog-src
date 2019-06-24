@@ -1,7 +1,7 @@
 ---
 title: 内存溢出与内存泄露
 date: 2017-09-21 23:04:06
-categories: ["编程"]
+categories: ["乱七八糟"]
 tags: []
 ---
 

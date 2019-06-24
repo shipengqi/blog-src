@@ -31,7 +31,7 @@ comments: false
 
 最后还有 [芝麻飞来](https://github.com/magicsky)，这是我漫漫技术之路上的第一个师傅（大牛）的 Github，在我一度怀疑自己的时候，他给了我很多帮助，感谢。
 
-博客使用 [Hexo](https://hexo.io/zh-cn/docs/)搭建于 Github，欢迎 [Fork](https://github.com/shipengqi/shipengqi.github.io)。
+博客使用 [Hexo](https://hexo.io/zh-cn/docs/) 搭建于 [Github](https://github.com/shipengqi/shipengqi.github.io) 和 [Coding](https://dev.tencent.com/u/shipengqi/p/shipengqi.coding.me/git)。
 
 ### Hexo搭建指南
 - [Hexo](https://hexo.io/zh-cn/docs/)

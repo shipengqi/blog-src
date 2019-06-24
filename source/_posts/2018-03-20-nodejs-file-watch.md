@@ -1,7 +1,7 @@
 ---
 title: Nodejs文件监听
 date: 2018-03-20 15:18:14
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 Nodejs，实现文件监听，可以使用[fs.watch](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener)和[fs.watchFile](https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener)。

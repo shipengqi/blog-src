@@ -1,7 +1,7 @@
 ---
 title: 笔记 从零开始学架构
 date: 2018-10-19 10:06:07
-categories: ["Architecture"]
+categories: ["乱七八糟"]
 ---
 
 ## 架构和框架有什么区别？

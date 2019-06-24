@@ -1,7 +1,7 @@
 ---
 title: Redis入门
 date: 2018-04-05 11:00:24
-categories: ["Linux"]
+categories: ["数据库"]
 tags: ["Redis"]
 ---
 

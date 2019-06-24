@@ -1,7 +1,7 @@
 ---
 title: Nodejs中的全局对象和全局变量
 date: 2017-10-09 19:42:20
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 Node.js中的全局对象有哪些？

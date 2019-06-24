@@ -2,7 +2,6 @@
 title: DNS原理学习
 date: 2017-12-03 16:43:56
 categories: ["Protocol"]
-tags: ["DNS", "TcpIp"]
 ---
 
 DNS （Domain Name System ）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。

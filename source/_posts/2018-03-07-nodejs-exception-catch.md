@@ -1,7 +1,7 @@
 ---
 title: NodeJs中的异常处理
 date: 2018-03-07 10:10:48
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 NodeJs中的异常处理是一个应该注意的点。

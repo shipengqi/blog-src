@@ -1,8 +1,7 @@
 ---
 title: Hubot实现conversation
 date: 2018-02-09 13:33:03
-categories: ["NodeJs"]
-tags: ["Hubot"]
+categories: ["Node.js"]
 ---
 
 [sbot-conversation](https://github.com/sactive/sbot-conversation)，是一个对[Hubot](https://github.com/hubotio/hubot)的会话实现。

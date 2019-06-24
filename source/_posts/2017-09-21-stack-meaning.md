@@ -1,7 +1,7 @@
 ---
 title: Stack的含义
 date: 2017-09-21 22:01:42
-categories: ["编程"]
+categories: ["乱七八糟"]
 tags: []
 ---
 

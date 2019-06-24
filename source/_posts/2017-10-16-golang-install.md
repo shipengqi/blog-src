@@ -1,8 +1,7 @@
 ---
 title: CentOs安装Go
 date: 2017-10-16 21:01:29
-categories: ["Linux"]
-tags: ["Go"]
+categories: ["Go"]
 ---
 
 CentOs下安装Go。

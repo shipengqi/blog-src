@@ -2,7 +2,6 @@
 title: JavaScript定义函数
 date: 2017-09-20 19:54:12
 categories: ["Javascript"]
-tags: []
 ---
 
 JavaScript定义函数有多种方式。在JavaScript中每个函数都是一个Function对象，它不仅能像对象一样拥有属性和方法，而且可以被调用。

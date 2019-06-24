@@ -1,7 +1,7 @@
 ---
 title: Redis 的过期策略
 date: 2018-08-08 10:23:59
-categories: ["Linux"]
+categories: ["数据库"]
 tags: ["Redis"]
 ---
 

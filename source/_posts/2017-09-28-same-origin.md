@@ -1,7 +1,7 @@
 ---
 title: 同源策略
 date: 2017-09-28 20:53:12
-categories: ["编程"]
+categories: ["乱七八糟"]
 ---
 
 浏览器安全的基石是“同源政策”（[same-origin policy](https://en.wikipedia.org/wiki/Same-origin_policy)）。很多开发者都知道这一点，但了解得不全面。

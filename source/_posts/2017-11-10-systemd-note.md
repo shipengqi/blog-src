@@ -2,7 +2,6 @@
 title: Systemd学习笔记
 date: 2017-11-10 16:53:50
 categories: ["Linux"]
-tags: ["Systemd"]
 ---
 
 Systemd 是一个用于 Linux 操作系统的系统与服务管理器。

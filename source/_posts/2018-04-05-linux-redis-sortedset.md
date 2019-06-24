@@ -1,7 +1,7 @@
 ---
 title: Redis 数据类型 Sorted Set
 date: 2018-04-05 22:11:54
-categories: ["Linux"]
+categories: ["数据库"]
 tags: ["Redis"]
 ---
 

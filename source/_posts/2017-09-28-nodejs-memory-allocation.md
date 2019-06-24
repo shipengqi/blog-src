@@ -1,7 +1,7 @@
 ---
 title: Node.js的内存分配和垃圾回收
 date: 2017-09-28 20:13:36
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 简单介绍Node.js的内存分配和垃圾回收
 <!-- more -->

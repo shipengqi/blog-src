@@ -1,8 +1,7 @@
 ---
-title: JavaScript的闭包
+title: JavaScript 的闭包
 date: 2017-09-19 23:26:21
 categories: ["Javascript"]
-tags: []
 ---
 JavaScript的闭包有两个用途：
 1. 访问函数内部的变量.

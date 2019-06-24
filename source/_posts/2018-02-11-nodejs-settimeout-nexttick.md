@@ -1,7 +1,7 @@
 ---
 title: Nodejs定时器
 date: 2018-02-11 12:40:44
-categories: ["NodeJs"]
+categories: ["Node.js"]
 ---
 
 说到定时器，NodeJs提供了四个，分别是：setTimeout()，setInterval()，setImmediate()，process.nextTick()。

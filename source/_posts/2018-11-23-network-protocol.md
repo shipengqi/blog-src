@@ -2,7 +2,6 @@
 title: 笔记 趣谈网络协议（上）
 date: 2018-11-23 14:27:12
 categories: ["Protocol"]
-tags: ["Http", "TcpIp"]
 ---
 
 想成为技术牛人，先搞定网络协议。

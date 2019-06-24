@@ -2,7 +2,6 @@
 title: CentOs安装ETCD
 date: 2017-10-16 21:01:38
 categories: ["Linux"]
-tags: ["ETCD"]
 ---
 
 CentOs下安装ETCD。

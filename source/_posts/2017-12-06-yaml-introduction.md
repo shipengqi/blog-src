@@ -1,8 +1,7 @@
 ---
 title: Yaml入门
 date: 2017-12-06 19:54:36
-categories: ["编程"]
-tags: ["Yaml"]
+categories: ["乱七八糟"]
 ---
 
 `YAML`是专门用来写配置文件的语言，非常简洁和强大，远比`JSON`格式方便。

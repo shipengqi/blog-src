@@ -2,7 +2,6 @@
 title: Javascript中的类方法、构造方法、原型方法
 date: 2017-09-19 23:16:13
 categories: ["Javascript"]
-tags: []
 ---
 
 javascript中的类方法、构造方法、原型方法的对比

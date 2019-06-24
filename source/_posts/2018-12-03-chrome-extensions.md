@@ -1,7 +1,7 @@
 ---
 title: 记录一些 Chrome 插件
 date: 2018-12-03 11:07:32
-categories: ["编程"]
+categories: ["乱七八糟"]
 ---
 
 最近在家里不能访问 Google 了，原因是 VPN 到期了（没钱买），修改 host 文件的方式也行不通了。就行到了 Chrome 插件。以前也用过但是不太稳定，先凑合用吧。

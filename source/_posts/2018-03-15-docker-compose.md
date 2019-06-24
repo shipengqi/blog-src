@@ -2,7 +2,7 @@
 title: Docker compose学习笔记
 date: 2018-03-15 13:41:46
 categories: ["Linux"]
-tags: ["Docker", "docker-compose"]
+tags: ["Docker"]
 ---
 
 `Compose` 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。

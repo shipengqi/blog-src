@@ -1,8 +1,8 @@
 ---
-title: SQL语句优化
+title: SQL 语句优化
 date: 2017-10-09 19:41:55
-categories: ["Linux"]
-tags: ["SQL"]
+categories: ["数据库"]
+tags: ["MySQL"]
 ---
 
 SQL语句优化整理。

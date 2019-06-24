@@ -2,7 +2,6 @@
 title: HTTP 协议入门
 date: 2017-12-10 12:43:56
 categories: ["Protocol"]
-tags: ["Http", "TcpIp"]
 ---
 
 `HTTP` 协议是互联网的基础协议，也是网页开发的必备知识，最新版本 `HTTP/2` 更是让它成为技术热点。

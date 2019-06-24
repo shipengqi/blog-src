@@ -1,7 +1,7 @@
 ---
 title: 双因素认证
 date: 2018-01-10 15:55:37
-categories: ["编程"]
+categories: ["乱七八糟"]
 ---
 
 所谓认证（authentication）就是确认用户的身份，是网站登录必不可少的步骤。
