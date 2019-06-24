@@ -2,6 +2,9 @@
 
 :see_no_evil: :books:  My blog source code, builded by [Hexo](https://github.com/hexojs/hexo).
 
+- [默认地址](https://www.shipengqi.top)，使用 GitHub pages 部署。
+- 国内访问[地址](https://blog.shipengqi.top)，使用 Coding pages 部署。
+
 ## Requirements
 - Node.js
 

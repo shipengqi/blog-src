@@ -4,7 +4,7 @@ date: 2017-09-18 20:27:28
 categories: ["Node.js"]
 ---
 
-介绍三个实现 Node.js 命令行的模块
+使用 Node.js 实现命令行。
 <!-- more -->
 ## 命令行参数处理
 ### yargs
