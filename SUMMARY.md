@@ -116,6 +116,7 @@
     - 小册 微信小程序开发入门
     - 小册 微信小游戏
 - Recommendations
+  - [Java 面试](https://github.com/xbox1994/2018-Java-Interview)
   - [Java 架构图谱](https://github.com/xingshaocheng/architect-awesome)
   - [Java 知识扫盲](https://github.com/doocs/advanced-java?utm_source=gold_browser_extension)
   - [JavaGuide 包含了Java,架构,数据库,算法，协议等相关知识](https://github.com/Snailclimb/JavaGuide)
