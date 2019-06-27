@@ -116,6 +116,7 @@
     - 小册 微信小程序开发入门
     - 小册 微信小游戏
 - Recommendations
+  - [计算机速成课](https://github.com/1c7/Crash-Course-Computer-Science-Chinese)
   - [Java 面试](https://github.com/xbox1994/2018-Java-Interview)
   - [Java 架构图谱](https://github.com/xingshaocheng/architect-awesome)
   - [Java 知识扫盲](https://github.com/doocs/advanced-java?utm_source=gold_browser_extension)
