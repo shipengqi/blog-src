@@ -13,5 +13,15 @@
     "name":"SActive di",
     "url":"https://github.com/shipengqi/sactive-di",
     "desc":"Dependency injector for Node.js."
+  },
+  {
+    "name":"Kubernetes learn",
+    "url":"https://github.com/shipengqi/kubernetes-learn",
+    "desc":"Kubernetes learning."
+  },
+  {
+    "name":"DB learn",
+    "url":"https://github.com/shipengqi/db-learn",
+    "desc":"数据库相关知识学习整理."
   }
 ]
