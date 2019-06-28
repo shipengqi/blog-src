@@ -66,6 +66,7 @@
   - [Nodejs 笔记](https://github.com/peze/someArticle)
   - [Stream 模块](https://github.com/zoubin/streamify-your-node-program)
   - [Node.js 调优指南](https://github.com/aliyun-node/Node.js-Troubleshooting-Guide)
+  - [Node.js 使用 JSONWebToken，完成用户认证](https://softwareontheroad.com/nodejs-jwt-authentication-oauth/)
   - Node.js：来一打C++扩展
   - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
   - [underscore-analysis](https://github.com/lessfish/underscore-analysis)
