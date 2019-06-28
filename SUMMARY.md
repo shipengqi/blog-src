@@ -82,6 +82,9 @@
   - Go 并发调度
   - [Go 42](https://github.com/ffhelicopter/Go42)
   - [Learn Go with tests](https://github.com/quii/learn-go-with-tests)
+  - [Go 实战开发](https://github.com/astaxie/go-best-practice)
+  - [build-web-application-with-golang](https://github.com/astaxie/build-web-application-with-golang)
+  - [Go pkg demo](https://github.com/astaxie/gopkg)
   - [Learning Go](https://github.com/mikespook/Learning-Go-zh-cn)
   - [Go 语言圣经](https://docs.hacknode.org/gopl-zh/index.html)
   - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
