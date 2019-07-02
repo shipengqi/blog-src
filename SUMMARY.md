@@ -108,6 +108,7 @@
   - 推荐系统实战
   - 微服务架构与实践
   - 微服务设计
+  - [全栈教程](https://github.com/frank-lam/fullstack-tutorial)
   - [System design primer](https://github.com/donnemartin/system-design-primer)
   - [支付系统](https://github.com/skr-shop/manuals)
 - 工具
