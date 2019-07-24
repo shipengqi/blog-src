@@ -91,6 +91,10 @@
   - [Go 语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
   - [learning-golang](https://github.com/yangwenmai/learning-golang)
   - [GoDeeper](https://github.com/Miej/GoDeeper)
+  - [go-internals](https://github.com/go-internals-cn/go-internals)
+  - [Go 夜读](https://github.com/developer-learning/reading-go)
+  - [client-go 访问 k8s 示例](https://github.com/owenliang/k8s-client-go)
+  - [k8s-audit-webhook](https://github.com/gosoon/k8s-audit-webhook)
 - 系统设计
   - 极客时间 从零开始学架构
   - 极客时间 秒杀系统设计
@@ -112,9 +116,13 @@
   - [全栈教程](https://github.com/frank-lam/fullstack-tutorial)
   - [System design primer](https://github.com/donnemartin/system-design-primer)
   - [支付系统](https://github.com/skr-shop/manuals)
-- 工具
+  - [自己动手写 docker](https://github.com/xianlubird/mydocker)
+  - [从 Docker 到 Kubernetes 进阶课程](https://github.com/cnych/kubernetes-learning)
+  - [k8s-1.13 版本源码分析](https://github.com/farmer-hutao/k8s-source-code-analysis)
+  - [k8s、docker 源码分析](https://github.com/Kevin-fqh/learning-k8s-source-code)
   - 极客时间 深入剖析 Kubernetes
   - 小册 Kubernetes 上手到实践
+- 工具
   - 小册 webpack 定制前端开发环境
 - 其它
   - [Weex](http://weex.apache.org/cn/guide/)
