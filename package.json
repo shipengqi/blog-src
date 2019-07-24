@@ -1,13 +1,14 @@
 {
   "name": "hexo-site",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "private": true,
   "hexo": {
     "version": "3.3.9"
   },
   "scripts": {
     "start": "hexo s -p 8081",
-    "start:debug": "hexo s -p 8081 --debug"
+    "start:debug": "hexo s -p 8081 --debug",
+    "gobuild": "cd build && go build -a -o ./blogManager"
   },
   "dependencies": {
     "hexo": "^3.2.0",

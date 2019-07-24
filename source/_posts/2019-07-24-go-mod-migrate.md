@@ -4,7 +4,18 @@ date: 2019-07-24 10:03:52
 categories: ["Go"]
 ---
 
-golang 1.11 已经支持 go modules。这是官方提倡的新的包管理，乃至项目管理机制，可以不再需要 `GOPATH` 的存在。
+golang 1.11 已经支持 Go Module。这是官方提倡的新的包管理，乃至项目管理机制，可以不再需要 `GOPATH` 的存在。
+
+## Module 机制
+Go Module 不同于以往基于 `GOPATH` 和 Vendor 的项目构建，其主要是通过 `$GOPATH/pkg/mod` 下的缓存包来对项目进行构建。 Go Module 可以通过 `GO111MODULE`
+来控制是否启用，`GO111MODULE` 有三种类型:
+- `on` 所有的构建，都使用 Module 机制
+- `off` 所有的构建，都不使用 Module 机制，而是使用 `GOPATH` 和 Vendor
+- `auto` 在 GOPATH 下的项目，不使用 Module 机制，不在 `GOPATH` 下的项目使用
+
+### 和 dep 的区别
+- dep 是解析所有的包引用，然后在 `$GOPATH/pkg/dep` 下进行缓存，再在项目下生成 vendor，然后基于 vendor 来构建项目，无法脱离 `GOPATH`。
+- mod 是解析所有的包引用，然后在 `$GOPATH/pkg/mod` 下进行缓存，直接基于缓存包来构建项目，所以可以脱离 `GOPATH`
 
 ## 准备环境
 - golang 1.11 的环境需要开启 `GO11MODULE` ，并且**确保项目目录不在 `GOPATH` 中**。
@@ -12,7 +23,7 @@ golang 1.11 已经支持 go modules。这是官方提倡的新的包管理，乃
 export GO111MODULE=on
 ```
 - golang 1.12只需要确保实验目录不在 `GOPATH` 中。
-- 配置代理 `export GOPROXY=https://goproxy.io`。
+- 配置代理 `export GOPROXY=https://goproxy.io`。（如果拉取包失败，会报  `cannot find module for path xxx` 的错误）
 
 ## 迁移项目
 ```sh
