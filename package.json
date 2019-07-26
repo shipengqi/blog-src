@@ -8,7 +8,7 @@
   "scripts": {
     "start": "hexo s -p 8081",
     "start:debug": "hexo s -p 8081 --debug",
-    "gobuild": "cd build && go build -a -o ./blogManager"
+    "build:script": "cd build && go build -a -o ./blogManager"
   },
   "dependencies": {
     "hexo": "^3.2.0",

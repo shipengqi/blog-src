@@ -2,10 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"os"
 
 	"blog-build/pkg/command"
 )
@@ -22,9 +21,9 @@ func startCommand() *cobra.Command {
 		Use:	"start",
 		Short:	"Start the blog dev server.",
 		Run: func(cmd *cobra.Command, args []string) {
-			err := command.ExecSync(fmt.Sprintf("hexo s -p %d", cfg.port))
+			err := command.ExecSync("hexo", "s", fmt.Sprintf("-p %d", cfg.port))
 			if err != nil {
-				fmt.Printf("Start blog dev server failed: %s.\n", err.Error())
+				fmt.Printf("Start blog dev server failed: %s.\n", err)
 				os.Exit(1)
 			}
 		},

@@ -6,10 +6,15 @@ import (
 	"fmt"
 	"io"
 	"os/exec"
+	"runtime"
 )
 
-func Exec(command string) (string, string, error) {
+func Exec(command string, arg ...string) (string, string, error) {
 	cmd := exec.Command("/bin/sh", "-c", command)
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command(command, arg...)
+	}
+
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
@@ -20,8 +25,11 @@ func Exec(command string) (string, string, error) {
 	return string(stdout.Bytes()), string(stderr.Bytes()), nil
 }
 
-func ExecSync(command string) error {
+func ExecSync(command string, arg ...string) error {
 	cmd := exec.Command("/bin/sh", "-c", command)
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command(command, arg...)
+	}
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err

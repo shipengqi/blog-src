@@ -1,9 +1,10 @@
 package main
 
 import (
-	"blog-build/cmd"
 	"encoding/json"
 	"io/ioutil"
+
+	"blog-build/cmd"
 )
 
 type PackageJson struct {
