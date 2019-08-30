@@ -125,6 +125,7 @@
   - 小册 Kubernetes 上手到实践
 - 工具
   - 小册 webpack 定制前端开发环境
+  - [Git 飞行规则](https://github.com/k88hudson/git-flight-rules/)
 - 其它
   - [Weex](http://weex.apache.org/cn/guide/)
   - [MiniProgram](https://developers.weixin.qq.com/miniprogram/dev/)
