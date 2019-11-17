@@ -1,15 +1,15 @@
 ---
-title: CentOs安装Docker
+title: CentOs 安装 Docker
 date: 2017-10-27 10:44:08
 categories: ["Linux"]
 tags: ["Docker"]
 ---
-CentOS 7通过yum安装docker。
+CentOS 7 通过 yum 安装 docker。
 
 <!-- more -->
 
-## 配置yum代理
-因为安装docker的服务器在公司内网，所以要配置代理，如果不是请忽略。
+## 配置 yum 代理
+因为安装 docker 的服务器在公司内网，所以要配置代理，如果不是请忽略。
 ``` bash
 export http_proxy=<http proxy endpoint>
 export https_proxy=$http_proxy
@@ -20,7 +20,7 @@ export NO_PROXY=$no_proxy
 
 vim /etc/yum.conf
 #添加行
-proxy=http://web-proxy.isr.hp.com:8080
+proxy=http://web-proxy.com:8080
 ```
 
 ## 卸载旧版本
@@ -63,10 +63,10 @@ $ sudo yum-config-manager --enable docker-ce-test
 
 ## 安装 Docker CE
 ``` bash
-#更新 yum 软件源缓存
+# 更新 yum 软件源缓存
 $ sudo yum makecache fast
 
-#安装 docker-ce
+# 安装 docker-ce
 $ sudo yum install docker-ce
 ```
 
@@ -76,23 +76,23 @@ $ sudo systemctl enable docker
 $ sudo systemctl start docker
 ```
 
-## 添加docker代理
-为docker配置公司代理：
+## 添加 docker 代理
+为 docker 配置代理：
 ``` bash
 mkdir /etc/systemd/system/docker.service.d
 vim /etc/systemd/system/docker.service.d/http-proxy.conf
 
-#添加下面的内容
+# 添加下面的内容
 [Service]
 Environment="HTTP_PROXY={http proxy endpoint}" "NO_PROXY=localhost,127.0.0.1,docker-registry.somecorporation.com"
 
-#重新载入 systemd，扫描新的或有变动的单元
+# 重新载入 systemd，扫描新的或有变动的单元
 systemctl daemon-reload
 
-#查看环境变量属性
+# 查看环境变量属性
 systemctl show --property=Environment docker
 
-#重启docker服务
+# 重启 docker 服务
 systemctl restart docker
 ```
 

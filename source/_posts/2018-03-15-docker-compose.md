@@ -1,5 +1,5 @@
 ---
-title: Docker compose学习笔记
+title: Docker compose 学习笔记
 date: 2018-03-15 13:41:46
 categories: ["Linux"]
 tags: ["Docker"]
@@ -14,11 +14,13 @@ tags: ["Docker"]
 
 ## Compose简介
 
-我们知道使用一个 `Dockerfile` 模板文件，可以让很方便的定义一个单独的应用容器。然而，在日常开发中，经常会碰到需要多个容器相互配合来完成某项任务的情况。
+我们知道使用一个 `Dockerfile` 模板文件，可以让很方便的定义一个单独的应用容器。然而，在日常开发中，经常会碰到需要多个容器
+相互配合来完成某项任务的情况。
 
 例如要实现一个 Web 项目，除了 Web 服务容器本身，往往还需要再加上后端的数据库服务容器，甚至还包括负载均衡容器等。
 
-`Compose` 恰好满足了这样的需求。它允许用户通过一个单独的 `docker-compose.yml` 模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）。
+`Compose` 恰好满足了这样的需求。它允许用户通过一个单独的 `docker-compose.yml` 模板文件（YAML 格式）来定义一组相关联的应用容
+器为一个项目（project）。
 
 `Compose` 中有两个重要的概念：
 
@@ -28,7 +30,8 @@ tags: ["Docker"]
 
 `Compose` 的默认管理对象是项目，通过子命令对项目中的一组容器进行便捷地生命周期管理。
 
-`Compose` 项目由 Python 编写，实现上调用了 Docker 服务提供的 API 来对容器进行管理。因此，只要所操作的平台支持 Docker API，就可以在其上利用 `Compose` 来进行编排管理。
+`Compose` 项目由 Python 编写，实现上调用了 Docker 服务提供的 API 来对容器进行管理。因此，只要所操作的平台支持 Docker API，就
+可以在其上利用 `Compose` 来进行编排管理。
 
 ## 安装与卸载
 
@@ -50,7 +53,8 @@ Linux 系统请使用以下介绍的方法安装。
 
 ### 二进制包
 
-在 Linux 上的也安装十分简单，从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二进制文件即可。
+在 Linux 上的也安装十分简单，从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二
+进制文件即可。
 
 例如，在 Linux 64 位系统上直接下载对应的二进制包。
 
@@ -64,11 +68,13 @@ CPython version: 2.7.13
 OpenSSL version: OpenSSL 1.0.1t  3 May 2016
 ```
 
-> 如果`curl`下载失败，检查是否需要配置代理，`curl -x {proxy_host}:{proxy_port} -L  https://github.com/docker/compose/releases/download ...`
+> 如果`curl`下载失败，检查是否需要配置代理，
+`curl -x {proxy_host}:{proxy_port} -L  https://github.com/docker/compose/releases/download ...`
 
 ### PIP 安装
 
-*注：* `x86_64` 架构的 Linux 建议按照上边的方法下载二进制包进行安装，如果您计算机的架构是 `ARM` (例如，树莓派)，再使用 `pip` 安装。
+*注：* `x86_64` 架构的 Linux 建议按照上边的方法下载二进制包进行安装，如果您计算机的架构是 `ARM` (例如，树莓派)，
+再使用 `pip` 安装。
 
 这种方式是将 Compose 当作一个 Python 应用来从 pip 源中安装。
 
@@ -84,7 +90,8 @@ $ sudo pip install -U docker-compose
 Collecting docker-compose
   Downloading docker-compose-1.17.1.tar.gz (149kB): 149kB downloaded
 ...
-Successfully installed docker-compose cached-property requests texttable websocket-client docker-py dockerpty six enum34 backports.ssl-match-hostname ipaddress
+Successfully installed docker-compose cached-property requests texttable websocket-client docker-py dockerpty six e
+num34 backports.ssl-match-hostname ipaddress
 ```
 
 ### bash 补全命令
@@ -244,7 +251,8 @@ $ docker-compose up
 ## Compose 命令说明
 
 ### 命令对象与格式
-对于 Compose 来说，大部分命令的对象既可以是项目本身，也可以指定为项目中的服务或者容器。如果没有特别的说明，命令对象将是项目，这意味着项目中所有的服务都会受到命令影响。
+对于 Compose 来说，大部分命令的对象既可以是项目本身，也可以指定为项目中的服务或者容器。如果没有特别的说明，命令对象将是项目，
+这意味着项目中所有的服务都会受到命令影响。
 
 执行 `docker-compose [COMMAND] --help` 或者 `docker-compose help [COMMAND]` 可以查看具体某个命令的使用格式。
 
@@ -494,7 +502,8 @@ $ docker-compose scale web=3 db=2
 
 如果使用 `docker-compose up -d`，将会在后台启动并运行所有的容器。一般推荐生产环境下使用该选项。
 
-默认情况，如果服务容器已经存在，`docker-compose up` 将会尝试停止容器，然后重新创建（保持使用 `volumes-from` 挂载的卷），以保证新启动的服务匹配 `docker-compose.yml` 文件的最新内容。如果用户不希望容器被停止并重新创建，可以使用 `docker-compose up --no-recreate`。这样将只会启动处于停止状态的容器，而忽略已经运行的服务。如果用户只想重新部署某个服务，可以使用 `docker-compose up --no-deps -d <SERVICE_NAME>` 来重新创建服务并后台停止旧服务，启动新服务，并不会影响到其所依赖的服务。
+默认情况，如果服务容器已经存在，`docker-compose up` 将会尝试停止容器，然后重新创建（保持使用 `volumes-from` 挂载的卷），
+以保证新启动的服务匹配 `docker-compose.yml` 文件的最新内容。如果用户不希望容器被停止并重新创建，可以使用 `docker-compose up --no-recreate`。这样将只会启动处于停止状态的容器，而忽略已经运行的服务。如果用户只想重新部署某个服务，可以使用 `docker-compose up --no-deps -d <SERVICE_NAME>` 来重新创建服务并后台停止旧服务，启动新服务，并不会影响到其所依赖的服务。
 
 选项：
 
@@ -520,7 +529,8 @@ $ docker-compose scale web=3 db=2
 
 ## Compose 模板文件
 
-模板文件是使用 `Compose` 的核心，涉及到的指令关键字也比较多。但大家不用担心，这里面大部分指令跟 `docker run` 相关参数的含义都是类似的。
+模板文件是使用 `Compose` 的核心，涉及到的指令关键字也比较多。但大家不用担心，这里面大部分指令跟 `docker run` 相关参数的含
+义都是类似的。
 
 默认的模板文件名称为 `docker-compose.yml`，格式为 YAML 格式。
 
@@ -538,13 +548,15 @@ services:
 
 注意每个服务都必须通过 `image` 指令指定镜像或 `build` 指令（需要 Dockerfile）等来自动构建生成镜像。
 
-如果使用 `build` 指令，在 `Dockerfile` 中设置的选项(例如：`CMD`, `EXPOSE`, `VOLUME`, `ENV` 等) 将会自动被获取，无需在 `docker-compose.yml` 中再次设置。
+如果使用 `build` 指令，在 `Dockerfile` 中设置的选项(例如：`CMD`, `EXPOSE`, `VOLUME`, `ENV` 等) 将会自动被获取，无需
+在 `docker-compose.yml` 中再次设置。
 
 下面分别介绍各个指令的用法。
 
 ### `build`
 
-指定 `Dockerfile` 所在文件夹的路径（可以是绝对路径，或者相对 docker-compose.yml 文件的路径）。 `Compose` 将会利用它自动构建这个镜像，然后使用这个镜像。
+指定 `Dockerfile` 所在文件夹的路径（可以是绝对路径，或者相对 docker-compose.yml 文件的路径）。 `Compose` 将会利用它自动
+构建这个镜像，然后使用这个镜像。
 
 ```yaml
 version: '3'
@@ -743,7 +755,8 @@ environment:
   - SESSION_SECRET
 ```
 
-如果变量名称或者值中用到 `true|false，yes|no` 等表达 [布尔](http://yaml.org/type/bool.html) 含义的词汇，最好放到引号里，避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括
+如果变量名称或者值中用到 `true|false，yes|no` 等表达 [布尔](http://yaml.org/type/bool.html) 含义的词汇，最好放到引号里，
+避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括
 
 ```bash
 y|Y|yes|Yes|YES|n|N|no|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF
@@ -897,11 +910,12 @@ networks:
   other-network:
 ```
 
-`aliases`服务在`network`上的别名，同一`network`上的其他容器可以使用服务名或别名连接到该服务的一个容器。
+`aliases` 服务在 `network` 上的别名，同一 `network` 上的其他容器可以使用服务名或别名连接到该服务的一个容器。
 
-下面的例子中，提供了三个`service`（`web`、`worker`和`db`），以及两个`network`(`new` 和 `legacy`)，`db service`在`new network`上可以通过
+下面的例子中，提供了三个 `service`（`web`、`worker` 和 `db`），以及两个 `network`(`new` 和 `legacy`)，`db service`
+在 `new network` 上可以通过
 
-hostname `db` 或者 `database`访问，在`legacy network`上可以通过 hostname `db` 或者 `mysql`访问，
+hostname `db` 或者 `database` 访问，在 `legacy network` 上可以通过 hostname `db` 或者 `mysql` 访问，
 
 ```yaml
 version: '2'
@@ -932,7 +946,7 @@ networks:
   legacy:
 ```
 
-`ipv4_address`，`ipv6_address`在容器加入网络时为该服务指定一个静态IP地址。
+`ipv4_address`，`ipv6_address` 在容器加入网络时为该服务指定一个静态IP地址。
 ```yaml
 version: '2.1'
 
@@ -958,15 +972,17 @@ networks:
         subnet: 2001:3984:3989::/64
 ```
 
-上面的例子中可以看到，`network`有两种，分别是`service`中，和顶层的`network`，上面介绍的的是`service`中`network`的用法，顶层的`network`
+上面的例子中可以看到，`network` 有两种，分别是 `service` 中，和顶层的 `network`，上面介绍的的是 `service` 中 `network` 的用
+法，顶层的 `network`
 是指定要创建的网络。
-`driver`指定该网络使用的驱动。例如`bridge`，`overlay`，`host`。类似docker命令中的`docker run --net=host`。
-`enable_ipv6`使用`ipv6_address`必须配置`enable_ipv6: true`。
-`external`: 如果设置为`true`，指定该`network`在`compose`之外已经创建，`docker-compose up`时不会再去尝试创建该`network`，
-如果该`network`不存在，就抛出`error`。`external`不可以和配置`network`的其他参数同时使用，例如`driver`, `driver_opts`, `ipam`, `internal`。
+`driver` 指定该网络使用的驱动。例如 `bridge`，`overlay`，`host`。类似 docker 命令中的 `docker run --net=host`。
+`enable_ipv6` 使用 `ipv6_address` 必须配置 `enable_ipv6: true`。
+`external`: 如果设置为 `true`，指定该 `network` 在 `compose` 之外已经创建，`docker-compose up` 时不会再去尝试创建
+该 `network`，如果该 `network` 不存在，就抛出 `error`。`external` 不可以和配置 `network` 的其他参数同时使用，
+例如 `driver`, `driver_opts`, `ipam`, `internal`。
 
-在下面的例子中，服务`proxy`是网关，`compose`不会再去尝试创建名为`[projectname]_outside`的`network`，而是去查找名为`outside`的`network`，并连接
-`proxy`的容器到这个`network`。
+在下面的例子中，服务 `proxy` 是网关，`compose` 不会再去尝试创建名为 `[projectname]_outside` 的 `network`，而是去
+查找名为 `outside` 的 `network`，并连接 `proxy` 的容器到这个 `network`。
 
 ```yaml
 version: '2'
@@ -1010,7 +1026,8 @@ ports:
  - "127.0.0.1:8001:8001"
 ```
 
-*注意：当使用 `HOST:CONTAINER` 格式来映射端口时，如果你使用的容器端口小于 60 并且没放到引号里，可能会得到错误结果，因为 `YAML` 会自动解析 `xx:yy` 这种数字格式为 60 进制。为避免出现这种问题，建议数字串都采用引号包括起来的字符串格式。*
+*注意：当使用 `HOST:CONTAINER` 格式来映射端口时，如果你使用的容器端口小于 60 并且没放到引号里，可能会得到错误结果，
+因为 `YAML` 会自动解析 `xx:yy` 这种数字格式为 60 进制。为避免出现这种问题，建议数字串都采用引号包括起来的字符串格式。*
 
 ### `secrets`
 
@@ -1071,7 +1088,8 @@ sysctls:
 
 指定容器的 ulimits 限制值。
 
-例如，指定最大进程数为 65535，指定文件句柄数为 20000（软限制，应用可以随时修改，不能超过硬限制） 和 40000（系统硬限制，只能 root 用户提高）。
+例如，指定最大进程数为 65535，指定文件句柄数为 20000（软限制，应用可以随时修改，不能超过硬限制） 和 40000（系统硬
+限制，只能 root 用户提高）。
 
 ```yaml
   ulimits:
@@ -1097,7 +1115,8 @@ volumes:
 
 ### 其它指令
 
-此外，还有包括 `domainname, entrypoint, hostname, ipc, mac_address, privileged, read_only, shm_size, restart, stdin_open, tty, user, working_dir` 等指令，基本跟 `docker run` 中对应参数的功能一致。
+此外，还有包括 `domainname, entrypoint, hostname, ipc, mac_address, privileged, read_only, shm_size, restart,
+stdin_open, tty, user, working_dir` 等指令，基本跟 `docker run` 中对应参数的功能一致。
 
 指定服务容器启动后执行的入口文件。
 
@@ -1173,9 +1192,11 @@ db:
     - HTTP_PROXY=$HTTP_PROXY
 ```
 
-如果执行 `MONGO_VERSION=3.2 docker-compose up` 则会启动一个 `mongo:3.2` 镜像的容器；如果执行 `MONGO_VERSION=2.8 docker-compose up` 则会启动一个 `mongo:2.8` 镜像的容器。
+如果执行 `MONGO_VERSION=3.2 docker-compose up` 则会启动一个 `mongo:3.2` 镜像的容器；如果
+执行 `MONGO_VERSION=2.8 docker-compose up` 则会启动一个 `mongo:2.8` 镜像的容器。
 
-若当前目录存在 `.env` [**文件**](https://docs.docker.com/compose/env-file/)，执行 `docker-compose` 命令时将从该文件中读取变量。`shell`中的环境变量会覆盖`.env`文件中的变量。
+若当前目录存在 `.env` [**文件**](https://docs.docker.com/compose/env-file/)，执行 `docker-compose` 命令时将从该文件
+中读取变量。`shell`中的环境变量会覆盖`.env`文件中的变量。
 
 在当前目录新建 `.env` 文件并写入以下内容。
 
@@ -1285,4 +1306,4 @@ volumes:
   db-data:
 ```
 
-**本文摘自**[Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)
+**本文摘自** [Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)
