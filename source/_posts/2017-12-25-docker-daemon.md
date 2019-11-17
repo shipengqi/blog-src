@@ -21,7 +21,8 @@ Docker 命令有两大类，客户端命令和服务端命令。前者是主要�
 
 * --config=""：指定客户端配置文件，默认为 `/.docker`；
 * -D=true|false：是否使用 debug 模式。默认不开启；
-* -H, --host=[]：指定命令对应 Docker 守护进程的监听接口，可以为 unix 套接字（unix:///path/to/socket），文件句柄（fd://socketfd）或 tcp 套接字（tcp://[host[:port]]），默认为 unix:///var/run/docker.sock；
+* -H, --host=[]：指定命令对应 Docker 守护进程的监听接口，可以为 unix 套接字（unix:///path/to/socket），
+文件句柄（fd://socketfd）或 tcp 套接字（tcp://[host[:port]]），默认为 unix:///var/run/docker.sock；
 * -l, --log-level="debug|info|warn|error|fatal"：指定日志输出级别；
 * --tls=true|false：是否对 Docker 守护进程启用 TLS 安全机制，默认为否；
 * --tlscacert= /.docker/ca.pem：TLS CA 签名的可信证书文件路径；
@@ -140,7 +141,8 @@ Docker 命令有两大类，客户端命令和服务端命令。前者是主要�
 * --fixed-cidr-v6=""：限定分配 IPv6 地址范围；
 * -G, --group=""：分配给 unix 套接字的组，默认为 `docker`；
 * -g, --graph=""：Docker 运行时的根路径，默认为 `/var/lib/docker`；
-* -H, --host=[]：指定命令对应 Docker daemon 的监听接口，可以为 unix 套接字（unix:///path/to/socket），文件句柄（fd://socketfd）或 tcp 套接字（tcp://[host[:port]]），默认为 unix:///var/run/docker.sock；
+* -H, --host=[]：指定命令对应 Docker daemon 的监听接口，可以为 unix 套接字（unix:///path/to/socket），
+文件句柄（fd://socketfd）或 tcp 套接字（tcp://[host[:port]]），默认为 unix:///var/run/docker.sock；
 * --icc=true|false：是否启用容器间以及跟 daemon 所在主机的通信。默认为 true。
 * --insecure-registry=[]：允许访问给定的非安全仓库服务；
 * --ip=""：绑定容器端口时候的默认 IP 地址。缺省为 0.0.0.0；
@@ -180,7 +182,8 @@ Docker 命令有两大类，客户端命令和服务端命令。前者是主要�
 `daemon.json` 配置方式
 + `Linux`: `/etc/docker/daemon.json`
 + `Windows Server`: `C:\ProgramData\docker\config\daemon.json`
-+ `Docker for Mac` / `Docker for Windows`: Click the Docker icon in the toolbar, select `Preferences`, then select `Daemon`. Click `Advanced`.
++ `Docker for Mac` / `Docker for Windows`: Click the Docker icon in the toolbar, select `Preferences`,
+then select `Daemon`. Click `Advanced`.
 
 
 ### 镜像加速器
@@ -300,7 +303,8 @@ $ sudo kill -SIGHUP $(pidof dockerd)
 $ dockerd --userns-remap="testuser:testuser"
 ```
 
-> `userns-remap` 使用不多，但并不是不重要。目前不是默认启用的原因是因为一些应用会**假定** uid 0 的用户拥有特殊能力，从而导致假定失败，然后报错退出。所以**如果要启用 user id remap，你要充分测试一下**。但是启用 uid remap 的安全性提高是明显的。
+> `userns-remap` 使用不多，但并不是不重要。目前不是默认启用的原因是因为一些应用会**假定** uid 0 的用户拥有特殊能力，从而导
+致假定失败，然后报错退出。所以**如果要启用 user id remap，你要充分测试一下**。但是启用 uid remap 的安全性提高是明显的。
 
 
 ## 一张图总结 Docker 的命令

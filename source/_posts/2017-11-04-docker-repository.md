@@ -1,5 +1,5 @@
 ---
-title: Docker仓库
+title: Docker 仓库
 date: 2017-11-04 15:12:33
 categories: ["Linux"]
 tags: ["Docker"]
@@ -7,7 +7,9 @@ tags: ["Docker"]
 
 仓库（Repository）是集中存放镜像的地方。
 
-一个容易混淆的概念是注册服务器（Registry）。实际上注册服务器是管理仓库的具体服务器，每个服务器上可以有多个仓库，而每个仓库下面有多个镜像。从这方面来说，仓库可以被认为是一个具体的项目或目录。例如对于仓库地址 `dl.dockerpool.com/ubuntu` 来说，`dl.dockerpool.com` 是注册服务器地址，`ubuntu` 是仓库名。
+一个容易混淆的概念是注册服务器（Registry）。实际上注册服务器是管理仓库的具体服务器，每个服务器上可以有多个仓库，而每个仓库
+下面有多个镜像。从这方面来说，仓库可以被认为是一个具体的项目或目录。例如对于仓库地址 `dl.dockerpool.com/ubuntu` 来说，
+`dl.dockerpool.com` 是注册服务器地址，`ubuntu` 是仓库名。
 
 大部分时候，并不需要严格区分这两者的概念。
 
@@ -15,7 +17,8 @@ tags: ["Docker"]
 
 ## Docker Hub
 
-目前 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)，其中已经包括了数量超过 15,000 的镜像。大部分需求都可以通过在 Docker Hub 中直接下载镜像来实现。
+目前 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)，其中已经包括了数量超过 15,000 的镜像。大部分
+需求都可以通过在 Docker Hub 中直接下载镜像来实现。
 
 ### 注册
 
@@ -49,9 +52,11 @@ tutum/centos-6.4                                DEPRECATED. Use tutum/centos:6.4
 
 根据是否是官方提供，可将镜像资源分为两类。
 
-一种是类似 `centos` 这样的镜像，被称为基础镜像或根镜像。这些基础镜像由 Docker 公司创建、验证、支持、提供。这样的镜像往往使用单个单词作为名字。
+一种是类似 `centos` 这样的镜像，被称为基础镜像或根镜像。这些基础镜像由 Docker 公司创建、验证、支持、提供。这样的镜像往往使
+用单个单词作为名字。
 
-还有一种类型，比如 `tianon/centos` 镜像，它是由 Docker 的用户创建并维护的，往往带有用户名称前缀。可以通过前缀 `username/` 来指定使用某个用户提供的镜像，比如 tianon 用户。
+还有一种类型，比如 `tianon/centos` 镜像，它是由 Docker 的用户创建并维护的，往往带有用户名称前缀。可以通过前缀 `username/`
+来指定使用某个用户提供的镜像，比如 tianon 用户。
 
 另外，在查找的时候通过 `--filter=stars=N` 参数可以指定仅显示收藏数量为 `N` 以上的镜像。
 
@@ -95,7 +100,9 @@ username/ubuntu
 
 有时候，用户创建了镜像，安装了某个软件，如果软件发布新版本则需要手动更新镜像。
 
-而自动创建允许用户通过 Docker Hub 指定跟踪一个目标网站（目前支持 [GitHub](https://github.com) 或 [BitBucket](https://bitbucket.org)）上的项目，一旦项目发生新的提交或者创建新的标签（tag），Docker Hub 会自动构建镜像并推送到 Docker Hub 中。
+而自动创建允许用户通过 Docker Hub 指定跟踪一个目标网站（目前支持 [GitHub](https://github.com) 或
+[BitBucket](https://bitbucket.org)）上的项目，一旦项目发生新的提交或者创建新的标签（tag），Docker Hub 会自动构建镜像并
+推送到 Docker Hub 中。
 
 要配置自动创建，包括如下的步骤：
 
@@ -119,7 +126,8 @@ username/ubuntu
 
 本节介绍如何使用本地仓库。
 
-[`docker-registry`](https://docs.docker.com/registry/) 是官方提供的工具，可以用于构建私有的镜像仓库。本文内容基于 [`docker-registry`](https://github.com/docker/distribution) v2.x 版本。
+[`docker-registry`](https://docs.docker.com/registry/) 是官方提供的工具，可以用于构建私有的镜像仓库。本文内容
+基于 [`docker-registry`](https://github.com/docker/distribution) v2.x 版本。
 
 ### 安装运行 docker-registry
 
@@ -131,7 +139,8 @@ username/ubuntu
 $ docker run -d -p 5000:5000 --restart=always --name registry registry
 ```
 
-这将使用官方的 `registry` 镜像来启动私有仓库。默认情况下，仓库会被创建在容器的 `/var/lib/registry` 目录下。你可以通过 `-v` 参数来将镜像文件存放在本地的指定路径。例如下面的例子将上传的镜像放到本地的 `/opt/data/registry` 目录。
+这将使用官方的 `registry` 镜像来启动私有仓库。默认情况下，仓库会被创建在容器的 `/var/lib/registry` 目录下。你可
+以通过 `-v` 参数来将镜像文件存放在本地的指定路径。例如下面的例子将上传的镜像放到本地的 `/opt/data/registry` 目录。
 
 ```bash
 $ docker run -d \
@@ -208,9 +217,11 @@ REPOSITORY                         TAG                 IMAGE ID            CREAT
 
 ### 注意事项
 
-如果你不想使用 `127.0.0.1:5000` 作为仓库地址，比如想让本网段的其他主机也能把镜像推送到私有仓库。你就得把例如 `192.168.199.100:5000` 这样的内网地址作为私有仓库地址，这时你会发现无法成功推送镜像。
+如果你不想使用 `127.0.0.1:5000` 作为仓库地址，比如想让本网段的其他主机也能把镜像推送到私有仓库。你就得把例
+如 `192.168.199.100:5000` 这样的内网地址作为私有仓库地址，这时你会发现无法成功推送镜像。
 
-这是因为 Docker 默认不允许非 `HTTPS` 方式推送镜像。我们可以通过 Docker 配置来取消这个限制，或者配置能够通过 `HTTPS` 访问的私有仓库。
+这是因为 Docker 默认不允许非 `HTTPS` 方式推送镜像。我们可以通过 Docker 配置来取消这个限制，或者配置能够通过 `HTTPS` 访
+问的私有仓库。
 
 #### Ubuntu 14.04, Debian 7 Wheezy
 

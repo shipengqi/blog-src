@@ -1,5 +1,5 @@
 ---
-title: Docker容器
+title: Docker 容器
 date: 2017-11-04 14:54:27
 categories: ["Linux"]
 tags: ["Docker"]
@@ -7,7 +7,8 @@ tags: ["Docker"]
 
 容器是 Docker 又一核心概念。
 
-简单的说，容器是独立运行的一个或一组应用，以及它们的运行态环境。对应的，虚拟机可以理解为模拟运行的一整套操作系统（提供了运行态环境和其他系统环境）和跑在上面的应用。
+简单的说，容器是独立运行的一个或一组应用，以及它们的运行态环境。对应的，虚拟机可以理解为模拟运行的一整套操作系统
+（提供了运行态环境和其他系统环境）和跑在上面的应用。
 
 <!-- more -->
 
@@ -31,7 +32,7 @@ Hello world
 $ sudo docker run -t -i ubuntu:14.04 /bin/bash
 root@af8bae53bdd3:/#
 ```
-其中，`-t` 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， `-i` 则让容器的标准输入保持打开。
+其中，`-t` 选项让 Docker 分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， `-i` 则让容器的标准输入保持打开。
 
 在交互模式下，用户可以通过所创建的终端来输入命令，例如
 ```
@@ -54,7 +55,8 @@ bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr
 ### 启动已终止容器
 可以利用 `docker start` 命令，直接将一个已经终止的容器启动运行。
 
-容器的核心为所执行的应用程序，所需要的资源都是应用程序运行所必需的。除此之外，并没有其它的资源。可以在伪终端中利用 `ps` 或 `top` 来查看进程信息。
+容器的核心为所执行的应用程序，所需要的资源都是应用程序运行所必需的。除此之外，并没有其它的资源。可以在伪终端中利
+用 `ps` 或 `top` 来查看进程信息。
 ```
 root@ba267838cc1b:/# ps
   PID TTY          TIME CMD
@@ -66,7 +68,7 @@ root@ba267838cc1b:/# ps
 
 ## 后台(background)运行
 
-更多的时候，需要让 Docker在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时，可以通过添加 `-d` 参数来实现。
+更多的时候，需要让 Docker 在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时，可以通过添加 `-d` 参数来实现。
 
 下面举两个例子来说明一下。
 
@@ -85,9 +87,9 @@ hello world
 $ sudo docker run -d ubuntu:14.04 /bin/sh -c "while true; do echo hello world; sleep 1; done"
 77b2dc01fe0f3f1265df143181e7b9af5e05279a884f4776ee75350ea9d8017a
 ```
-此时容器会在后台运行并不会把输出的结果(STDOUT)打印到宿主机上面(输出结果可以用docker logs 查看)。
+此时容器会在后台运行并不会把输出的结果(STDOUT)打印到宿主机上面(输出结果可以用 docker logs 查看)。
 
-**注：** 容器是否会长久运行，是和docker run指定的命令有关，和 `-d` 参数无关。
+**注：** 容器是否会长久运行，是和 docker run 指定的命令有关，和 `-d` 参数无关。
 
 使用 `-d` 参数启动后会返回一个唯一的 id，也可以通过 `docker ps` 命令来查看容器信息。
 ```
@@ -106,7 +108,7 @@ hello world
 ## 终止容器
 可以使用 `docker stop` 来终止一个运行中的容器。
 
-此外，当Docker容器中指定的应用终结时，容器也自动终止。
+此外，当 Docker 容器中指定的应用终结时，容器也自动终止。
 例如对于上一章节中只启动了一个终端的容器，用户通过 `exit` 命令或 `Ctrl+d` 来退出终端时，所创建的容器立刻终止。
 
 终止状态的容器可以用 `docker ps -a` 命令看到。例如
@@ -214,7 +216,9 @@ test/ubuntu         v1.0                9d37a6082e97        About a minute ago  
 $sudo docker import http://example.com/exampleimage.tgz example/imagerepo
 ```
 
-*注：用户既可以使用 `docker load` 来导入镜像存储文件到本地镜像库，也可以使用 `docker import` 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。
+*注：用户既可以使用 `docker load` 来导入镜像存储文件到本地镜像库，也可以使用 `docker import` 来导入一个容器快照到本地镜像库。
+这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，
+体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。
 
 
 ## 删除容器
@@ -228,9 +232,10 @@ trusting_newton
 
 
 ## 清理所有处于终止状态的容器
-用 `docker ps -a` 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，用 `docker rm $(docker ps -a -q)` 可以全部清理掉。
+用 `docker ps -a` 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，
+用 `docker rm $(docker ps -a -q)` 可以全部清理掉。
 
 *注意：这个命令其实会试图删除所有的包括还在运行中的容器，不过就像上面提过的 `docker rm` 默认并不会删除运行中的容器。
 
 
-**本文摘自**[Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)
+**本文摘自** [Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)

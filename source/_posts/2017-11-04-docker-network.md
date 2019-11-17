@@ -1,5 +1,5 @@
 ---
-title: Docker网络
+title: Docker 网络
 date: 2017-11-04 15:32:04
 categories: ["Linux"]
 tags: ["Docker"]
@@ -15,7 +15,8 @@ Docker 允许通过外部访问容器或容器互联的方式来提供网络服�
 
 当使用 `-P` 标记时，Docker 会随机映射一个 `49000~49900` 的端口到内部容器开放的网络端口。
 
-使用 `docker container ls` 可以看到，本地主机的 49155 被映射到了容器的 5000 端口。此时访问本机的 49155 端口即可访问容器内 web 应用提供的界面。
+使用 `docker container ls` 可以看到，本地主机的 49155 被映射到了容器的 5000 端口。此时访问本机的 49155 端口即可访问容器
+内 web 应用提供的界面。
 
 ```bash
 $ docker run -d -P training/webapp python app.py
@@ -34,7 +35,8 @@ $ docker logs -f nostalgic_morse
 10.0.2.2 - - [23/May/2014 20:16:31] "GET /favicon.ico HTTP/1.1" 404 -
 ```
 
-`-p` 则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有 `ip:hostPort:containerPort | ip::containerPort | hostPort:containerPort`。
+`-p` 则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有
+ `ip:hostPort:containerPort | ip::containerPort | hostPort:containerPort`。
 
 ### 映射所有接口地址
 
@@ -199,11 +201,13 @@ nameserver 8.8.8.8
 
 如果用户想要手动指定容器的配置，可以在使用 `docker run` 命令启动容器时加入如下参数：
 
-`-h HOSTNAME` 或者 `--hostname=HOSTNAME` 设定容器的主机名，它会被写到容器内的 `/etc/hostname` 和 `/etc/hosts`。但它在容器外部看不到，既不会在 `docker ps` 中显示，也不会在其他的容器的 `/etc/hosts` 看到。
+`-h HOSTNAME` 或者 `--hostname=HOSTNAME` 设定容器的主机名，它会被写到容器内的 `/etc/hostname` 和 `/etc/hosts`。
+但它在容器外部看不到，既不会在 `docker ps` 中显示，也不会在其他的容器的 `/etc/hosts` 看到。
 
 `--dns=IP_ADDRESS` 添加 DNS 服务器到容器的 `/etc/resolv.conf` 中，让容器用这个服务器来解析所有不在 `/etc/hosts` 中的主机名。
 
-`--dns-search=DOMAIN` 设定容器的搜索域，当设定搜索域为 `.example.com` 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，还会搜索 `host.example.com`。
+`--dns-search=DOMAIN` 设定容器的搜索域，当设定搜索域为 `.example.com` 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，
+还会搜索 `host.example.com`。
 
 >注意：如果在容器启动时没有指定最后两个参数，Docker 会默认用主机上的 `/etc/resolv.conf` 来配置容器。
 

@@ -1,5 +1,5 @@
 ---
-title: Docker镜像加速器
+title: Docker 镜像加速器
 date: 2017-11-03 15:10:02
 categories: ["Linux"]
 tags: ["Docker"]
@@ -9,9 +9,9 @@ tags: ["Docker"]
 
 <!-- more -->
 
-Docker官方和国内很多云服务商都提供了加速器服务，例如：
+Docker 官方和国内很多云服务商都提供了加速器服务，例如：
 
-* [Docker 官方提供的中国registry mirror](https://docs.docker.com/registry/recipes/mirror/#use-case-the-china-registry-mirror)
+* [Docker 官方提供的中国 registry mirror](https://docs.docker.com/registry/recipes/mirror/#use-case-the-china-registry-mirror)
 * [阿里云加速器](https://cr.console.aliyun.com/#/accelerator)
 * [DaoCloud 加速器](https://www.daocloud.io/mirror#accelerator-doc)
 
@@ -25,7 +25,8 @@ Docker官方和国内很多云服务商都提供了加速器服务，例如：
 
 ### Ubuntu 14.04、Debian 7 Wheezy
 
-对于使用 [upstart](http://upstart.ubuntu.com/) 的系统而言，编辑 `/etc/default/docker` 文件，在其中的 `DOCKER_OPTS` 中添加获得的加速器配置 `--registry-mirror=<加速器地址>`，如：
+对于使用 [upstart](http://upstart.ubuntu.com/) 的系统而言，编辑 `/etc/default/docker` 文件，在其中的 `DOCKER_OPTS` 中添加
+获得的加速器配置 `--registry-mirror=<加速器地址>`，如：
 
 ```bash
 DOCKER_OPTS="--registry-mirror=https://******.mirror.aliyuncs.com"
@@ -39,7 +40,8 @@ $ sudo service docker restart
 
 ### Ubuntu 16.04、Debian 8 Jessie、CentOS 7
 
-对于使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 的系统，请在 `/etc/docker/daemon.json` 中写入如下内容（如果文件不存在请新建该文件）
+对于使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 的系统，请在 `/etc/docker/daemon.json` 中写入如下
+内容（如果文件不存在请新建该文件）
 
 ```json
 {
@@ -57,7 +59,8 @@ $ sudo systemctl restart docker
 ```
 
 ### Windows 10
-对于使用 WINDOWS 10 的系统，在系统右下角托盘图标内右键菜单选择 `Settings`，打开配置窗口后左侧导航菜单选择 `Docker Daemon`。编辑窗口内的JSON串，填写如阿里云、DaoCloud之类的加速器地址，如：
+对于使用 WINDOWS 10 的系统，在系统右下角托盘图标内右键菜单选择 `Settings`，打开配置窗口后左侧导航菜单选择 `Docker Daemon`。
+编辑窗口内的 JSON 串，填写如阿里云、DaoCloud 之类的加速器地址，如：
 
 ```bash
 {
@@ -72,22 +75,25 @@ $ sudo systemctl restart docker
 
 ### macOS
 
-对于macOS的用户，如果你使用的是**Docker for Mac**，那配置起来很简单。在任务栏点击应用图标 -> Perferences... -> Daemon -> Registry mirrors。在列表中添加云服务商提供的加速器地址即可。修改完成之后，点击`Apply & Restart`按钮，Docker就会重启并应用配置的镜像地址了。
+对于 macOS 的用户，如果你使用的是 **Docker for Mac**，那配置起来很简单。
+在任务栏点击应用图标 -> Perferences... -> Daemon -> Registry mirrors。在列表中添加云服务商提供的加速器地址即可。
+修改完成之后，点击`Apply & Restart`按钮，Docker就会重启并应用配置的镜像地址了。
 
 ### 检查加速器是否生效
 
-Linux系统下配置完加速器需要检查是否生效，在命令行执行 `ps -ef | grep dockerd`，如果从结果中看到了配置的 `--registry-mirror` 参数说明配置成功。
+Linux 系统下配置完加速器需要检查是否生效，在命令行执行 `ps -ef | grep dockerd`，如果从结果中看到了配
+置的 `--registry-mirror` 参数说明配置成功。
 
 ```bash
 $ sudo ps -ef | grep dockerd
 root      5346     1  0 19:03 ?        00:00:00 /usr/bin/dockerd --registry-mirror=https://********.mirror.aliyuncs.com
 $
 ```
-如果`Docker`版本大于1.13或17.05.0-ce，也可以
+如果 `Docker` 版本大于 1.13 或 17.05.0-ce，也可以
 ```bash
 $ sudo docker info|grep "Registry Mirrors" -A 1
 Registry Mirrors:
  https://registry.docker-cn.com/
 ```
 
-**本文摘自**[Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)
+**本文摘自** [Docker — 从入门到实践](https://www.gitbook.com/book/yeasy/docker_practice/details)
