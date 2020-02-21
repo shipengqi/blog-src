@@ -6,7 +6,9 @@
 - 计算机网络
   - 极客时间 趣谈网络协议
   - 极客时间 RPC 深入理解
+  - TCP/IP 小册
   - TCP/IP 详解
+  - [websocket](https://github.com/gorilla/websocket)
   - [socket.io source code](https://github.com/socketio/socket.io)
 - 数据库
   - [SQL教程](https://www.liaoxuefeng.com/wiki/001508284671805d39d23243d884b8b99f440bfae87b0f4000)
@@ -25,9 +27,10 @@
   - 你不知道的 Javascript
   - 高性能 Javascript
   - Javascript 函数式编程
-  - 小册 大厂H5
+  - 小册 大厂 H5
   - 小册 前端面试指南
   - 小册 前端优化原理
+  - [每日 30 秒](https://github.com/pushmetop/30-seconds-for-everyday)
   - [JS 深入系列](https://github.com/mqyqingfeng/Blog)
   - [JS 函数式编程指南](https://github.com/llh911001/mostly-adequate-guide-chinese)
   - [30 seconds of code](https://github.com/30-seconds/30-seconds-of-code)，Javascript CSS 相关知识，技巧，面试题。
@@ -52,8 +55,8 @@
   - 小册 Vue 组件精讲
   - 实战
     - [基于 vue2 + vuex 构建一个具有 45 个页面的大型单页面应用](https://github.com/bailicangdu/vue2-elm)
-    - [基于vue2.0的实时聊天项目](https://github.com/hua1995116/webchat)
-    - [vuejs仿网易云音乐](https://github.com/hua1995116/musiccloudWebapp)
+    - [基于 vue2.0 的实时聊天项目](https://github.com/hua1995116/webchat)
+    - [vuejs 仿网易云音乐](https://github.com/hua1995116/musiccloudWebapp)
 - Node.js
   - [Node.js Source code](https://github.com/nodejs/node)
   - Node.js 核心模块
@@ -69,7 +72,7 @@
   - [Node.js 调优指南](https://github.com/aliyun-node/Node.js-Troubleshooting-Guide)
   - [Node.js 使用 JSONWebToken，完成用户认证](https://softwareontheroad.com/nodejs-jwt-authentication-oauth/)
   - [如何正确的学习 Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
-  - Node.js：来一打C++扩展
+  - Node.js：来一打 C++ 扩展
   - Express, [Koa source code](https://juejin.im/post/5be3a0a65188256ccc192a87)
   - [underscore-analysis](https://github.com/lessfish/underscore-analysis)
   - Hubot source code
@@ -82,6 +85,8 @@
   - 小册 Go 搭建企业级Web
   - Go 内存管理与垃圾回收
   - Go 并发调度
+  - [7 天用 Go 从零实现系列](https://github.com/geektutu/7days-golang)
+  - [Go 简明教程](https://geektutu.com/post/quick-golang.html)
   - [Go 42](https://github.com/ffhelicopter/Go42)
   - [Learn Go with tests](https://github.com/quii/learn-go-with-tests)
   - [Go 实战开发](https://github.com/astaxie/go-best-practice)
