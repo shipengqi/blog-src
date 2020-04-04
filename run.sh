@@ -31,7 +31,7 @@ EOF
 
 port=8081
 useProxy="false"
-proxy="http://web-proxy.il.softwaregrp.net:8080"
+proxy="http://web-proxy.cn.softwaregrp.net:8080"
 executeCommand="start"
 theme="cactus"
 TEMP=`getopt -o hsdp: --long help,start,deploy,theme,port:,proxy:: -n './run.sh --help' -- "$@"`
