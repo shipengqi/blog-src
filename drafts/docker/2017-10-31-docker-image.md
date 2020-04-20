@@ -581,7 +581,7 @@ docker build [选项] <上下文路径/URL/->
 如果在 `Dockerfile` 中这么写：
 
 ```Dockerfile
-COPY ./package.json /app/
+COPY package.json /app/
 ```
 
 这并不是要复制执行 `docker build` 命令所在的目录下的 `package.json`，也不是复制 `Dockerfile` 所在目录下的 `package.json`，

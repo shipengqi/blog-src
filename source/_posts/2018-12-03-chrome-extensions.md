@@ -4,14 +4,16 @@ date: 2018-12-03 11:07:32
 categories: ["乱七八糟"]
 ---
 
-最近在家里不能访问 Google 了，原因是 VPN 到期了（没钱买），修改 host 文件的方式也行不通了。就行到了 Chrome 插件。以前也用过但是不太稳定，先凑合用吧。
+记录一些好用的 Chrome 插件
 
 <!-- more -->
 
 ## 访问谷歌
 ### 下载插件
 
-因为我可以在公司访问 Google，所以我在公司先把插件下载好，到家里安装。在应用商店是不能直接下载插件的。但是可应通过这个[网站](https://chrome-extension-downloader.com/)下载。
+因为我可以在公司访问 Google，所以我在公司先把插件下载好，到家里安装。在应用商店是不能直接下载插件的。但是可应通过这
+个 [网站](https://chrome-extension-downloader.com/) 下载。
+
 1. 先在 Chrome 应用商店找到插件，复制连接。
 
 ![](/images/chrome-extensions/chrome1.jpg)
@@ -28,7 +30,8 @@ categories: ["乱七八糟"]
 - [插件网](http://www.cnplugins.com/)
 - [浏览器插件下载中心](https://www.chromefor.com/)
 
-当然上面可能没有你想要的插件，我把已经下载好的插件放到了[这里](https://pan.baidu.com/s/1VMRNvrfzauwAvQhAOLy1Vw)，提取码是`zf36`，可以自行下载，包括了一下插件：
+当然上面可能没有你想要的插件，我把已经下载好的插件放到了 [这里](https://pan.baidu.com/s/1VMRNvrfzauwAvQhAOLy1Vw) ，提取码是 `zf36`，可
+以自行下载，包括了一下插件：
 
 - Tunnello VPN（收费了）
 - 谷歌访问助手（可用，需要设置 2345 为主页，可以免费激活）
@@ -37,15 +40,18 @@ categories: ["乱七八糟"]
 
 ### 安装插件
 #### Chrome 67 以前版本
-浏览器打开`chrome://extensions/`，直接把插件拖进去安装。
+浏览器打开 `chrome://extensions/`，直接把插件拖进去安装。
 
 #### Chrome 67 以后版本
-Chrome 67 以后版本无法离线安装，可以用**Chrome 插件伴侣**来安装插件。我已经下载好放在了[这里](https://pan.baidu.com/s/1QVXauUSn87dJ2N6eo1e_9g)，提取码是`vpr1`。
+Chrome 67 以后版本无法离线安装，可以用 **Chrome 插件伴侣**来安装插件。我已经下载好放在了 
+[这里](https://pan.baidu.com/s/1QVXauUSn87dJ2N6eo1e_9g) ，提取码是 `vpr1`。
 
 使用非常简单，按提示操作即可。
 
 ## 其他插件
-- Octotree，在页面侧边展示出Github仓库的目录树。
-- FeHelper，web前端助手，相当于一个工具箱，包括JSON格式化、二维码生成与解码、信息编解码、代码压缩、美化、页面取色、Markdown与HTML互转、
-网页滚动截屏、正则表达式、时间转换工具、编码规范检测、页面性能检测、Ajax接口调试、密码生成器、JSON比对工具、网页编码设置、便签笔记等。
-- JSON Editor，一个Json格式化工具
+- Octotree，在页面侧边展示出 Github 仓库的目录树。
+- FeHelper，web 前端助手，相当于一个工具箱，包括 JSON 格式化、二维码生成与解码、信息编解码、代码压缩、美化、页面取色、Markdown 与 HTML 互转、
+网页滚动截屏、正则表达式、时间转换工具、编码规范检测、页面性能检测、Ajax 接口调试、密码生成器、JSON 比对工具、网页编码设置、便签笔记等。
+- JSON Editor，一个 Json 格式化工具。
+- 一键管理扩展，管理 chrome 扩展的插件。
+- 掘金，为程序员、设计师、产品经理每日发现优质内容。

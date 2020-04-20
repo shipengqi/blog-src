@@ -231,7 +231,7 @@ version: '3'
 services:
 
   web:
-    build: .
+    build: ../..
     ports:
      - "5000:5000"
 

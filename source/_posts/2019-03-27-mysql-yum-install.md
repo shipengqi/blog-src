@@ -5,49 +5,49 @@ categories: ["数据库"]
 tags: ["MySQL"]
 ---
 
-安装参考官网[Yum 安装 MySQL 文档](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html)。
+安装参考官网 [Yum 安装 MySQL 文档](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html)。
 
 <!-- more -->
 
 ## 安装步骤
 ### 添加 MySQL Yum Repository
-1. 在[这里](https://dev.mysql.com/downloads/repo/yum/)下载。
-2. 选择你要下载的版本下载。我的系统是CentOs7：
+1. 在 [这里](https://dev.mysql.com/downloads/repo/yum/) 下载。
+2. 选择你要下载的版本下载。我的系统是 CentOs7：
 ```sh
 wget https://repo.mysql.com//mysql80-community-release-el7-2.noarch.rpm
 ```
-3. 下载好之后，使用下面的命令安装RPM包
+3. 下载好之后，使用下面的命令安装 RPM 包
 ```sh
 yum localinstall mysql80-community-release-el7-2.noarch.rpm
 ```
 
-这个安装命令会把MySQL的Yum源添加到系统的源列表中，并且下载GnuPG key校验软件包的完整性。使用下面的命令验证MySQL的Yum源是否添加成功：
+这个安装命令会把 MySQL 的 Yum 源添加到系统的源列表中，并且下载 GnuPG key 校验软件包的完整性。使用下面的命令验证 MySQL 的 Yum 源是否添加成功：
 ```sh
 yum repolist enabled | grep "mysql.*-community.*"
 ```
 
 ### 选择一个版本系列
-使用 MySQL Yum Repository，默认会选择最新的GA（Generally Available）系列（当前是MySQL 8.0）安装。如果这是你想要安装的版本，可以跳过这一步。
-MySQL的不同版本系列托管在不同的子仓库中。默认情况下启用了最新GA系列(当前MySQL 8.0)的子仓库，并且其他版本的子仓库默认是禁用的。
+使用 MySQL Yum Repository，默认会选择最新的 GA（Generally Available）系列（当前是MySQL 8.0）安装。如果这是你想要安装的版本，可以跳过这
+一步。MySQL 的不同版本系列托管在不同的子仓库中。默认情况下启用了最新 GA 系列(当前 MySQL 8.0)的子仓库，并且其他版本的子仓库默认是禁用的。
 使用下面的命令查看所有仓库的状态：
 ```sh
 yum repolist all | grep mysql
 ```
 
-安装指定的版本要先禁用最新的GA子仓库，并启用指定版本的子仓库。如果系统支持`yum-config-manager`，可以使用`yum-config-manager`，比如，
-禁用`5.7`的子仓库并启用`8.0`:
+安装指定的版本要先禁用最新的 GA 子仓库，并启用指定版本的子仓库。如果系统支持 `yum-config-manager`，可以使用 `yum-config-manager`，比如，
+禁用 `5.7` 的子仓库并启用 `8.0`:
 ```sh
 yum-config-manager --disable mysql57-community
 yum-config-manager --enable mysql80-community
 ```
 
-对于启用了`dnf`的系统，使用：
+对于启用了 `dnf` 的系统，使用：
 ```sh
 dnf config-manager --disable mysql57-community
 dnf config-manager --enable mysql80-community
 ```
 
-除了上面的方式，还可以手动修改`/etc/yum.repos.d/mysql-community.repo`文件：
+除了上面的方式，还可以手动修改 `/etc/yum.repos.d/mysql-community.repo` 文件：
 ```
 [mysql57-community]
 name=MySQL 5.7 Community Server
@@ -65,7 +65,7 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ```
 
-通过修改`enabled`的值来禁用和启用对应的版本仓库。`enabled=0`表示禁用。使用`yum repolist enabled | grep mysql`检查状态。
+通过修改 `enabled` 的值来禁用和启用对应的版本仓库。`enabled=0` 表示禁用。使用 `yum repolist enabled | grep mysql` 检查状态。
 
 > 注意，只能启用一个版本。
 
@@ -75,7 +75,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
 ```sh
 yum install mysql-community-server
 ```
-这个命令安装MySQL server(mysql-community-server)和运行MySQL server必要的组件，包括MySQL 客户端(mysql-community-client)等。
+这个命令安装 MySQL server(mysql-community-server)和运行 MySQL server 必要的组件，包括MySQL 客户端(mysql-community-client)等。
 
 ### 启动 MySQL
 启动 MySQL：
@@ -86,11 +86,11 @@ systemctl start mysqld
 systemctl status mysqld
 ```
 
-初次启动MySQL server，要注意：
-- SSL证书和密钥文件在数据目录中生成。
-- [validate_password](https://dev.mysql.com/doc/refman/8.0/en/validate-password.html)被安装并启用。
-- 会创建一个名为`root`的超级用户。密码可以使用`grep 'temporary password' /var/log/mysqld.log`来查看。使用生成的临时密码登录，
-尽快更改`root`密码，并为超级用户帐户设置自定义密码:
+初次启动 MySQL server，要注意：
+- SSL 证书和密钥文件在数据目录中生成。
+- [validate_password](https://dev.mysql.com/doc/refman/8.0/en/validate-password.html) 被安装并启用。
+- 会创建一个名为 `root` 的超级用户。密码可以使用 `grep 'temporary password' /var/log/mysqld.log` 来查看。使用生成的临时密码登录，
+尽快更改 `root` 密码，并为超级用户帐户设置自定义密码:
 ```sh
 mysql -uroot -p
 
@@ -102,7 +102,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'Admin@111';
 说明密码太简单了。
 
 ## 配置
-安装后，配置文件为`/etc/my.cnf`。具体配置参数参考[官网](https://dev.mysql.com/doc/refman/8.0/en/server-option-variable-reference.html)。
+安装后，配置文件为 `/etc/my.cnf`。具体配置参数参考 [官网](https://dev.mysql.com/doc/refman/8.0/en/server-option-variable-reference.html)。
 
 ### MySQL 主从复制
 环境说明和注意点：
@@ -166,5 +166,6 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'Admin@111';
     - `Slave_IO_Running:Yes`
         - 如果不是 Yes 也不是 No，而是 Connecting，那就表示从机连不上主库，需要你进一步排查连接问题。
     - `Slave_SQL_Running:Yes`
-- 如果你的 Slave_IO_Running 是 No，一般如果你是在虚拟机上测试的话，从库的虚拟机是从主库的虚拟机上复制过来的，那一般都会这样的，因为两台的 MySQL 的 UUID 值一样。你可以检
+- 如果你的 Slave_IO_Running 是 No，一般如果你是在虚拟机上测试的话，从库的虚拟机是从主库的虚拟机上复制过来的，那一般都会这样的，因为两台
+的 MySQL 的 UUID 值一样。你可以检
 

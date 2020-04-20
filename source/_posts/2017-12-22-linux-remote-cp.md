@@ -1,5 +1,5 @@
 ---
-title: Linux下远程拷贝传输文件
+title: Linux 下远程拷贝传输文件
 date: 2017-12-22 12:32:04
 categories: ["Linux"]
 tags: ["Shell"]

@@ -522,9 +522,9 @@ $ docker inspect --format '{{json .State.Health}}' web | python -m json.tool
 FROM node:slim
 RUN mkdir /app
 WORKDIR /app
-COPY ./package.json /app
+COPY package.json /app
 RUN [ "npm", "install" ]
-COPY . /app/
+COPY ../.. /app/
 CMD [ "npm", "start" ]
 ```
 

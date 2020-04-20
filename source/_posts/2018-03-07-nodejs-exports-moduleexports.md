@@ -1,5 +1,5 @@
 ---
-title: 关于exports 和 module.exports
+title: 关于 exports 和 module.exports
 date: 2018-03-07 10:09:13
 categories: ["Node.js"]
 ---

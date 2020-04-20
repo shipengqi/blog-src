@@ -85,9 +85,9 @@ ab -n 5000 -c 200 -p data.txt -T application/x-www-form-urlencoded http://your.a
 - `-p`，请求数据的文件的完整路经。
 - `-T`，`Content-Type`。
 
-`-p`指定文件的格式应该是`name1=value1&name2=value2`。
+`-p` 指定文件的格式应该是 `name1=value1&name2=value2`。
 
-**注意，如果是在内网请求外网，要加上`-X hostname:port`，指定你的 http 代理。**
+**注意，如果是在内网请求外网，要加上 `-X hostname:port`，指定你的 http 代理**。
 
 ## 其他参数
 
@@ -131,10 +131,10 @@ Options are:
 ```
 
 ## 常见问题
-### 当并发设置为250以上的时候就会出现apr_socket_recv Connection refused 111错误
-这是因为是linux网络参数设置。一般apache默认最大并发量为150，可以进入配置文件修改`Threadperchild`等参数值。
+### 当并发设置为 250 以上的时候就会出现 apr_socket_recv Connection refused 111 错误
+这是因为是 linux 网络参数设置。一般 apache 默认最大并发量为 150，可以进入配置文件修改 `Threadperchild` 等参数值。
 
-如何调整Apache的最大并发量：
+如何调整 Apache 的最大并发量：
 ```bash
 vi /etc/sysctl.conf
 
@@ -144,5 +144,5 @@ net.netfilter.nf_conntrack_tcp_timeout_established = 1200
 
 sysctl -p /etc/sysctl.conf
 ```
-修改后，重新启用apache ab 进行测试，问题解决。
+修改后，重新启用 apache ab 进行测试，问题解决。
 

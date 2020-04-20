@@ -1,27 +1,27 @@
 ---
-title: NodeJs如何实现浏览器终端
+title: NodeJs 如何实现浏览器终端
 date: 2018-07-03 12:57:58
 categories: ["Node.js"]
 ---
 
-最近要实现一个`web`终端，调研了几个开源的包，最后选择了[Cloud Commander](http://cloudcmd.io/)。
+最近要实现一个 web terminal，调研了几个开源的包，最后选择了 [Cloud Commander](http://cloudcmd.io/)。
 
 <!-- more -->
 
-选择`Cloud Commander`几个原因：
-- 功能更丰富，支持`vim`，支持查看多种文件(images, txt, video ...)，`Hot keys`，`Terminal`。
+选择 Cloud Commander 几个原因：
+- 功能更丰富，支持 `vim`，支持查看多种文件(images, txt, video ...)，`Hot keys`，`Terminal`。
 - 文档详细。
-- 还在不断的完善，已经更新到`v10.3.2`。
+- 还在不断的完善，已经更新到 `v10.3.2`。
 
 ## 安装
 ```bash
 npm install cloudcmd -g
 ```
-因为`Cloud Commander`的`Terminal`功能默认是关闭的，如果使用需要安装`gritty`，[gritty文档](https://github.com/cloudcmd/gritty)：
+因为 Cloud Commander 的 Terminal 功能默认是关闭的，如果使用需要安装 [gritty](https://github.com/cloudcmd/gritty) ：
 ```bash
 npm i gritty -g
 ```
-安装好之后要配置`--terminal`和`--terminal-path`。
+安装好之后要配置 `--terminal` 和 `--terminal-path`。
 
 ### 安装中的错误
 如果碰到下面两种错误，都是因为权限引起的错误：
@@ -37,33 +37,31 @@ npm install gritty -g
 ```
 
 ## 简单使用
-```bash
-cloudcmd
-```
 
-安装好之后直接运行`cloudcmd`就会打开一个默认的端口`8000`，然后访问`http://localhost:8000`就可以了。
 
-如果要使用`terminal`功能：
+安装好之后直接运行 `cloudcmd` 就会打开一个默认的端口 `8000`，然后访问 `http://localhost:8000` 就可以了。
+
+如果要使用 `terminal` 功能：
 ```bash
-#查看gritty的路径
+# 查看 gritty 的路径
 gritty --path
 
-#输出
+# 输出
 /usr/local/lib/node_modules/gritty
 
 cloudcmd --terminal --terminal-path /usr/local/lib/node_modules/gritty --save
 ```
 
-然后访问`http://localhost:8000`：
+然后访问 `http://localhost:8000`：
 <img src="/images/web-terminal/terminal1.JPG" width="80%" height="">
 <img src="/images/web-terminal/terminal2.JPG" width="80%" height="">
 
-关于更多配置使用查看[Cloud Commander官方文档](http://cloudcmd.io/)。
-如果只是想实现`terminal`功能，可以直接安装使用[gritty](https://github.com/cloudcmd/gritty)。
+关于更多配置使用查看 [Cloud Commander 官方文档](http://cloudcmd.io/)。
+如果只是想实现 terminal 功能，可以直接安装使用 [gritty](https://github.com/cloudcmd/gritty)。
 
-## 与Express集成
+## 与 Express 集成
 
-### gritty与Express集成
+### gritty 与 Express 集成
 ```bash
 npm i gritty socket.io express --save
 ```
@@ -88,7 +86,7 @@ gritty.listen(socket);
 server.listen(port);
 ```
 
-页面`index.html`：
+页面 `index.html`：
 ```html
 <div class="gritty"></div>
 <script src="/gritty/gritty.js"></script>
@@ -97,7 +95,7 @@ server.listen(port);
 </script>
 ```
 
-### cloudcmd与Express集成
+### cloudcmd 与 Express 集成
 ```bash
 npm i cloudcmd socket.io express --save
 ```

@@ -1,18 +1,18 @@
 ---
-title: CentOS安装Node.js
+title: CentOS 安装 Node.js
 date: 2017-10-12 20:03:27
 categories: ["Linux"]
 ---
 
-在`CentOS`上用源码安装`Node.js`。
+在 CentOS 上用源码安装 Node.js。
 
 <!-- more -->
 
-1. `Node`官网[下载node源码](https://nodejs.org/en/download/)。
+1. 官网下载 [node](https://nodejs.org/en/download/) 。
 ``` bash
 wget https://nodejs.org/dist/v6.11.4/node-v6.11.4-linux-x64.tar.xz
 
-#/usr/local/node/
+# /usr/local/node/
 mkdir /usr/local/node/
 mv ./node-v6.11.4-linux-x64 /usr/local/node/
 ```
@@ -22,17 +22,17 @@ mv ./node-v6.11.4-linux-x64 /usr/local/node/
 tar -xvf node-v6.11.4-linux-x64.tar.xz
 ```
 
-3. Node环境配置
+3. Node 环境配置
 ``` bash
 vim /etc/profile
 
-#在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL 一行的上面添加
+# 在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL 一行的上面添加
 
-#nodejs
+# nodejs
 export NODE_HOME=/usr/local/node/6.11.4
 export PATH=$NODE_HOME/bin:$PATH
 
-#编译/etc/profile 使配置生效
+# 编译/etc/profile 使配置生效
 source /etc/profile
 ```
 
