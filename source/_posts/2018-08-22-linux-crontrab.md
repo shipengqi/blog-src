@@ -1,5 +1,5 @@
 ---
-title: Shell 定时任务
+title: Linux 定时任务
 date: 2018-08-22 14:54:21
 categories: ["Linux"]
 tags: ["Shell"]
@@ -9,7 +9,7 @@ tags: ["Shell"]
 
 <!-- more -->
 
-`crontab``Linux` 默认安装，一般被用来执行周期性任务。`crond` 进程会定期检查是否有要执行的任务，如果有，则自动执行。
+`Linux` 默认安装 `crontab`，一般被用来执行周期性任务。`crond` 进程会定期检查是否有要执行的任务，如果有，则自动执行。
 
 ## crontab 命令
 ```bash

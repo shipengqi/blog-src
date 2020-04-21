@@ -1,10 +1,10 @@
 ---
-title: Nodejs 实现文件监听
+title: Node.js 实现文件监听
 date: 2018-03-20 15:18:14
 categories: ["Node.js"]
 ---
 
-Nodejs，实现文件监听，可以使用 [fs.watch](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener) 和
+Node.js，实现文件监听，可以使用 [fs.watch](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener) 和
 [fs.watchFile](https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener) 。
 
 也可以通过第三方库 [chokidar](https://www.npmjs.com/package/chokidar) 来实现。

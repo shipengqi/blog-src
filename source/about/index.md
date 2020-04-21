@@ -24,11 +24,11 @@ comments: false
 - [粉丝日志](http://blog.fens.me/)
 - [Java 程序员眼中的 Linux](https://github.com/judasn/Linux-Tutorial)
 - [CoolShell](https://coolshell.cn/)
-- [阿里巴巴UED团队](http://www.aliued.com/)
+- [阿里巴巴 UED 团队](http://www.aliued.com/)
 - [IMWeb 前端博客](http://imweb.io/topic/tab/all)
 - [美团点评技术团队](https://tech.meituan.com/)
 
-最后还有 [wuliang](https://github.com/wuliang142857)，这是我技术路上的第一个师傅（大牛）的 Github，在我一度怀疑自己的时候，
+最后还有 [wuliang](https://github.com/wuliang142857) ，这是我技术路上的第一个师傅（大牛）的 Github，在我一度怀疑自己的时候，
 他给了我很多帮助，感谢。
 
 博客使用 [Hexo](https://hexo.io/zh-cn/docs/) 搭建于：
