@@ -61,7 +61,10 @@
   - [Node.js Source code](https://github.com/nodejs/node)
   - Node.js 核心模块
   - Node.js 内存管理与垃圾回收
+  - [Node.js 内核性能监控分析工具](https://github.com/hyj1991/easy-monitor)
+  - [Node.js 应用线上/线下故障、压测问题和性能调优指南手册](https://github.com/aliyun-node/Node.js-Troubleshooting-Guide)
   - [Node.js 调试指南](https://github.com/nswbmw/node-in-debugging)
+  - [node debug tutorial](https://github.com/i5ting/node-debug-tutorial)
   - [Node 性能优化](https://segmentfault.com/a/1190000007621011)
   - [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
   - [profiler](https://segmentfault.com/a/1190000012414666)
