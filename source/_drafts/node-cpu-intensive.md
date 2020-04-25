@@ -3,11 +3,18 @@ title: Node.js 为什么不擅长 CPU 密集型业务？
 tags:
 ---
 
-Node.js 是单线程的，
+Node.js 是单线程的（这里的单线程仅仅只是 javascript 执行在单线程中），单线程最大的好处就是，不需要关心多个线程间的状态同步，也避
+免了线程上下文切换带来的开销。
+
+但是 Node 的单线程也有自身的弱点：
+1. 无法利用多核 CPU。
+2. 一旦出现异常，可能导致整个进程退出。
+3. 碰到大量计算的场景，CPU 会被长时间占用，导致事件循环阻塞。
 
 ## IO 密集型 和 CPU 密集型
-## 异步和非阻塞 IO
-## Node.js Event Loop
+Node 擅长 IO 密集型的应用场景，是因为它的事件循环的机制。  
+## 异步 IO 和 非阻塞 IO
+## Node Event Loop
 首先，
 
 https://blog.csdn.net/shmnh/article/details/31972071
