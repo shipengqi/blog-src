@@ -151,7 +151,7 @@ exports.handler = function (argv) {
 }
 
 
-yargs.command(require('test'))
+yargs.command(require('drafts/test'))
   .help()
   .argv
 ```

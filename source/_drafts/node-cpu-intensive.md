@@ -13,10 +13,9 @@ Node.js 是单线程的（这里的单线程仅仅只是 javascript 执行在单
 
 ## IO 密集型 和 CPU 密集型
 Node 擅长 IO 密集型的应用场景，是因为它的事件循环的机制。  
-## 异步 IO 和 非阻塞 IO
-## 系统是如何实现异步 IO 的
-## Node 的异步 IO 实现
-## Node Event Loop
+
+无论 child_process 还是 cluster，都不是多线程模型，而是多进程模型。
+
 首先，
 
 https://blog.csdn.net/shmnh/article/details/31972071

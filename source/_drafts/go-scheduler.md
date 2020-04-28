@@ -12,6 +12,8 @@ https://www.jianshu.com/p/44be951fc19f
 并发编程实战
 极客时间 go
 go 学习笔记
+https://github.com/qcrao/Go-Questions 电子书 公众号
+https://changkun.de/golang/
 
 go gc，memory manage
 
