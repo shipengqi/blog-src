@@ -346,6 +346,8 @@ func (c *Context) Next() {
 }
 ```
 
+上面的代码，`for` 循环遍历 handlers 执行，也就意味着在中间件 handlers 中， `c.Next()` 并不是必须的，根据情况调用。
+
 `Next` 方法可以在中间件函数中主动调用，例如：
 
 ```go
@@ -391,3 +393,97 @@ func main() {
 
 当在中间件中调用 `c.Next()` 时，这个中间件就得到了控制权，执行 `c.Next()`，`c.index` 先加 1，然后进入 `for` 循环，循环执行结束，控制权还
 给 context。这个实现有点类似 [koa](https://github.com/koajs/koa) 的洋葱模型。
+
+
+## 路由树
+gin router 的底层数据结构是**基树**（Radix tree），类似 Trie 树。
+
+![](/images/gin-analysis/radix-tree.png)
+
+Radix tree 的节点：
+```go
+type node struct {
+    // 相对路径
+    path      string
+    // 索引
+    indices   string
+    // 子节点
+    children  []*node
+    // 处理者列表
+    handlers  HandlersChain
+    priority  uint32
+    // 结点类型：static, root, param, catchAll
+    nType     nodeType
+    // 最多的参数个数
+    maxParams uint8
+    // 是否是通配符(:param_name | *param_name)
+    wildChild bool
+    // 完整路径
+	fullPath  string
+}
+```
+
+一个路由示例：
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
+func m1(c *gin.Context)  {
+	fmt.Println("middleware1")
+}
+
+func m2(c *gin.Context)  {
+	fmt.Println("middleware2")
+}
+
+func f(c *gin.Context)  {
+	c.JSON(200, gin.H{
+		"message": "ok",
+	})
+}
+
+
+func f1(c *gin.Context)  {
+	c.JSON(200, gin.H{
+		"message": "ok",
+	})
+}
+
+func f2(c *gin.Context)  {
+	c.JSON(200, gin.H{
+		"message": "ok",
+	})
+}
+
+func f3(c *gin.Context)  {
+	c.JSON(200, gin.H{
+		"message": "ok",
+	})
+}
+
+func f4(c *gin.Context)  {
+	c.JSON(200, gin.H{
+		"message": "ok",
+	})
+}
+
+func main() {
+	r := gin.Default()
+    r.Get("/", f)
+	r.Use(m1)
+	r.GET("/index", f1)
+	r.GET("/ins", f2)
+	r.Use(m2)
+	r.GET("/go", f3)
+	r.GET("/golang", f4)
+
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
+```
+
+上面的示例，生成树结构示意图：
+![](/images/gin-analysis/demo-tree.png)
