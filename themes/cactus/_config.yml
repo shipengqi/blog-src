@@ -18,7 +18,7 @@ nav:
   About: /about/
   Writing: /archives/
   Categories: /categories/
-  Tags: /tags/
+  # Tags: /tags/
   # Projects: https://github.com/shipengqi
   Search: /search/
 

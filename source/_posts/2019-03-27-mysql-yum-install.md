@@ -2,7 +2,6 @@
 title: CentOs 安装配置 MySQL
 date: 2019-03-27 13:20:10
 categories: ["数据库"]
-tags: ["MySQL"]
 ---
 
 安装参考官网 [Yum 安装 MySQL 文档](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html)。
