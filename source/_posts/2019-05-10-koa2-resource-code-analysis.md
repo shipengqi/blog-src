@@ -537,6 +537,7 @@ Router.prototype.register = function (path, methods, middleware, opts) {
   }
 
   // add parameter middleware
+  // // 设置 param 前置处理函数
   Object.keys(this.params).forEach(function (param) {
     route.param(param, this.params[param]);
   }, this);
@@ -560,7 +561,7 @@ Router.prototype.routes = Router.prototype.middleware = function () {
     // 匹配路由
     var matched = router.match(path, ctx.method);
     var layerChain, layer, i;
-
+    // 将匹配的路由缓存到 context 对象
     if (ctx.matched) {
       ctx.matched.push.apply(ctx.matched, matched.path);
     } else {
@@ -569,7 +570,7 @@ Router.prototype.routes = Router.prototype.middleware = function () {
 
     ctx.router = router;
 
-    if (!matched.route) return next(); // 继续执行后面的逻辑
+    if (!matched.route) return next(); // // 未匹配到路由，执行下一个中间件
 
     var matchedLayers = matched.pathAndMethod
     var mostSpecificLayer = matchedLayers[matchedLayers.length - 1]
@@ -577,12 +578,14 @@ Router.prototype.routes = Router.prototype.middleware = function () {
     if (mostSpecificLayer.name) {
       ctx._matchedRouteName = mostSpecificLayer.name;
     }
-
+    // 路由的前置处理中间件 将 params、路由别名以及捕获数组属性挂载到 context 上下文对象中
     layerChain = matchedLayers.reduce(function(memo, layer) {
+      // 将所有的 layer 封装成了 koa 的中间件函数
       memo.push(function(ctx, next) {
         ctx.captures = layer.captures(path, ctx.captures);
         ctx.params = layer.params(path, ctx.captures, ctx.params);
         ctx.routerName = layer.name;
+        // 进入下一个路由中间件
         return next();
       });
       return memo.concat(layer.stack);
@@ -591,7 +594,7 @@ Router.prototype.routes = Router.prototype.middleware = function () {
     // 返回了 compose 函数，这个函数也同样式依赖 `koa-compose`
     // 将所有匹配的路由 和 路由中间件的数组传入，并执行 compose 返回的函数
     // 注意 koa 是在 `application.js` 的 `callback` 方法中执行 compose 返回的函数
-    // compose 返回的函数的实现这里不再分析，总之就是在这里将所有匹配到的路由和中间件都执行了，并返回一个 Promise
+    // 这里利用 compose 函数，又实现了一个洋葱模型
     return compose(layerChain)(ctx, next);
   };
 
@@ -604,4 +607,70 @@ Router.prototype.routes = Router.prototype.middleware = function () {
 `routes` 方法返回了 `dispatch` 函数。`dispatch` 函数被注册到了 koa 的中间件，那么按照 koa 中间件的执行机制，`dispatch` 函数
 最终会在某个 koa 中间件中执行 `next` 时被执行。
 
-关于路由如何匹配，一个路由对象的具体定义，有兴趣的同学可以自己看源码。
+
+`router.match` 的实现：
+```javascript
+Router.prototype.match = function (path, method) {
+  var layers = this.stack;
+  var layer;
+  var matched = {
+    path: [],
+    pathAndMethod: [],
+    route: false
+  };
+  // 遍历所有存放的路由数组
+  for (var len = layers.length, i = 0; i < len; i++) {
+    layer = layers[i];
+
+    debug('test %s %s', layer.path, layer.regexp);
+    // 调用路由对象 layer 的 math 函数，就是一个正则匹配
+    // 将匹配到的 layer 放到 matched.path 数组
+    if (layer.match(path)) {
+      matched.path.push(layer);
+      // layer 的 methods 数组存放的是注册的路由方法
+      // 如果 layer.methods.length === 0 该 layer 为路由级别的中间件，即 route.use 方法注册的路由函数
+      // ~layer.methods.indexOf(method) -1 按位取反是 00000000，所以这个是判断路由方法被匹配到
+      if (layer.methods.length === 0 || ~layer.methods.indexOf(method)) {
+        matched.pathAndMethod.push(layer);
+       // 当路由的路径和路由方法都被满足时，才算是路由被匹配到，将 matched.route 置为 true
+        if (layer.methods.length) matched.route = true;
+      }
+    }
+  }
+
+  return matched;
+};
+```
+
+```javascript
+function Layer(path, methods, middleware, opts) {
+  this.opts = opts || {};
+  this.name = this.opts.name || null;
+  this.methods = [];
+  this.paramNames = [];
+  this.stack = Array.isArray(middleware) ? middleware : [middleware];
+
+  methods.forEach(function(method) {
+    var l = this.methods.push(method.toUpperCase());
+    if (this.methods[l-1] === 'GET') {
+      this.methods.unshift('HEAD');
+    }
+  }, this);
+
+  // ensure middleware is a function
+  this.stack.forEach(function(fn) {
+    var type = (typeof fn);
+    if (type !== 'function') {
+      throw new Error(
+        methods.toString() + " `" + (this.opts.name || path) +"`: `middleware` "
+        + "must be a function, not `" + type + "`"
+      );
+    }
+  }, this);
+
+  this.path = path;
+  this.regexp = pathToRegExp(path, this.paramNames, this.opts);
+
+  debug('defined route %s %s', this.methods, this.opts.prefix + this.path);
+};
+```
