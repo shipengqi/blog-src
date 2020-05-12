@@ -2,7 +2,6 @@
 title: Linux 定时任务
 date: 2018-08-22 14:54:21
 categories: ["Linux"]
-tags: ["Shell"]
 ---
 
 在 `Linux` 下如何实现定时执行脚本。可以使用 `crontab`。

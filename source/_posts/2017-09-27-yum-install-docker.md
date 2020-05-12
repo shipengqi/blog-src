@@ -2,7 +2,6 @@
 title: CentOs 安装 Docker
 date: 2017-09-27 10:44:08
 categories: ["Linux"]
-tags: ["Docker"]
 ---
 CentOS 7 通过 yum 安装 docker。
 

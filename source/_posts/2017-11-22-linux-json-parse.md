@@ -2,7 +2,6 @@
 title: Linux jq 使用
 date: 2017-11-22 15:32:04
 categories: ["Linux"]
-tags: ["Shell"]
 ---
 
 `jq` 是一个很好用的处理 json 的工具，可以使用它直接在命令行下对 json 进行操作，分片、过滤、映射和转换。
