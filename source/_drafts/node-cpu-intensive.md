@@ -18,6 +18,7 @@ Node 擅长 IO 密集型的应用场景，是因为它的事件循环的机制�
 
 首先，
 
+https://www.jianshu.com/p/f8b2e2869372
 https://blog.csdn.net/shmnh/article/details/31972071
 https://www.ibm.com/developerworks/cn/opensource/os-cn-nodejscpu/
 
@@ -27,3 +28,6 @@ https://www.ibm.com/developerworks/cn/opensource/os-cn-nodejscpu/
 结论：
 异步编程是用来解决IO的。
 js是单线程，cpu密集型计算还是会耗时。
+
+https://www.cnblogs.com/my_captain/p/12661967.html
+https://www.cnblogs.com/my_captain/p/12663865.html
