@@ -15,12 +15,12 @@ direction: ltr
 # languages/*.yml
 nav:
   Home: /
-  About: /about/
   Writing: /archives/
   Categories: /categories/
   # Tags: /tags/
   # Projects: https://github.com/shipengqi
   Search: /search/
+  About: /about/
 
 
 # Links to your social media accounts.
