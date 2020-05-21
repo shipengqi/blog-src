@@ -1387,6 +1387,7 @@ type schedt struct {
     pidle      puintptr // idle p's
     // 空闲的p结构体对象的数量
     npidle     uint32
+    // 处于spinning状态的m 的数量
     nmspinning uint32 // See "Worker thread parking/unparking" comment in proc.go.
 
     // Global runnable queue.
@@ -3233,6 +3234,198 @@ func exitsyscall0(gp *g) {
 因为工作线程没有绑定p是不能运行goroutine的，所以这里会再次尝试从全局空闲队列找一个p出来绑定，找到了就通过execute函数继续执行当
 前这个goroutine，如果找不到则把当前goroutine放入全局运行队列，由其它工作线程负责把它调度起来运行，自己则调用stopm函数进入睡眠状态。
 
+
+初始化流程:
+
+-------------------------------
+1. 初始化 g0
+全局变量 g0，运行 runtime 的 goroutine，主要提供一个栈供 runtime 代码执行
+对 g0 的几个与栈有关的成员进行初始化，g0 的栈大约有 64K
+
+
+2. m0 与主线程绑定
+settls 函数初始化主线程的线程本地存储（TLS），为了把 m0 与主线程关联在一起
+g0 的地址存储到线程本地存储（TLS） m0.tls[0]=&g0
+m0 与 g0 绑定
+m0.g0 = g0 
+g0.m0 = m0
+主线程中通过 get_tls 可以获取到 g0，通过 g0 的 m 成员又可以找到 m0，于是这里就实现了 m0 和 g0 与主线程之间的关联
+
+3. 初始化 m0
+mcommoninit 初始化 m0
+初始化全局 allm 链表
+m0 挂到全局的 allm 链表
+
+4. 初始化 allp
+procresize 函数初始化 allp 切片
+循环创建 nprocs 个 p 并完成 p 的基本初始化
+
+m0 和 allp[0] 绑定
+m0.p = allp[0]
+allp[0].m = &m0
+
+把除了 allp[0] 之外的所有 p 放入到全局变量 sched 的 pidle 空闲队列之中
+
+-------------------------------
+
+main goroutine 创建流程:
+
+-------------------------------
+runtime.main 最终会调用 main.main 函数
+
+1. newproc
+newproc 创建 goroutine
+获取正在运行的 g，初始化时是 m0.g0
+
+// systemstack 的作用是切换到 g0 栈执行作为参数的函数
+systemstack 执行 newproc1
+// newproc1 函数的第一个参数 fn 是新创建的 goroutine 需要执行的函数
+
+2. newproc1
+切换到 g0 栈，_g_ := getg() ，无论什么场景 g 都是 g0，也就是指当前工作线程的 g0
+
+_p_ := _g_.m.p.ptr() // 初始化时 _p_ = g0.m.p，从前面的分析可以知道其实就是 allp[0]
+newg := gfget(_p_) // 从 p 的本地缓冲里获取一个没有使用的 g，初始化时没有，返回 nil
+创建一个新的 g 对象 从堆上为其分配栈，并设置 newg 的 stack 成员和两个 stackgard 成员，初始化 newg 的状态为 _Gdead
+放入全局变量 allgs 切片中
+调整 newg 的栈顶置针
+把 newg 需要执行的函数的参数从执行 newproc 函数的栈（初始化时是 g0 栈）拷贝到 newg 的栈
+newg 获得了从堆上分配而来的 2k 大小的栈空间 newg 的 stack.hi 和 stack.lo 分别指向了其栈空间的起止位置
+newg.sched 保存调度信息，主要是几个寄存器的值 调度器需要依靠这些字段才能把 goroutine 调度到CPU上运行
+newg.sched.sp = sp  // newg 的栈顶
+
+newg.sched.pc表示当newg被调度起来运行时从这个地址开始执行指令
+把pc设置成了goexit这个函数偏移1（sys.PCQuantum等于1）的位置
+
+gostartcallfn 函数 调整sched成员和newg的栈，调用 gostartcall
+调整newg的栈空间，把goexit函数的第二条指令的地址入栈，伪造成goexit函数调用了fn，从而使fn执行完成后执行ret指令时返回到goexit继续执
+行完成最后的清理工作
+重新设置newg.buf.pc 为需要执行的函数的地址，即fn，我们这个场景为runtime.main函数的地址。
+
+设置g的状态为_Grunnable，表示这个g代表的goroutine可以运行了
+把newg放入_p_的运行队列，初始化的时候一定是p的本地运行队列，其它时候可能因为本地队列满了而放入全局队列
+
+main goroutine对应的newg结构体对象的sched成员已经完成了初始化，图中只显示了pc和sp成员，pc成员指向了runtime.main函数的第一条指令，sp成员指
+向了newg的栈顶内存单元，该内存单元保存了runtime.main函数执行完成之后的返回地址，也就是runtime.goexit函数的第二条指令，预期runtime.main函数
+执行完返回之后就会去执行runtime.exit函数的CALL runtime.goexit1(SB)这条指令
+
+newg已经放入与当前主线程绑定的p结构体对象的本地运行队列，因为它是第一个真正意义上的goroutine，还没有其它goroutine，所以它被放在了本地运
+行队列的头部
+newg的m成员为nil，因为它还没有被调度起来运行，也就没有跟任何m进行绑定。
+
+-------------------------------
+
+main groutine 调度
+
+-------------------------------
+
+newproc返回到 rt0_go，继续往下执行 mstart（主线程进入调度循环，运行刚刚创建的 goroutine），调用 mstart1 函数
+
+1. mstart1
+调用save函数来保存g0的调度信息
+getcallerpc()返回的是mstart调用mstart1时被call指令压栈的返回地址
+getcallersp()函数返回的是调用mstart1函数之前mstart函数的栈顶地址
+
+_g_.sched.pc = pc //再次运行时的指令地址
+_g_.sched.sp = sp //再次运行时到栈顶
+
+mstart1继续其它跟m相关的一些初始化，完成这些初始化后则调用调度系统的核心函数schedule()完成goroutine的调度
+
+2. schedule
+_g_ := getg()  //_g_ = 每个工作线程m对应的g0，初始化时是m0的g0
+
+初始化一个 g 指针，开始获取待运行的 goroutine
+
+为了保证调度的公平性，每进行61次调度就需要优先从全局运行队列中获取goroutine 如果只调度本地队列中的g，那么全局运行队列中的goroutine将得不到运行
+
+从与m关联的p的本地运行队列中获取goroutine
+
+如果从本地运行队列和全局运行队列都没有找到需要运行的goroutine
+调用findrunnable函数从其它工作线程的运行队列中偷取，如果偷取不到，则当前工作线程进入睡眠
+直到获取到需要运行的goroutine之后findrunnable函数才会返回
+
+当前运行的是runtime的代码，函数调用栈使用的是g0的栈空间
+调用execte切换到gp的代码和栈空间去运行
+
+3. execute
+设置待运行g的状态为_Grunning
+把g和m关联起来
+
+_g_.m.curg = gp 
+gp.m = _g_.m
+
+gogo完成从g0到gp真正的切换
+
+4. gogo
+gogo函数完成从g0到gp的的切换：CPU执行权的转让以及栈的切换
+
+把gp.sched的成员恢复到CPU的寄存器完成状态以及栈的切换
+跳转到gp.sched.pc所指的指令地址（runtime.main）处执行
+
+接下来CPU就开始执行runtime.main函数
+
+5. runtime.main
+启动一个sysmon系统监控线程，该线程负责整个程序的gc、抢占调度以及netpoll等功能的监控，在抢占调度一章我们再继续分析sysmon是如何协助完成goroutine的抢占调度的；
+执行runtime包的初始化；
+执行main包以及main包import的所有包的初始化；
+执行main.main函数；
+从main.main函数返回后调用exit系统调用退出进程
+
+runtime.main是main goroutine的入口函数，并不是直接被调用的，而是在schedule()->execute()->gogo()这个调用链的gogo函数中用汇编代码直接
+跳转过来的，所以从这个角度来说，goroutine确实不应该返回，没有地方可返回啊！可是从前面的分析中我们得知，在创建goroutine的时候已经在其栈
+上放好了一个返回地址，伪造成goexit函数调用了goroutine的入口函数，这里怎么没有用到这个返回地址啊？其实那是为非main goroutine准备的，
+非main goroutine执行完成后就会返回到goexit继续执行
+
+而main goroutine执行完成后整个进程就结束了，这是main goroutine与其它goroutine的一个区别。
+
+-------------------------------
+
+
+非 main goroutine 退出和调度循环
+
+-------------------------------
+
+非main goroutine返回时直接返回到了goexit的第二条指令：CALL	runtime·goexit1(SB)，该指令继续调用goexit1函数
+1. goexit1
+首先从当前运行的g(我们这个场景是g2)切换到g0，这一步包括保存当前g的调度信息，把g0设置到tls中，修改CPU的rsp寄存器使其指向g0的栈
+以当前运行的g(我们这个场景是g2)为参数调用fn函数(此处为goexit0)
+
+mcall做的事情跟gogo函数完全相反
+mcall和gogo在做切换时有个重要的区别：gogo函数在从g0切换到其它goroutine时首先切换了栈，然后通过跳转指令从runtime代码切换到
+了用户goroutine的代码
+
+而mcall函数在从其它goroutine切换回g0时只切换了栈，并未使用跳转指令跳转到runtime代码去执行
+
+为什么会有这个差别呢？原因在于在从g0切换到其它goroutine之前执行的是runtime的代码而且使用的是g0栈，所以切换时需要首先切换栈然
+后再从runtime代码跳转某个goroutine的代码去执行（切换栈和跳转指令不能颠倒，因为跳转之后执行的就是用户的goroutine代码了，没有
+机会切换栈了），然而从某个goroutine切换回g0时，goroutine使用的是call指令来调用mcall函数，mcall函数本身就是runtime的代码，
+所以call指令其实已经完成了从goroutine代码到runtime代码的跳转，因此mcall函数自身的代码就不需要再跳转了，只需要把栈切换到g0栈即可
+
+2. goexit0
+把g的状态从_Grunning变更为_Gdead；
+然后把g的一些字段清空成0值；
+调用dropg函数解除g和m之间的关系，其实就是设置g->m = nil, m->currg = nil；
+把g放入p的freeg队列缓存起来供下次创建g时快速获取而不用从内存分配。freeg就是g的一个对象池；
+调用schedule函数再次进行调度；
+
+3. 调度循环
+schedule()->execute()->gogo()->g2()->goexit()->goexit1()->mcall()->goexit0()->schedule()
+
+
+-------------------------------
+
+工作线程的执行流程
+
+-------------------------------
+
+初始化，调用mstart函数；
+调用mstart1函数，在该函数中调用save函数设置g0.sched.sp和g0.sched.pc等调度信息，其中g0.sched.sp指向mstart函数栈帧的栈顶；
+依次调用schedule->execute->gogo函数执行调度；
+运行用户的goroutine代码；
+用户goroutine代码执行过程中调用runtime中的某些函数，然后这些函数调用mcall切换到g0.sched.sp所指的栈并最终再次调用schedule函数进入新一
+轮调度，之后工作线程一直循环执行着3～5这一调度循环直到进程退出为止。
+
+-------------------------------
 
 
 结构
