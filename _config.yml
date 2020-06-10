@@ -94,7 +94,7 @@ deploy:
 - type: git
   repo:
     github: git@github.com:shipengqi/shipengqi.github.io.git
-    coding: git@git.coding.net:shipengqi/shipengqi.coding.me.git
+    coding: git@e.coding.net:shipengqi/shipengqi.coding.me.git
   branch: master
 - type: baidu_url_submitter
 
