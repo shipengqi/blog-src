@@ -9,6 +9,7 @@ categories: ["Linux"]
 <!-- more -->
 
 1. 官网下载 [node](https://nodejs.org/en/download/) 。
+
 ``` bash
 wget https://nodejs.org/dist/v6.11.4/node-v6.11.4-linux-x64.tar.xz
 
@@ -18,11 +19,13 @@ mv ./node-v6.11.4-linux-x64 /usr/local/node/
 ```
 
 2. 解压源码
+
 ``` bash
 tar -xvf node-v6.11.4-linux-x64.tar.xz
 ```
 
 3. Node 环境配置
+
 ``` bash
 vim /etc/profile
 
@@ -37,6 +40,7 @@ source /etc/profile
 ```
 
 4. 验证
+
 ``` bash
 node -v
 npm -v

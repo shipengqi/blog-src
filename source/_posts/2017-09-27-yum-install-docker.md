@@ -8,7 +8,9 @@ CentOS 7 通过 yum 安装 docker。
 <!-- more -->
 
 ## 配置 yum 代理
+
 因为我安装 docker 的服务器在公司内网，所以要配置代理，如果不是请忽略。
+
 ``` bash
 export http_proxy=<http proxy endpoint>
 export https_proxy=$http_proxy
@@ -23,7 +25,9 @@ proxy=http://web-proxy.com:8080
 ```
 
 ## 卸载旧版本
+
 旧版本的 Docker 称为 docker 或者 docker-engine，使用以下命令卸载旧版本：
+
 ``` bash
 $ sudo yum remove docker \
                   docker-common \
@@ -32,6 +36,7 @@ $ sudo yum remove docker \
 ```
 
 ## 安装依赖包
+
 ``` bash
 $ sudo yum install -y yum-utils \
   device-mapper-persistent-data \
@@ -39,7 +44,9 @@ $ sudo yum install -y yum-utils \
 ```
 
 ## 添加 yum 软件源
+
 这里使用官方源：
+
 ``` bash
 $ sudo yum-config-manager \
     --add-repo \
@@ -47,6 +54,7 @@ $ sudo yum-config-manager \
 ```
 
 如果使用国内网络，建议使用国内源：
+
 ``` bash
 $ sudo yum-config-manager \
     --add-repo \
@@ -54,13 +62,15 @@ $ sudo yum-config-manager \
 ```
 
 如果需要最新版本的 Docker CE 使用以下命令:
-``` bash
-$ sudo yum-config-manager --enable docker-ce-edge
 
-$ sudo yum-config-manager --enable docker-ce-test
+``` bash
+sudo yum-config-manager --enable docker-ce-edge
+
+sudo yum-config-manager --enable docker-ce-test
 ```
 
 ## 安装 Docker CE
+
 ``` bash
 # 更新 yum 软件源缓存
 $ sudo yum makecache fast
@@ -70,13 +80,16 @@ $ sudo yum install docker-ce
 ```
 
 ## 启动 Docker CE
+
 ``` bash
-$ sudo systemctl enable docker
-$ sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl start docker
 ```
 
 ## 添加 docker 代理
+
 为 docker 配置代理：
+
 ``` bash
 mkdir /etc/systemd/system/docker.service.d
 vim /etc/systemd/system/docker.service.d/http-proxy.conf
@@ -96,6 +109,7 @@ systemctl restart docker
 ```
 
 官方代配置文档：
+
 - [Configure and troubleshoot the Docker daemon](https://docs.docker.com/config/daemon/)
 - [Control Docker with systemd](https://docs.docker.com/config/daemon/systemd/)
 
@@ -113,8 +127,8 @@ systemctl restart docker
 之后重新启动服务。
 
 ```bash
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 ## 错误：docker-runc did not terminate sucessfully unknown

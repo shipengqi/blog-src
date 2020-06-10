@@ -12,6 +12,7 @@ ESLint 是 JavaScript 的代码检查工具，使用它可以避免低级错误�
 <!-- more -->
 
 ## 使用
+
 ### 安装
 
 ``` bash
@@ -34,26 +35,29 @@ eslint --init
 优先级顺序：`.eslintrc.js` > `.eslintrc.yaml` > `.eslintrc.yml` > `.eslintrc.json` > `.eslintrc` > `package.json`。
 
 ## 配置规则
+
 ### 配置环境
+
 ``` json
 "env": {
-	"es6": true,
-	"browser": true,
-	"node": true,
-	"mocha": true
+ "es6": true,
+ "browser": true,
+ "node": true,
+ "mocha": true
 },
 ```
 
 ### 配置全局变量
+
 ``` json
 "globals": {
-	"var1": true,
-	"var2": true,
-	"var3": false
+ "var1": true,
+ "var2": true,
+ "var3": false
 },
 ```
-`true` 代表允许重写、`false` 代表不允许重写。
 
+`true` 代表允许重写、`false` 代表不允许重写。
 
 ### 配置 Rules
 
@@ -67,19 +71,18 @@ eslint --init
 
 ``` json
 "rules": {
-	"eqeqeq": "off",
-	"curly": "off"
+ "eqeqeq": "off",
+ "curly": "off"
 },
 ```
 
-所有的规则默认都是禁用的。在配置文件中，使用 `"extends": "eslint:recommended"` 将会默认开启所有在 [ESLint规则页面](http://eslint.cn/docs/rules/) 
+所有的规则默认都是禁用的。在配置文件中，使用 `"extends": "eslint:recommended"` 将会默认开启所有在 [ESLint规则页面](http://eslint.cn/docs/rules/)
 被标记为 **绿色对钩图标** 的规则。
 
 在 [ESLint规则页面](http://eslint.cn/docs/rules/) ，规则的旁边带有一个**橙色扳手图标**，表示在执行 eslint 命令时指定 `--fix` 参数可以
 自动修复该问题。
 
 可以在 npm 搜索 “eslint-config” 使用别人创建好的配置。只有在你的配置文件中扩展了一个可分享的配置或者明确开启一个规则，ESLint 才会去校验你的代码。
-
 
 ## 高级配置
 
@@ -100,7 +103,7 @@ ESLint 允许你指定你想要支持的 JavaScript 语言选项。默认情况�
 - `globalReturn` - 允许在全局作用域下使用 `return` 语句
 - `impliedStrict` - 启用全局 `strict mode` (如果 ecmaVersion 是 5 或更高)
 - `jsx` - 启用 JSX
-- `experimentalObjectRestSpread `- 启用对实验性的 `object rest/spread properties` 的支持。(重要：这是一个实验性的功能,在未来可
+- `experimentalObjectRestSpread`- 启用对实验性的 `object rest/spread properties` 的支持。(重要：这是一个实验性的功能,在未来可
 能会改变明显。 建议你写的规则 不要依赖该功能，除非当它发生改变时你愿意承担维护成本。)
 
 更多详细配置 [Configuring ESLint](http://eslint.cn/docs/user-guide/configuring)
@@ -111,6 +114,7 @@ ESLint 允许你指定你想要支持的 JavaScript 语言选项。默认情况�
 webstorm 可以自动提示 eslint 指出的代码问题。
 
 ## 使用现有的通用规则
+
 `eslint` 官方提供了 3 种预安装包：
 
 ### eslint-config-google
@@ -118,6 +122,7 @@ webstorm 可以自动提示 eslint 指出的代码问题。
 `Google` 标准
 
 执行安装：
+
 ``` bash
 npm install eslint eslint-config-google -g
 ```
@@ -128,18 +133,22 @@ npm install eslint eslint-config-google -g
 对各个插件的版本有所要求。
 
 你可以执行以下命令查看所依赖的各个版本：
+
 ``` bash
 npm info "eslint-config-airbnb@latest" peerDependencies
 ```
 
 你会看到以下输出信息，包含每个了每个 `plugins` 的版本要求
+
 ``` bash
 { eslint: '^3.15.0',
   'eslint-plugin-jsx-a11y': '^3.0.2 || ^4.0.0',
   'eslint-plugin-import': '^2.2.0',
   'eslint-plugin-react': '^6.9.0' }
 ```  
+
 知道了每个 `plugins` 的版本要求后，代入以下命令执行安装即可使用：
+
 ``` bash
 npm install eslint-config-airbnb eslint@^#.#.# eslint-plugin-jsx-a11y@^#.#.# eslint-plugin-import@^#.#.# eslint-plugin-react@^#.#.# -g
 ```
@@ -149,10 +158,13 @@ npm install eslint-config-airbnb eslint@^#.#.# eslint-plugin-jsx-a11y@^#.#.# esl
 `Standard` 标准，它是一些前端工程师自定的标准。
 
 执行安装：
+
 ``` bash
 npm install eslint-config-standard eslint-plugin-standard eslint-plugin-promise -g
 ```
+
 目前来看，公认的最好的标准是 `Airbnb` 标准。建议全局安装这些标准，然后在你的 `.eslintrc` 配置文件中直接使用：
+
 ``` json
 {
   "extends": "google"
@@ -160,4 +172,3 @@ npm install eslint-config-standard eslint-plugin-standard eslint-plugin-promise 
   //"extends": "standard"
 }
 ```
-

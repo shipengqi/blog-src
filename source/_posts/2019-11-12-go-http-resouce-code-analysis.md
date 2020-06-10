@@ -1,14 +1,14 @@
 ---
 title: Go http 库 server 源码分析
 date: 2019-11-12 12:41:19
-tags:
+categories: ["Go"]
 ---
 
 
 Go 的标准库 `net/http` 用来处理 HTTP 协议，包括 HTTP server 和 HTTP client。这里主要分析 HTTP server 部分。 
 
-
 ## 请求处理流程分析
+
 从一个示例开始：
 
 ```go
@@ -16,7 +16,7 @@ package main
 
 import (
 	"fmt"
-    "html"
+  "html"
 	"net/http"
 )
 
@@ -25,13 +25,14 @@ func barHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    http.HandleFunc("/bar", barHandler)
-    // 监听端口并启动服务
+  http.HandleFunc("/bar", barHandler)
+  // 监听端口并启动服务
 	_ = http.ListenAndServe(":8080", nil)
 }
 ```
 
 `http.ListenAndServe`：
+
 ```go
 // ListenAndServe always returns a non-nil error.
 // 第二个参数是 Handler 接口类型，但是上面的示例传入的是 nil，这个后面会说到
@@ -47,22 +48,23 @@ func (srv *Server) ListenAndServe() error {
 	if srv.shuttingDown() {
 		return ErrServerClosed
 	}
-    // 如果 srv.Addr 是空的话，则使用 ":http"
+  // 如果 srv.Addr 是空的话，则使用 ":http"
 	addr := srv.Addr
 	if addr == "" {
 		addr = ":http"
 	}
-    // 监听 tcp 端口
+  // 监听 tcp 端口
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		return err
 	}
-    // 接受 l Listener 的连接，并创建一个新的 goroutine 处理请求
+  // 接受 l Listener 的连接，并创建一个新的 goroutine 处理请求
 	return srv.Serve(ln)
 }
 ```
 
 `srv.Serve` 的实现：
+
 ```go
 func (srv *Server) Serve(l net.Listener) error {
 	if fn := testHookServerServe; fn != nil {
@@ -84,7 +86,7 @@ func (srv *Server) Serve(l net.Listener) error {
 
 	var tempDelay time.Duration // how long to sleep on accept failure
 
-    // 为每一个 request 创建 context 实例
+  // 为每一个 request 创建 context 实例
 	baseCtx := context.Background()
 	if srv.BaseContext != nil {
 		baseCtx = srv.BaseContext(origListener)
@@ -95,7 +97,7 @@ func (srv *Server) Serve(l net.Listener) error {
 
 	ctx := context.WithValue(baseCtx, ServerContextKey, srv)
 	for {
-        // 接受请求数据，返回一个新的连接句柄
+    // 接受请求数据，返回一个新的连接句柄
 		rw, e := l.Accept()
 		if e != nil {
 			select {
@@ -125,16 +127,17 @@ func (srv *Server) Serve(l net.Listener) error {
 			}
 		}
 		tempDelay = 0
-        // 创建一个新连接
+    // 创建一个新连接
 		c := srv.newConn(rw)
 		c.setState(c.rwc, StateNew) // before Serve can return
-        // 创建一个新的 goroutine，处理请求
+    // 创建一个新的 goroutine，处理请求
 		go c.serve(ctx)
 	}
 }
 ```
 
 具体的请求处理逻辑就在 `c.serve(ctx)` 中：
+
 ```go
 // Serve a new connection.
 func (c *conn) serve(ctx context.Context) {
@@ -184,7 +187,6 @@ func (c *conn) serve(ctx context.Context) {
 	}
 
 	// HTTP/1.x from here on.
-
 	ctx, cancelCtx := context.WithCancel(ctx)
 	c.cancelCtx = cancelCtx
 	defer cancelCtx()
@@ -194,10 +196,10 @@ func (c *conn) serve(ctx context.Context) {
 	c.bufw = newBufioWriterSize(checkConnErrorWriter{c}, 4<<10)
 
 	for {
-        // 读取请求数据
+    // 读取请求数据
 		w, err := c.readRequest(ctx)
 		if c.r.remain != c.server.initialReadLimitSize() {
-			// If we read any bytes off the wire, we're active.
+		  // If we read any bytes off the wire, we're active.
 			c.setState(c.rwc, StateActive)
 		}
 		if err != nil {
@@ -268,8 +270,8 @@ func (c *conn) serve(ctx context.Context) {
 		// in parallel even if their responses need to be serialized.
 		// But we're not going to implement HTTP pipelining because it
 		// was never deployed in the wild and the answer is HTTP/2.
-        // 将 c.server 放到了 serverHandler 结构中，serverHandler 实现了 Handler 接口
-        // 调用 ServeHTTP 方法处理请求
+    // 将 c.server 放到了 serverHandler 结构中，serverHandler 实现了 Handler 接口
+    // 调用 ServeHTTP 方法处理请求
 		serverHandler{c.server}.ServeHTTP(w, w.req)
 		w.cancelCtx()
 		if c.hijacked() {
@@ -377,8 +379,8 @@ func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Re
 	if handler == nil {
 		panic("http: nil handler")
 	}
-    // 根据示例，这里应该是 mux.Handle("/bar", HandlerFunc(barHandler))
-    // 将 handler 显示转换成了 HandlerFunc 类型
+  // 根据示例，这里应该是 mux.Handle("/bar", HandlerFunc(barHandler))
+  // 将 handler 显示转换成了 HandlerFunc 类型
 	mux.Handle(pattern, HandlerFunc(handler))
 }
 
@@ -387,22 +389,22 @@ func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Re
 func (mux *ServeMux) Handle(pattern string, handler Handler) {
 	mux.mu.Lock()
 	defer mux.mu.Unlock()
-    // 校验路由 path 和 路由 handler 函数
+  // 校验路由 path 和 路由 handler 函数
 	if pattern == "" {
 		panic("http: invalid pattern")
 	}
 	if handler == nil {
 		panic("http: nil handler")
 	}
-    // 不能重复注册
+  // 不能重复注册
 	if _, exist := mux.m[pattern]; exist {
 		panic("http: multiple registrations for " + pattern)
 	}
-    // 初始化 map，存放注册的路由
+  // 初始化 map，存放注册的路由
 	if mux.m == nil {
 		mux.m = make(map[string]muxEntry)
 	}
-    // 保存路由对象
+  // 保存路由对象
 	e := muxEntry{h: handler, pattern: pattern}
 	mux.m[pattern] = e
 	if pattern[len(pattern)-1] == '/' {
@@ -416,7 +418,8 @@ func (mux *ServeMux) Handle(pattern string, handler Handler) {
 ```
 
 ## 其他用法
-### 自定义 http.Server：
+
+### 自定义 http.Server
 
 ```go
 package main
@@ -494,4 +497,5 @@ func main() {
 ```
 
 ## 自定义 mux
+
 标准库 http 提供了 `Handler` 接口，自定义 mux 必须实现这个 `Handler` 接口。也就是实现 `ServeHTTP` 方法。

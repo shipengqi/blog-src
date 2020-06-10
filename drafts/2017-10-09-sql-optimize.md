@@ -1,8 +1,7 @@
 ---
 title: SQL 语句优化
 date: 2017-10-09 19:41:55
-categories: ["数据库"]
-tags: ["MySQL"]
+categories: ["Database"]
 ---
 
 SQL语句优化整理。

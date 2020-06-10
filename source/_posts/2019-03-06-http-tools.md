@@ -9,9 +9,11 @@ Linux 下使用 AB 进行压力测试。
 <!-- more -->
 
 ## 安装
+
 AB 测试工具安装：`yum install -y httpd-tools`
 
 ## GET 请求
+
 ```bash
 ab -n 1000 -c 100 http://www.baidu.com/
 ```
@@ -20,6 +22,7 @@ ab -n 1000 -c 100 http://www.baidu.com/
 - `-c`，单个时刻并发数
 
 压测结果：
+
 ```bash
 This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
@@ -79,9 +82,11 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 ## POST 请求
+
 ```bash
 ab -n 5000 -c 200 -p data.txt -T application/x-www-form-urlencoded http://your.api
 ```
+
 - `-p`，请求数据的文件的完整路经。
 - `-T`，`Content-Type`。
 
@@ -131,10 +136,13 @@ Options are:
 ```
 
 ## 常见问题
+
 ### 当并发设置为 250 以上的时候就会出现 apr_socket_recv Connection refused 111 错误
+
 这是因为是 linux 网络参数设置。一般 apache 默认最大并发量为 150，可以进入配置文件修改 `Threadperchild` 等参数值。
 
 如何调整 Apache 的最大并发量：
+
 ```bash
 vi /etc/sysctl.conf
 
@@ -144,5 +152,5 @@ net.netfilter.nf_conntrack_tcp_timeout_established = 1200
 
 sysctl -p /etc/sysctl.conf
 ```
-修改后，重新启用 apache ab 进行测试，问题解决。
 
+修改后，重新启用 apache ab 进行测试，问题解决。

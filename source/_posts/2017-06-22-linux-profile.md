@@ -11,9 +11,11 @@ Linux 下环境变量设置，可以在通过 `export` 命令在控制台中设�
 ## export命令
 
 控制台中用户利用 `export` 命令，在当前终端下声明环境变量，只对当前的 Shell 终端起作用，关闭 Shell 终端失效。如:
+
 ``` bash
 export  NODE_ENV="production"
 ```
+
 ## 修改 profile 文件
 
 用户登录时，文件会被执行。修改 `profile` 文件，环境变量对该系统中所有用户都永久有效。因为所有用户的 Shell 终端都有权使用这个环境变量，可能会
@@ -24,6 +26,7 @@ PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:....:<PATH N>
 ```
 
 **Example:**
+
 ``` bash
 vim /etc/profile
 
@@ -52,14 +55,16 @@ source /etc/profile
 # 查看是否生效
 $ echo $NODE_ENV
 ```
+
 ## 修改 bashrc 文件
 
 bashrc 文件有两种:`/etc/bashrc` 和 `~/.bashrc`。bashrc 只会被 bash shell 调用。
 `/etc/bashrc` 对该系统中所有用户都永久有效，当用户打开 Shell 终端时，该文件被读取，修改后无需重启，重新开一个 Shell 终端即可生效，也可以使
 用 source 命令强制立即生效。
 
-`~/.bashrc` 只对某个用户永久有效，当登录或打开新的 Shell 终端时，文件被读取，修改后无需重启，重新开一个 Shell 终端即可生效，也可以使用 source 
+`~/.bashrc` 只对某个用户永久有效，当登录或打开新的 Shell 终端时，文件被读取，修改后无需重启，重新开一个 Shell 终端即可生效，也可以使用 source
 命令强制立即生效。修改用户主目录下的 `~/.bashrc` 文件，对某个用户永久有效。这种方法相对安全。
+
 ``` bash
 vim ~/.bashrc
 
@@ -73,6 +78,7 @@ source ~/.bashrc
 ## 修改 bash_profile 文件
 
 用户登录时，文件会被执行。`~/.bash_profile` 文件只对某个用户永久有效，和 `profile` 文件作用类似。
+
 ``` bash
 vim ~/.bash_profile
 
@@ -84,6 +90,7 @@ source ~/.bash_profile
 ```
 
 ## 常见环境变量
+
 * `$PATH`：决定了shell将到哪些目录中寻找命令或程序
 * `$HOME`：当前用户主目录。
 * `$SHELL`：指当前用户用的是哪种 Shell。
@@ -110,6 +117,7 @@ echo $#
 ```
 
 ## 环境变量相关的命令
+
 * `export` 设置一个新的环境变量 `export  NODE_ENV="production"` (可以无引号)
 * `echo` 显示某个环境变量值 `echo $NODE_ENV`
 * `env` 显示所有环境变量
@@ -129,7 +137,3 @@ unset NODE_ENV
 # 输出 发现此变量不能被删除
 -bash: unset: NODE_ENV: cannot unset: readonly variable
 ```
-
-
-
-

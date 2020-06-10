@@ -14,6 +14,7 @@ Node.js，实现文件监听，可以使用 [fs.watch](https://nodejs.org/api/fs
 ## fs.watch
 
 官网例子：
+
 ``` javascript
 fs.watch('somedir', (eventType, filename) => {
   console.log(`event type is: ${eventType}`);
@@ -32,6 +33,7 @@ fs.watch('somedir', (eventType, filename) => {
 安装什么的就不介绍了，参考 [官方文档](https://www.npmjs.com/package/chokidar) 。
 
 例子：
+
 ``` javascript
 
 class ContentPackWatcher {
@@ -96,7 +98,9 @@ class ContentPackWatcher {
 }
 
 ```
+
 ## API
+
 ```javascript
 chokidar.watch(paths, [options])
 ```

@@ -11,14 +11,16 @@ categories: ["Node.js"]
 ## 属性
 
 ### name
+
 name 和 version 是最重要的两个属性，也是发布到 NPM 平台上的唯一标识，如果没有正确设置这两个字段，包就不能发布和被下载。
 模块更新，那么 version 也应该一起更新。
 命名规则:
+
 - name 必须小于等于 214 个字节，包括前缀名称在内（如 `xxx/xxxmodule`）。
 - name 不能以 `_` 或 `.` 开头
 - 不能含有大写字母
 - name 会成为 url 的一部分，不能含有 url 非法字符
-- name 中不要含有 "js" 和 "node"。 It's assumed that it's js, since you're writing a package.json file, and you can 
+- name 中不要含有 "js" 和 "node"。 It's assumed that it's js, since you're writing a package.json file, and you can
 specify the engine using the "engines" field. (See below.)
 - name 属性可以有一些前缀如 `e.g. @myorg/mypackage`.
 
@@ -41,6 +43,7 @@ specify the engine using the "engines" field. (See below.)
 ### bugs
 
 模块的 bug 提交地址或者一个邮箱。例如：
+
 ```javascript
 {
     "url" : "https://github.com/owner/project/issues",
@@ -56,6 +59,7 @@ specify the engine using the "engines" field. (See below.)
 
 author：模块的作者。
 contributors、maintainers：模块的贡献者、维护者，是一个数组。
+
 ```javascript
 {
     "name" : "Xiao Ming",
@@ -63,10 +67,11 @@ contributors、maintainers：模块的贡献者、维护者，是一个数组。
     "url" : "http://www.xiaoming.com/"
 }
 ```
+
 `email` 和 `url` 属性是可以省略的。
 
-
 ### files
+
 一个数组，模块所包含的所有文件，可以取值为文件夹。通常是用 `.npmignore` 来去除不想包含到包里的文件，与 `.gitignore` 类似。
 
 ### main
@@ -80,6 +85,7 @@ contributors、maintainers：模块的贡献者、维护者，是一个数组。
 ### man
 
 为系统的 `man` 命令提供帮助文档。帮助文件的文件名必须以数字结尾，如果是压缩的，需要以 `.gz` 结尾。
+
 ```javascript
 "man": ["./man/foo.1", "./man/bar.1", "./man/foo.2" ]
 ```
@@ -91,6 +97,7 @@ CommonJS 模块所要求的目录结构信息，展示项目的目录结构信�
 ### repository
 
 模块的仓库地址。
+
 ```javascript
 "repository": {
     "type": "git",
@@ -99,7 +106,9 @@ CommonJS 模块所要求的目录结构信息，展示项目的目录结构信�
 ```
 
 ### config
+
 添加设置，供 scripts 读取用，同时这里的值也会被添加到系统的环境变量中。通常用来设置一些项目不怎么变化的配置，例如 `port`：
+
 ```javascript
 "config": {
   "port": "8080"
@@ -107,24 +116,30 @@ CommonJS 模块所要求的目录结构信息，展示项目的目录结构信�
 // 用户调用
 http.createServer(...).listen(process.env.npm_package_config_port)
 ```
+
 可以通过 `npm config set foo:port 8080` 来修改 `config`:
+
 ```javascript
 { "name" : "foo", "config" : { "port" : "8080" } }
 ```
+
 `npm start` 的时候会读取到 `npm_package_config_port` 环境变量。
 
 ### dependencies
 
 指定依赖的其它包，这些依赖是指包发布后正常执行时所需要的，也就是线上需要的包。使用下面的命令来安装：
+
 ``` bash
 npm install --save <package_name>
 ```
+
 用法：
+
 - `version` 精确匹配版本
 - `>version` 必须大于某个版本
 - `>=version` 大于等于
 - `<version` 小于
-- `<=versionversion `小于
+- `<=versionversion`小于
 - `~version` "约等于"，具体规则详见 semver 文档
 - `^version` "兼容版本"具体规则详见 semver 文档
 - `1.2.x` 仅一点二点几的版本
@@ -155,11 +170,15 @@ npm install --save <package_name>
   }
 }
 ```
+
 #### URLs as Dependencies
+
 在版本范围的地方可以写一个 url 指向一个压缩包，模块安装的时候会把这个压缩包下载下来安装到模块本地。
 
 #### Git URLs as Dependencies
+
 Git url 可以像下面一样:
+
 ```javascript
 git://github.com/user/project.git#commit-ish
 git+ssh://user@hostname:project.git#commit-ish
@@ -167,9 +186,13 @@ git+ssh://user@hostname/project.git#commit-ish
 git+http://user@hostname/project/blah.git#commit-ish
 git+https://user@hostname/project/blah.git#commit-ish
 ```
+
 commit-ish 可以是任意标签，哈希值，或者可以检出的分支，默认是 master 分支。
+
 #### GitHub URLs
+
 支持 github 的 `username/modulename` 的写法，`#` 后边可以加后缀写明分支 hash 或标签：
+
 ```javascript
 {
   "name": "foo",
@@ -184,14 +207,17 @@ commit-ish 可以是任意标签，哈希值，或者可以检出的分支，默
 ### devDependencies
 
 这些依赖只有在开发时候才需要。使用下面的命令来安装：
+
 ``` bash
 npm install --save-dev <package_name>
 ```
+
 ### peerDependencies
 
 相关的依赖，如果你的包是插件，而用户在使用你的包时候，通常也会需要这些依赖（插件），那么可以将依赖列到这里。
 
 如 karma, 它的 `package.json` 中有设置，依赖下面这些插件：
+
 ```javascript
 "peerDependencies": {
   "karma-jasmine": "~0.1.0",
@@ -212,12 +238,14 @@ npm install --save-dev <package_name>
 ### engines
 
 指定模块运行的环境。
+
 ```javascript
 "engines": {
   "node": ">=0.10.3 < 0.12",
   "npm": "~1.0.20"
 }
 ```
+
 ### os
 
 一个数组，指定模块支持的系统平台。
@@ -230,10 +258,10 @@ npm install --save-dev <package_name>
 
 设为 `true` 这个模块将不会发布到 NPM 平台下。
 
-
 ### scripts
 
 使用 `scripts` 字段定义脚本命令。
+
 ```javascript
 "scripts": {
     "build": "node build.js"
@@ -241,9 +269,9 @@ npm install --save-dev <package_name>
 ```
 
 使用 `npm run` 命令，就可以执行这段脚本:
+
 ``` bash
 npm run build
 ```
-
 
 更多参考 [官方文档](https://docs.npmjs.com/)

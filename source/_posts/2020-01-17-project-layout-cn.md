@@ -9,7 +9,7 @@ categories: ["Go"]
 
 这是一个 Go 应用项目的基本布局。它不是官方核心 Go dev 团队定义的标准；然而，它是 GO 生态圈中一套历史上和新兴项目中常见的布局模式。其中
 一些模式比其他模式更受欢迎。它还有一些小的增强,以及一些对于任何一个大真实世界应用程序，都通用的支持目录。
-                  
+
 如果你正在学习 GO,或者你正在自己创建一个 PoC 或只是简单玩一玩, 那这个项目布局对你来说有点过头了。从简单的东西开始（一个 `main.go` 文件就足够
 了）。随着你的项目的发展，确保你的代码结构良好是非常重要的，否则你最终会有很多隐藏的依赖和全局状态的混乱代码。当有更多人在项目上工作时，就需要更多
 的结构。这时就需要引入一种通用的方式来管理软件 packages/libraries。当你有一个开源项目，或者其他项目从你的项目库中导入代码时，这时就需要私有
@@ -27,13 +27,13 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 
 这个项目布局是通用为主的，它不试图强加一个特定的 Go 包结构。
 
-如果你在命名、格式化和样式方面需要帮助，可以从运行 [`gofmt`](https://golang.org/cmd/gofmt/) 和 
+如果你在命名、格式化和样式方面需要帮助，可以从运行 [`gofmt`](https://golang.org/cmd/gofmt/) 和
 [`golint`](https://github.com/golang/lint) 开始。此外，请务必阅读这些 Go 的代码规范指南和建议。
 
-- https://talks.golang.org/2014/names.slide
-- https://golang.org/doc/effective_go.html#names
-- https://blog.golang.org/package-names
-- https://github.com/golang/go/wiki/CodeReviewComments
+- <https://talks.golang.org/2014/names.slide>
+- <https://golang.org/doc/effective_go.html#names>
+- <https://blog.golang.org/package-names>
+- <https://github.com/golang/go/wiki/CodeReviewComments>
 - [Style guideline for Go packages](https://rakyll.org/style-packages/) (rakyll/JBD)
 
 可以查看 [`Go Project Layout`](https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2) 的历史背景信息。
@@ -45,10 +45,10 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 - [GopherCon 2017: Edward Muller - Go Anti-Patterns](https://www.youtube.com/watch?v=ltqV6pDKZD8)
 - [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0)
 
-
 ## Go 目录
 
 目录结构示例：
+
 ```sh
 .
 ├── api
@@ -101,11 +101,11 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 
 例子:
 
-- https://github.com/heptio/ark/tree/master/cmd (只是一个非常小的 `main` 函数，其他的东西都在包里)
-- https://github.com/moby/moby/tree/master/cmd
-- https://github.com/prometheus/prometheus/tree/master/cmd
-- https://github.com/influxdata/influxdb/tree/master/cmd
-- https://github.com/kubernetes/kubernetes/tree/master/cmd
+- <https://github.com/heptio/ark/tree/master/cmd> (只是一个非常小的 `main` 函数，其他的东西都在包里)
+- <https://github.com/moby/moby/tree/master/cmd>
+- <https://github.com/prometheus/prometheus/tree/master/cmd>
+- <https://github.com/influxdata/influxdb/tree/master/cmd>
+- <https://github.com/kubernetes/kubernetes/tree/master/cmd>
 
 ### `/internal`
 
@@ -124,12 +124,13 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 `/internal/pkg/myprivlib`)。
 
 例子：
-- https://github.com/hashicorp/terraform/tree/master/internal
-- https://github.com/influxdata/influxdb/tree/master/internal
-- https://github.com/perkeep/perkeep/tree/master/internal
-- https://github.com/jaegertracing/jaeger/tree/master/internal
-- https://github.com/moby/moby/tree/master/internal
-- https://github.com/satellity/satellity/tree/master/internal
+
+- <https://github.com/hashicorp/terraform/tree/master/internal>
+- <https://github.com/influxdata/influxdb/tree/master/internal>
+- <https://github.com/perkeep/perkeep/tree/master/internal>
+- <https://github.com/jaegertracing/jaeger/tree/master/internal>
+- <https://github.com/moby/moby/tree/master/internal>
+- <https://github.com/satellity/satellity/tree/master/internal>
 
 ### `/pkg`
 
@@ -144,48 +145,49 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 使用（尤其是当你有很多非 Go 的应用组件时）。
 
 例子：
-- https://github.com/prometheus/prometheus/tree/master/pkg
-- https://github.com/jaegertracing/jaeger/tree/master/pkg
-- https://github.com/istio/istio/tree/master/pkg
-- https://github.com/GoogleContainerTools/kaniko
-- https://github.com/google/gvisor/tree/master/pkg
-- https://github.com/google/syzkaller/tree/master/pkg
-- https://github.com/perkeep/perkeep/tree/master/pkg
-- https://github.com/minio/minio/tree/master/pkg
-- https://github.com/heptio/ark/tree/master/pkg
-- https://github.com/argoproj/argo/tree/master/pkg
-- https://github.com/heptio/sonobuoy/tree/master/pkg
-- https://github.com/helm/helm/tree/master/pkg
-- https://github.com/kubernetes/kubernetes/tree/master/pkg
-- https://github.com/kubernetes/kops/tree/master/pkg
-- https://github.com/moby/moby/tree/master/pkg
-- https://github.com/grafana/grafana/tree/master/pkg
-- https://github.com/influxdata/influxdb/tree/master/pkg
-- https://github.com/cockroachdb/cockroach/tree/master/pkg
-- https://github.com/derekparker/delve/tree/master/pkg
-- https://github.com/etcd-io/etcd/tree/master/pkg
-- https://github.com/oklog/oklog/tree/master/pkg
-- https://github.com/flynn/flynn/tree/master/pkg
-- https://github.com/jesseduffield/lazygit/tree/master/pkg
-- https://github.com/gopasspw/gopass/tree/master/pkg
-- https://github.com/sosedoff/pgweb/tree/master/pkg
-- https://github.com/GoogleContainerTools/skaffold/tree/master/pkg
-- https://github.com/knative/serving/tree/master/pkg
-- https://github.com/grafana/loki/tree/master/pkg
-- https://github.com/bloomberg/goldpinger/tree/master/pkg
-- https://github.com/crossplaneio/crossplane/tree/master/pkg
-- https://github.com/Ne0nd0g/merlin/tree/master/pkg
-- https://github.com/jenkins-x/jx/tree/master/pkg
-- https://github.com/DataDog/datadog-agent/tree/master/pkg
-- https://github.com/dapr/dapr/tree/master/pkg
-- https://github.com/cortexproject/cortex/tree/master/pkg
-- https://github.com/dexidp/dex/tree/master/pkg
-- https://github.com/pusher/oauth2_proxy/tree/master/pkg
-- https://github.com/pdfcpu/pdfcpu/tree/master/pkg
-- https://github.com/weaveworks/kured/pkg
-- https://github.com/weaveworks/footloose/pkg
-- https://github.com/weaveworks/ignite/pkg
-- https://github.com/tmrts/boilr/tree/master/pkg
+
+- <https://github.com/prometheus/prometheus/tree/master/pkg>
+- <https://github.com/jaegertracing/jaeger/tree/master/pkg>
+- <https://github.com/istio/istio/tree/master/pkg>
+- <https://github.com/GoogleContainerTools/kaniko>
+- <https://github.com/google/gvisor/tree/master/pkg>
+- <https://github.com/google/syzkaller/tree/master/pkg>
+- <https://github.com/perkeep/perkeep/tree/master/pkg>
+- <https://github.com/minio/minio/tree/master/pkg>
+- <https://github.com/heptio/ark/tree/master/pkg>
+- <https://github.com/argoproj/argo/tree/master/pkg>
+- <https://github.com/heptio/sonobuoy/tree/master/pkg>
+- <https://github.com/helm/helm/tree/master/pkg>
+- <https://github.com/kubernetes/kubernetes/tree/master/pkg>
+- <https://github.com/kubernetes/kops/tree/master/pkg>
+- <https://github.com/moby/moby/tree/master/pkg>
+- <https://github.com/grafana/grafana/tree/master/pkg>
+- <https://github.com/influxdata/influxdb/tree/master/pkg>
+- <https://github.com/cockroachdb/cockroach/tree/master/pkg>
+- <https://github.com/derekparker/delve/tree/master/pkg>
+- <https://github.com/etcd-io/etcd/tree/master/pkg>
+- <https://github.com/oklog/oklog/tree/master/pkg>
+- <https://github.com/flynn/flynn/tree/master/pkg>
+- <https://github.com/jesseduffield/lazygit/tree/master/pkg>
+- <https://github.com/gopasspw/gopass/tree/master/pkg>
+- <https://github.com/sosedoff/pgweb/tree/master/pkg>
+- <https://github.com/GoogleContainerTools/skaffold/tree/master/pkg>
+- <https://github.com/knative/serving/tree/master/pkg>
+- <https://github.com/grafana/loki/tree/master/pkg>
+- <https://github.com/bloomberg/goldpinger/tree/master/pkg>
+- <https://github.com/crossplaneio/crossplane/tree/master/pkg>
+- <https://github.com/Ne0nd0g/merlin/tree/master/pkg>
+- <https://github.com/jenkins-x/jx/tree/master/pkg>
+- <https://github.com/DataDog/datadog-agent/tree/master/pkg>
+- <https://github.com/dapr/dapr/tree/master/pkg>
+- <https://github.com/cortexproject/cortex/tree/master/pkg>
+- <https://github.com/dexidp/dex/tree/master/pkg>
+- <https://github.com/pusher/oauth2_proxy/tree/master/pkg>
+- <https://github.com/pdfcpu/pdfcpu/tree/master/pkg>
+- <https://github.com/weaveworks/kured/pkg>
+- <https://github.com/weaveworks/footloose/pkg>
+- <https://github.com/weaveworks/ignite/pkg>
+- <https://github.com/tmrts/boilr/tree/master/pkg>
 
 ### `/vendor`
 
@@ -205,8 +207,9 @@ Clone `project-layout` 仓库, 保留你需要的东西，然后删除所有其�
 OpenAPI/Swagger 规范，JSON schema 文件，协议定义文件。
 
 例子：
-- https://github.com/kubernetes/kubernetes/tree/master/api
-- https://github.com/openshift/origin/tree/master/api
+
+- <https://github.com/kubernetes/kubernetes/tree/master/api>
+- <https://github.com/openshift/origin/tree/master/api>
 
 ## Web 应用程序目录
 
@@ -220,7 +223,7 @@ Web 应用程序特定组件:静态 Web 资产、服务器端模板和 SPAs。
 
 配置文件模板，或默认配置文件。
 
-把你的 `confd `或 `consul-template` 模板文件放在这里。
+把你的 `confd`或 `consul-template` 模板文件放在这里。
 
 ### `/init`
 
@@ -233,9 +236,10 @@ Web 应用程序特定组件:静态 Web 资产、服务器端模板和 SPAs。
 这些脚本，可让根目录的 Makefile 文件保持小而简单(例如，`https://github.com/hashicorp/terraform/blob/master/Makefile`)
 
 例子：
-- https://github.com/kubernetes/helm/tree/master/scripts
-- https://github.com/cockroachdb/cockroach/tree/master/scripts
-- https://github.com/hashicorp/terraform/tree/master/scripts
+
+- <https://github.com/kubernetes/helm/tree/master/scripts>
+- <https://github.com/cockroachdb/cockroach/tree/master/scripts>
+- <https://github.com/hashicorp/terraform/tree/master/scripts>
 
 ### `/build`
 
@@ -254,11 +258,12 @@ IaaS、PaaS、system 和 *容器编排部署* 配置和模板(docker-compose, ku
 
 ### `/test`
 
-额外的外部测试应用程序和测试数据。你可以随意构造 `/test`。或对于更大的项目来说，可以有一个数据子目录。例如，`/test/data` 或` /test/testdata`，
+额外的外部测试应用程序和测试数据。你可以随意构造 `/test`。或对于更大的项目来说，可以有一个数据子目录。例如，`/test/data` 或`/test/testdata`，
 如果你需要 Go 忽略这个目录中的内容。注意，Go 还将忽略以 `.` or `_` 开头的目录或文件，因此在如何命名测试数据目录方面，具有更大的灵活性.
 
 例子：
-- https://github.com/openshift/origin/tree/master/test (test data is in the /testdata subdirectory)
+
+- <https://github.com/openshift/origin/tree/master/test> (test data is in the /testdata subdirectory)
 
 ## 其他目录
 
@@ -273,19 +278,21 @@ IaaS、PaaS、system 和 *容器编排部署* 配置和模板(docker-compose, ku
 支撑该项目的工具。请注意，这些工具可以从 `/pkg` 和 `/internal` 目录导入和使用代码。
 
 例子：
-- https://github.com/istio/istio/tree/master/tools
-- https://github.com/openshift/origin/tree/master/tools
-- https://github.com/dapr/dapr/tree/master/tools
+
+- <https://github.com/istio/istio/tree/master/tools>
+- <https://github.com/openshift/origin/tree/master/tools>
+- <https://github.com/dapr/dapr/tree/master/tools>
 
 ### `/examples`
 
 应用程序，公共包的示例。
 
 例子：
-- https://github.com/nats-io/nats.go/tree/master/examples
-- https://github.com/docker-slim/docker-slim/tree/master/examples
-- https://github.com/gohugoio/hugo/tree/master/examples
-- https://github.com/hashicorp/packer/tree/master/examples
+
+- <https://github.com/nats-io/nats.go/tree/master/examples>
+- <https://github.com/docker-slim/docker-slim/tree/master/examples>
+- <https://github.com/gohugoio/hugo/tree/master/examples>
+- <https://github.com/hashicorp/packer/tree/master/examples>
 
 ### `/third_party`
 
@@ -304,8 +311,9 @@ Git 钩子。
 如果你没有使用 Github pages，这是放置项目网站的地方。
 
 例子：
-- https://github.com/hashicorp/vault/tree/master/website
-- https://github.com/perkeep/perkeep/tree/master/website
+
+- <https://github.com/hashicorp/vault/tree/master/website>
+- <https://github.com/perkeep/perkeep/tree/master/website>
 
 ## 你不应该拥有的目录
 
@@ -314,12 +322,12 @@ Git 钩子。
 一些 GO 项目确实有 `src` 文件夹，但这种是在 Java 世界的开发中比较常见的模式。如果你不想让你的 Go 代码或 Go 项目看起来像 Java，就尽量不要使用
 这种模式。
 
-不要把项目级别的 `/src` 目录与 Go 的工作空间使用的 `/src` 目录混为一谈，如 [`How to Write Go Code`](https://golang.org/doc/code.html) 
+不要把项目级别的 `/src` 目录与 Go 的工作空间使用的 `/src` 目录混为一谈，如 [`How to Write Go Code`](https://golang.org/doc/code.html)
 中的描述。
 
 ## 徽章
 
-- [Go Report Card ](https://goreportcard.com/)它会用 `gofmt`，`go vet`，`gocyclo`，`golint`，`ineffassign`，`license` 和 
+- [Go Report Card](https://goreportcard.com/)它会用 `gofmt`，`go vet`，`gocyclo`，`golint`，`ineffassign`，`license` 和
 `misspell` 扫描你代码。将 `github.com/golang-standards/project-layout` 替换为你的项目。
 
 - [GoDoc](http://godoc.org) 提供 GoDoc 生成文档的在线版本。请将链接更改为指向你项目的链接。

@@ -9,26 +9,33 @@ categories: ["Node.js"]
 <!-- more -->
 
 选择 Cloud Commander 几个原因：
+
 - 功能更丰富，支持 `vim`，支持查看多种文件(images, txt, video ...)，`Hot keys`，`Terminal`。
 - 文档详细。
 - 还在不断的完善，已经更新到 `v10.3.2`。
 
 ## 安装
+
 ```bash
 npm install cloudcmd -g
 ```
+
 因为 Cloud Commander 的 Terminal 功能默认是关闭的，如果使用需要安装 [gritty](https://github.com/cloudcmd/gritty) ：
+
 ```bash
 npm i gritty -g
 ```
+
 安装好之后要配置 `--terminal` 和 `--terminal-path`。
 
 ### 安装中的错误
+
 如果碰到下面两种错误，都是因为权限引起的错误：
 <img src="/images/web-terminal/error1.JPG" width="80%" height="">
 <img src="/images/web-terminal/error2.JPG" width="80%" height="">
 
 解决：
+
 ```bash
 npm config set user 0
 npm config set unsafe-perm true
@@ -38,10 +45,10 @@ npm install gritty -g
 
 ## 简单使用
 
-
 安装好之后直接运行 `cloudcmd` 就会打开一个默认的端口 `8000`，然后访问 `http://localhost:8000` 就可以了。
 
 如果要使用 `terminal` 功能：
+
 ```bash
 # 查看 gritty 的路径
 gritty --path
@@ -62,11 +69,13 @@ cloudcmd --terminal --terminal-path /usr/local/lib/node_modules/gritty --save
 ## 与 Express 集成
 
 ### gritty 与 Express 集成
+
 ```bash
 npm i gritty socket.io express --save
 ```
 
 创建服务端：
+
 ```javascript
 const gritty = require('gritty');
 const http = require('http');
@@ -87,6 +96,7 @@ server.listen(port);
 ```
 
 页面 `index.html`：
+
 ```html
 <div class="gritty"></div>
 <script src="/gritty/gritty.js"></script>
@@ -96,11 +106,13 @@ server.listen(port);
 ```
 
 ### cloudcmd 与 Express 集成
+
 ```bash
 npm i cloudcmd socket.io express --save
 ```
 
 创建服务端：
+
 ```javascript
 const http = require('http');
 const cloudcmd = require('cloudcmd');

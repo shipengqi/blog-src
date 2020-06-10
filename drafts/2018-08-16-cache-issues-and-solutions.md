@@ -1,7 +1,7 @@
 ---
 title: 关于缓存需要注意的问题
 date: 2018-08-16 09:43:26
-categories: ["数据库"]
+categories: ["Database"]
 ---
 
 学习记录关于缓存需要注意的问题。

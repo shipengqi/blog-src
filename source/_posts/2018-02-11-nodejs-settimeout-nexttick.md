@@ -20,6 +20,7 @@ Promise.resolve().then(() => console.log(4));
 ```
 
 输出结果是：
+
 ```bash
 $ node test.js
 5
@@ -66,7 +67,7 @@ Node 执行完所有同步任务，接下来就会执行 `process.nextTick` 的�
 
 Node 的 [官方文档](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/) 是这样介绍的。
 
-> "When Node.js starts, it initializes the event loop, processes the provided input script which may make async API 
+> "When Node.js starts, it initializes the event loop, processes the provided input script which may make async API
 calls, schedule timers, or call process.nextTick(), then begins processing the event loop."
 
 这段话很重要，它表达了三层意思。
@@ -158,6 +159,7 @@ fs.readFile('test.js', () => {
 });
 
 ```
+
 上面代码有两个异步任务，一个是 100ms 后执行的定时器，一个是文件读取，它的回调函数需要 200ms。请问运行结果是什么？
 
 ![](/images/nodejs-timer/2.jpg)
@@ -180,6 +182,7 @@ fs.readFile('test.js', () => {
 setTimeout(() => console.log(1));
 setImmediate(() => console.log(2));
 ```
+
 上面代码应该先输出 1，再输出 2，但是实际执行的时候，结果却是不确定，有时还会先输出 2，再输出 1。
 
 这是因为 setTimeout 的第二个参数默认为 0。但是实际上，Node 做不到 0 毫秒，最少也需要 1 毫秒，根据官方文档，第二个参数的取值范围在 1 毫秒
@@ -189,6 +192,7 @@ setImmediate(() => console.log(2));
 进入 check 阶段，先执行 `setImmediate` 的回调函数。
 
 但是，下面的代码一定是先输出 2，再输出 1。
+
 ```javascript
 const fs = require('fs');
 
@@ -198,9 +202,11 @@ fs.readFile('test.js', () => {
 });
 
 ```
+
 上面代码会先进入 I/O callbacks 阶段，然后是 check 阶段，最后才是 timers 阶段。因此，setImmediate 才会早于 setTimeout 执行。
 
 ## async 函数和 promise
+
 ```javascript
 async function async1() {
     console.log("async1 start");
@@ -231,6 +237,7 @@ console.log('script end');
 ```
 
 上面代码的执行结果是：
+
 ```bash
 script start
 async1 start
@@ -284,14 +291,15 @@ function spawn(genF) {
   });
 }
 ```
+
 spawn 函数就是自动执行器。
 
 async 函数返回了一个 Promise 作为结果的函数，可以简单理解为，await 后面的函数执行完毕时，await 会产生一个微任务（Promise.then）。
 注意，这个**微任务实在执行完 await 之后产生的**，也就是说 async 函数在执行时，如果碰到 await，就会跳出当前 async 函数，执行其他代码，
 执行完其他代码后，再回到 async 函数，执行剩下的代码，并把 await 后面的代码，添加到微任务队列。
 
-
 上面的例子，执行过程应该是：
+
 1. 执行同步代码，输出 `script start`。
 2. 遇到 `setTimeout`，添加到宏任务队列。
 3. 执行 `async1()`，输出 `async1 start`。
@@ -304,5 +312,3 @@ async 函数返回了一个 Promise 作为结果的函数，可以简单理解�
 10. 最后，没有 `process.nextTick`，进入事件循环的 timers 阶段，实行 `setTimeout` 的回调函数，输出 `settimeout`。
 
 **原文出自** [Node 定时器详解](http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html)
-
-

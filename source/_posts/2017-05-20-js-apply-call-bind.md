@@ -9,6 +9,7 @@ JavaScript 中的 `apply`、`call`、`bind` 方法都可以改变函数的 `this
 <!-- more -->
 
 ## apply
+
 `apply` 方法有两个参数，第一个参数为 `this` 所要指向的那个对象，第二个参数是一个数组，绑定对象的参数数组。`apply()`的参数为空时，默认是指向
 全局对象。
 
@@ -28,9 +29,11 @@ function sub (x, y){
 multiply(2, 3);  // 5
 sub(2, 3);  // 5
 ```
+
 > 绑定 arguments 对象和绑定参数组在使用上没有区别。
 
 ## call
+
 `call` 方法与 `apply` 方法作用相同，在参接上有所区别。第一个参数同样是 `this` 所要指向的那个对象，但是其余参数都是直接传递给函数。
 
 ```javascript
@@ -47,6 +50,7 @@ multiply(2, 3, 4);  // 9
 ```
 
 ## bind
+
 `bind` 方法会创建一个函数实例，参数传递形式与 `call` 方法相同。如果 `bind` 方法的第一个参数是 `null` 或 `undefined`，等于将 `this` 绑定到全局
 对象，函数运行时 `this` 指向全局对象。
 
@@ -117,6 +121,7 @@ console.log(counter.count) // 1
 使用 `bind` 方法将 `counter.inc` 绑定 `counter` 以后，就不会有这个问题，`this` 指向了 `counter`。
 
 ### 比较
+
 - `call` 和 `apply` 两个方法在作用上没有任何区别，不同的只是二者的参数的传递方式。至于使用哪一个方法，取决于你的需要，如果打算直接
 传入 `argumnets` 对象或应用的函数接收到的也是数组，那么使用 `apply` 方法比较方便，其它情况使用 `call` 则相对方便一些。
 - `bind` 方法会在指定对象的作用上创建一个函数实例，而 `call` 和 `apply` 方法是在指定对象的作用上运行函数。

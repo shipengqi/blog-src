@@ -1,6 +1,6 @@
 ---
 title: koa2 框架源码分析
-date: 2019-05-10 14:05:18
+date: 2019-06-10 14:05:18
 categories: ["Node.js"]
 ---
 
@@ -9,6 +9,7 @@ categories: ["Node.js"]
 按需引入。
 
 我们从一个官方示例开始，来看看 koa 的实现原理：
+
 ```javascript
 const Koa = require('koa');
 const app = new Koa();
@@ -25,7 +26,9 @@ koa 的源码主要有四个文件，分别是 `application.js`、`context.js`�
 `application.js` 是 koa 的入口文件，`app.use` 和 `app.listen` 的实现就在这个文件中。
 
 ## application.js
+
 `new Koa()` 创建了一个 Application 实例，Application 的构造函数：
+
 ```javascript
 const Emitter = require('events');
 class Application extends Emitter {
@@ -54,7 +57,8 @@ Application 类继承了 events，这样 app 就有了事件监听的能力。�
 
 Application 还暴露了一些常用的方法，比如 `listen`、`use` 等等。
 
-我们从 `listen` 方法开始分析： 
+我们从 `listen` 方法开始分析：
+
 ```javascript
 listen(...args) {
     debug('listen');
@@ -62,8 +66,10 @@ listen(...args) {
     return server.listen(...args);
 }
 ```
+
 `listen` 方法其实就是对 `http.createServer` 进行了一个简单的封装。这里启动的 http server。如果要启用 https，就不能使用 `listen`
 方法了，可以直接使用 https 包来创建：
+
 ```javascript
 const https = require('https');
 const Koa = require('koa');
@@ -72,17 +78,18 @@ https.createServer(app.callback()).listen(3001);
 ```
 
 `listen` 方法中应该关注 `callback` 的实现：
+
 ```javascript
 callback() {
     const fn = compose(this.middleware);
-    
+
     if (!this.listenerCount('error')) this.on('error', this.onerror);
-    
+
     const handleRequest = (req, res) => {
       const ctx = this.createContext(req, res);
       return this.handleRequest(ctx, fn);
     };
-    
+
     return handleRequest;
 }
 ```
@@ -91,6 +98,7 @@ callback() {
 `middlleware` 是一个数组，存放的是通过 `app.use` 添加的中间件。
 
 `app.use` 如何添加中间件：
+
 ```javascript
 use(fn) {
     // 检查传入的中间件是否是函数
@@ -108,6 +116,7 @@ use(fn) {
 ```
 
 `compose` 方法是 koa 中间件机制最重要的部分：
+
 ```javascript
 /**
  * Compose `middleware` returning
@@ -153,25 +162,28 @@ function compose (middleware) {
 ```
 
 `compose` 返回了一个函数， 先不管函数里面怎么执行，接着回到 Application 的`callback` 方法：
+
 ```javascript
 callback() {
     const fn = compose(this.middleware);
-    
-    if (!this.listenerCount('error')) this.on('error', this.onerror); //  listenerCount 是继承与 event 对象的方法。判断是否监听了 error 事件, 
+
+    if (!this.listenerCount('error')) this.on('error', this.onerror); //  listenerCount 是继承与 event 对象的方法。判断是否监听了 error 事件,
                                                                       // 如果没有，添加 error 事件监听
-    
-    const handleRequest = (req, res) => { // req 和 res 作为参数 
+
+    const handleRequest = (req, res) => { // req 和 res 作为参数
       const ctx = this.createContext(req, res); // 使用原生 request 和 response 对象创建 koa 的 Context 对象
       return this.handleRequest(ctx, fn); // 处理请求，传入 compose 返回的 fn 函数，串行执行中间件
     };
-    
+
     return handleRequest;
 }
 ```
-`callback` 方法返回了一个 `handleRequest` 函数，这是 `http.createServer` 接收的回调函数。`handleRequest` 方法被加入到 `request` 
+
+`callback` 方法返回了一个 `handleRequest` 函数，这是 `http.createServer` 接收的回调函数。`handleRequest` 方法被加入到 `request`
 事件中。当服务器接收到 http 请求时，`request` 事件被触发，然后调用 `handleRequest` 方法。
 
 `handleRequest` 方法又调用了 `this.handleRequest(ctx, fn)`：
+
 ```javascript
 handleRequest(ctx, fnMiddleware) {
     const res = ctx.res;
@@ -184,6 +196,7 @@ handleRequest(ctx, fnMiddleware) {
 ```
 
 `fnMiddleware` 就是这里 `const fn = compose(this.middleware);` 的 `fn`，再看 fn 的实现：
+
 ```javascript
 function (context, next) {
     // last called middleware #
@@ -200,7 +213,7 @@ function (context, next) {
             // 用 Promise 包裹中间件，方便 await 调用
             // dispatch.bind(null, i + 1) 是下一个中间件，被当做 next 参数，传入了当前中间件
             // 这就是在中间件执行 next() 的时候就会进入下一个中间件的原理
-            return Promise.resolve(fn(context, dispatch.bind(null, i + 1))); 
+            return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
         } catch (err) {
             return Promise.reject(err)
         }
@@ -215,6 +228,7 @@ function (context, next) {
 洋葱模型是中间件的一种串行机制，并且是支持异步，第一个中间件中执行 `next()`，则会进入下一个中间件。
 
 官方的中间件示例：
+
 ```javascript
 // logger
 app.use(async (ctx, next) => {
@@ -235,13 +249,15 @@ app.use(async (ctx, next) => {
 上面示例中 logger 中间件，调用了 `await next();` 进入了 `x-response-time` 中间件中，`next()` （这里的 `next` 就是 `x-response-time` 中间件）执行完，
 则继续执行下面的代码，获取 `X-Response-Time` 并打印日志。
 
-
 ## context.js
+
 Context 包含了两个部分：
+
 - 自身属性，框架内部使用
 - 通过 delegates 库，代理了 request, response 对象上的属性。
 
 `application.js` 的 `createContext` 方法创建 ctx 对象：
+
 ```javascript
 createContext(req, res) {
     const context = Object.create(this.context);
@@ -323,13 +339,16 @@ delegate(proto, 'request')
 也就是说，你可以直接通过访问 `ctx.status` 来得到 `ctx.repsponse.status` 的值。
 
 ## request.js、response.js
+
 这两部分就是对原生的 http 模块 request、response 对象进行了封装，在对象属性上添加了 setter 和 getter。暴露了一些新的方法。
 
 ## 错误处理
+
 koa 有两个 onerror 方法，一个是 Application 的，监听整个应用的 error 事件。一个是 Context 对象的 onerror，监听处理 http request
 和 response 时的 error 事件。
 
 `application.js` 的 `onerror`：
+
 ```javascript
 onerror(err) {
     // 判断是否是 Error 类型
@@ -345,10 +364,12 @@ onerror(err) {
     console.error();
 }
 ```
+
 `application.js` 的 `callback` 方法中有段代码：`if (!this.listenerCount('error')) this.on('error', this.onerror);`，如果开
 发者没有调用 `app.on('error', func)`监听 error 事件，那么就会在这里添加默认的 `onerror` 回调来监听 error 事件。
 
 `context.js` 的 `onerror`：
+
 ```javascript
 onerror(err) {
     // don't do anything if there is no error.
@@ -357,16 +378,16 @@ onerror(err) {
     if (null == err) return;
     // 将错误转化 Error 类型
     if (!(err instanceof Error)) err = new Error(util.format('non-error thrown: %j', err));
-    
+
     let headerSent = false;
     if (this.headerSent || !this.writable) {
       headerSent = err.headerSent = true;
     }
-    
+
     // delegate
     // 触发 koa app 对象的 error 事件, application 上的 onerror 函数会执行
     this.app.emit('error', err, this);
-    
+
     // nothing we can do here other
     // than delegate to the app-level
     // handler and log.
@@ -376,7 +397,7 @@ onerror(err) {
     }
     // 获取原生 http response 对象
     const { res } = this;
-    
+
     // first unset all headers
     /* istanbul ignore else */
     if (typeof res.getHeaderNames === 'function') {
@@ -384,22 +405,22 @@ onerror(err) {
     } else {
       res._headers = {}; // Node < 7.7
     }
-    
+
     // then set those specified
     this.set(err.headers);
-    
+
     // force text/plain
     // 出错后响应类型为 text/plain
     this.type = 'text';
-    
+
     // ENOENT support
     // 对 ENOENT 错误进行处理, ENOENT 的错误 message 是文件或者路径不存在, 所以状态码应该是 404
     if ('ENOENT' == err.code) err.status = 404;
-    
+
     // default to 500
      // 默认状态码为 500
     if ('number' != typeof err.status || !statuses[err.status]) err.status = 500;
-    
+
     // respond
     const code = statuses[err.status];
     const msg = err.expose ? err.message : code;
@@ -413,6 +434,7 @@ onerror(err) {
 ```
 
 `application.js` 的 `handleRequest` 方法：
+
 ```javascript
 handleRequest(ctx, fnMiddleware) {
     const res = ctx.res;
@@ -427,6 +449,7 @@ handleRequest(ctx, fnMiddleware) {
 在 `onFinish` 函数中会调用 `context` 的 `onerror` 方法，来处理响应中的 error 事件。
 
 ## koa-router
+
 koa 本身并没有实现 router 的功能。需要引入插件。我们通过的 [koa-router](https://github.com/ZijianHe/koa-router) 的官方示例，来分析
 一下路由是如何注册并执行的：
 
@@ -455,6 +478,7 @@ app
 koa-router 实现路由的核心文件是 `router.js`。`router.js` 也是入口文件。
 
 Router 的构造函数：
+
 ```javascript
 function Router(opts) {
   if (!(this instanceof Router)) {
@@ -478,6 +502,7 @@ function Router(opts) {
 ```
 
 `router.js` 中定义 `router.get` 或者 `router.post` 等方法：
+
 ```javascript
 // 遍历所有的 method
 methods.forEach(function (method) {
@@ -503,6 +528,7 @@ methods.forEach(function (method) {
 ```
 
 所以调用 `router.get` 等方法（包括 `router.all` 和 `router.use`）注册路由是其实是调用了 `register` 方法：
+
 ```javascript
 Router.prototype.register = function (path, methods, middleware, opts) {
   opts = opts || {};
@@ -550,6 +576,7 @@ Router.prototype.register = function (path, methods, middleware, opts) {
 ```
 
 注册完路由，必须通过 `app.use(router.routes())` 方法将所有的路由，添加到 koa 的中间件，`router.routes()` 方法做了什么：
+
 ```javascript
 Router.prototype.routes = Router.prototype.middleware = function () {
   var router = this;
@@ -607,8 +634,8 @@ Router.prototype.routes = Router.prototype.middleware = function () {
 `routes` 方法返回了 `dispatch` 函数。`dispatch` 函数被注册到了 koa 的中间件，那么按照 koa 中间件的执行机制，`dispatch` 函数
 最终会在某个 koa 中间件中执行 `next` 时被执行。
 
-
 `router.match` 的实现：
+
 ```javascript
 Router.prototype.match = function (path, method) {
   var layers = this.stack;
