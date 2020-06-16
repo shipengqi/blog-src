@@ -95,7 +95,7 @@ go tool pprof http://ip:port/debug/pprof/block
 go tool pprof http://ip:port/debug/pprof/mutex
 
 # 下载 20 秒的 trace 记录
-curl http://100.97.1.35:10078/debug/pprof/trace?seconds=20 > trace.out
+curl http://localhost:6060/debug/pprof/trace?seconds=20 > trace.out
 # 查看
 go tool trace trace.out
 ```
@@ -105,6 +105,8 @@ go tool trace trace.out
 - `sum%`：给定函数累积使用 CPU 总比例
 - `cum`：当前函数加上它之上的调用运行总耗时
 - `cum%`：同上的 CPU 运行耗时总比例
+
+### 在 web 中查看
 
 也可以在 web 页面中查看，比如上面的示例，`Saved profile in C:\Users\shipeng.CORPDOM\pprof\pprof.samples.cpu.002.pb.gz`
 生成了一个 profile 文件，执行 `go tool pprof -http=":8081" <your path>/pprof.samples.cpu.002.pb.gz`，就可以访问 `http://localhost:8081`
@@ -123,6 +125,8 @@ go tool trace trace.out
 
 > 如果碰到 `Could not execute dot; may need to install graphviz.`，需要先安装 `graphviz`。
 
+其他 heap，goroutine 等 profile 文件都可以使用上面的方式查看。
+
 ## Trace
 
 golang 的 GC 是很容易被忽视的性能影响因素。本地 benchmark 测试，由于时间较短，占用内存较少。一般不会触发 GC。线上 GC 问题定位有可以在
@@ -132,7 +136,7 @@ golang 的 GC 是很容易被忽视的性能影响因素。本地 benchmark 测�
 curl http://ip:port/debug/pprof/trace?seconds=20 > trace.out
 ```
 
-下载 20 秒的 trace 记录。通过 `go tool trace trace.out` 会打开一个 web 页面，可以 trace 信息。
+下载 20 秒的 trace 记录。通过 `go tool trace trace.out` 会打开一个 web 页面，可以查看 trace 信息。
 
 - View trace：查看跟踪
 - Goroutine analysis：Goroutine 分析
@@ -218,6 +222,27 @@ GODEBUG='gctrace=1' go run main.go
 - `4->4->0 MB`：GC 开始前堆内存 4M， GC 结束后堆内存 4M，当前活跃的堆内存 0M
 - `5 MB goal`：全局堆内存大小
 - `8 P`：本次 GC 使用了 8 个 P
+
+### 使用 trace 包
+
+```go
+package main
+
+import (
+ "os"
+ "runtime/trace"
+)
+
+func main() {
+  // f, _ := os.Create("trace.out")
+  // defer f.Close()
+  // trace.Start(f)
+  trace.Start(os.Stderr)
+  defer trace.Stop()
+  ...
+}
+
+`go run main.go 2> trace.out` 生成 trace 文件。通过 `go tool trace trace.out`，查看 trace 信息。
 
 ## 参考链接
 

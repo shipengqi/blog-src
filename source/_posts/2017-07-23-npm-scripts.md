@@ -1,10 +1,10 @@
 ---
-title: NPM scripts使用
+title: NPM scripts 使用
 date: 2017-07-23 22:54:07
 categories: ["Node.js"]
 ---
 
-npm 脚本功能是最常用的功能之一。运行 `npm run <script_name>`会执行当前项目的 `package.json` 中 `scripts` 属性下对应 `script_name` 的
+npm 脚本功能是最常用的功能之一。运行 `npm run <script_name>` 会执行当前项目的 `package.json` 中 `scripts` 属性下对应 `script_name` 的
 脚本。
 
 <!-- more -->

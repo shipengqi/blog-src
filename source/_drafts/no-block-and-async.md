@@ -25,3 +25,4 @@ Linux 下效率最高的 IO 时间通知机制，在进入轮询的时候如果�
 - <https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5afc3625f265da0b9c10d2a7>
 - <https://www.jianshu.com/p/2e56b528c169>
 - Node.js 深入浅出 异步 I/O
+- <https://draveness.me/redis-io-multiplexing/>
