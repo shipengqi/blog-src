@@ -118,12 +118,10 @@ func Str2Bytes(s string) []byte {
 线上测试
 一般 http 服务可以通过常见的测试工具进行压测，如 wrk，locust 等。taf 服务则需要我们自己编写一些测试脚本。同时，要注意的是，压测的目的是定位出服务的最佳性能，而不是盲目的高并发请求测试。因此，一般需要逐步提升并发请求数量，来定位出服务的最佳性能点。
 
-
 优化方法
 golang 自带的 json 解析性能较低，这里我们可以替换为github.com/json-iterator来提升性能
 
 在 golang 中，遇到不需要解析的 json 数据，可以将其类型声明为json.RawMessage. 即，可以将上述 2 个方法优化为
-
 
 逃逸分析及处理
 go build -gcflags "-m -m" gateway/*.go
@@ -137,4 +135,7 @@ golang 版本尽量更新，这次的测试是在 golang1.12 下进行的。而 
 值类型在满足需要的情况下，越小越好。能用 int8，就不要用 int64。
 资源尽量复用,在 golang1.13 以上，可以考虑使用 sync.Pool 缓存会重复申请的内存或对象。或者自己使用并管理大块内存，用来存储小对象，避免 GC 影响（如本地缓存的场景)。
 
-https://mp.weixin.qq.com/s?__biz=MzAxMTA4Njc0OQ==&mid=2651438895&idx=1&sn=dbc9b3e775ae301c3ea6a9c9cf4ce912&chksm=80bb61ddb7cce8cb6230794cd656185961e29747f6fecce5d5c9f8770a7652a1dcb00edd3acb&mpshare=1&scene=24&srcid=&sharer_sharetime=1584837943386&sharer_shareid=29c7df185dfebeb5476e82189ac60d4d#rd
+<https://mp.weixin.qq.com/s?__biz=MzAxMTA4Njc0OQ==&mid=2651438895&idx=1&sn=dbc9b3e775ae301c3ea6a9c9cf4ce912&chksm=80bb61ddb7cce8cb6230794cd656185961e29747f6fecce5d5c9f8770a7652a1dcb00edd3acb&mpshare=1&scene=24&srcid=&sharer_sharetime=1584837943386&sharer_shareid=29c7df185dfebeb5476e82189ac60d4d#rd>
+
+<https://github.com/panjf2000/ants/blob/master/README_ZH.md>
+<https://eddycjy.gitbook.io/golang/di-1-ke-za-tan/control-goroutine>
