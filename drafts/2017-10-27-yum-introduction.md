@@ -11,6 +11,7 @@ categories: ["Linux"]
 <!-- more -->
 
 特点：
+
 - 更方便的添加、删除、更新RPM包。
 - 自动处理包的依赖性关系，方便系统更新及软件管理。
 - 资源仓库(Repository)也可以配置多个。
@@ -19,10 +20,13 @@ categories: ["Linux"]
 ## yum命令
 
 命令格式：
+
 ```
 yum [options] COMMAND
 ```
+
 命令(COMMAND)列表：
+
 ```
 check          检测 rpmdb 是否有问题
 check-update   检查可更新的包
@@ -51,7 +55,9 @@ update         更新系统中的包，更新下载源里面的metadata，包括
 upgrade        升级系统中的包，会根据update后的元信息对软件包进行升级
 version        显示机器可用源的版本
 ```
+
 常用选项(options)列表：
+
 ```
 -h, --help          显示帮助信息
 -t, --tolerant        容错
@@ -69,11 +75,11 @@ version        显示机器可用源的版本
 -y, --assumeyes       对所有交互提问都回答“yes”
 ```
 
-
 ## yum配置
 
 yum全局配置文件只有一个`/etc/yum.conf`。
 主要配置：
+
 ``` bash
 [main]
 cachedir=/var/cache/yum/$basearch/$releasever
@@ -106,8 +112,10 @@ distroverpkg=centos-release
 ```
 
 ## yum源配置
+
 yum源配置文件通常在`/etc/yum.repo.d`目录下。
 目录下一般包含这些文件：
+
 ```
 CentOS-Base.repo   用于配置yum网络源
 CentOS-Media.repo    用于配置yum本地源
@@ -116,9 +124,11 @@ CentOS-Vault.repo
 ```
 
 ### repo文件
+
 repo文件是yum源（软件仓库）的配置文件，通常一个repo文件定义了一个或者多个软件仓库的细节内容，例如我们将从哪里下载需要安装或者升级的软件包，repo文件中的设置内容将被yum读取和应用。
 
 常用属性：
+
 - [serverid]：源标识，必须唯一，用于区别各个不同的repository。
 - name：源名称，支持$releasever $basearch等变量名。
 - mirrorlist：是一个包含有众多源镜像地址的列表的网站，yum安装或升级软件时，yum会试图依次从列表中所示的镜像源中进行下载，如果从一个镜像源下载失败，则会自动尝试列表中的下一个。若列表遍历完成依然没有成功下载到目标软件包，则向用户抛错。
@@ -130,11 +140,13 @@ repo文件是yum源（软件仓库）的配置文件，通常一个repo文件定
 - enabled：1 或 0，分别代表启用或禁用软件仓库。
 
 常用变量：
+
 - $releasever：发行版的版本，从[main]部分的distroverpkg获取，如果没有，则根据redhat-release包进行判断。
 - $arch，cpu体系，如i386、x86_64等。
 - $basearch，cpu的基本体系组，如i686和athlon同属i386，alpha和alphaev6同属alpha。
 
 ### 配置yum本地源
+
 ``` bash
 vim CentOS-Media.repo
 
@@ -171,8 +183,10 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 ### yum网络源
 
 #### 配置国内 yum 源
+
 网易（163）yum源是国内比较好的yum源之一 ，无论是速度还是软件版本，都非常的不错。
 配置国内 yum 源，可以提升软件包安装和更新的速度，避免一些常见软件版本无法找到的问题。
+
 ``` bash
 #备份/etc/yum.repos.d/CentOS-Base.repo
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
@@ -184,9 +198,10 @@ wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
 yum clean all
 yum makecache
 ```
-中科大的yum源：https://lug.ustc.edu.cn/wiki/mirrors/help/centos
-sohu的yum源: http://mirrors.sohu.com/help/centos.html
-阿里云镜像源地址：http://mirrors.aliyun.com/
+
+中科大的yum源：<https://lug.ustc.edu.cn/wiki/mirrors/help/centos>
+sohu的yum源: <http://mirrors.sohu.com/help/centos.html>
+阿里云镜像源地址：<http://mirrors.aliyun.com/>
 
 #### 添加yum源、
 
@@ -214,4 +229,4 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 #### repodata/repomd.xml: [Errno 14] HTTP Error 404 - Not Found
 
 在浏览器中访问该文件，发现该文件不存在。修改`yum`源文件，例如`Centos`中的 `/etc/yum.repos.d/CentOS-Base.repo`，
-修改文件中的源地址。
+修改文件中的源地址。可能是某个变量没有替换，例如 `http://mirrors.aliyun.com/centos/%24releasever/os/x86_64/repodata/repomd.xml: [Errno 14] HTTP Error 404 - Not Found`，中的 `$releasever` 没有替换为正确的版本号，导致 404 错误，如果是 CentOS 7 或者 RedHat 7，可以直接讲 `$releasever` 替换为 7。
