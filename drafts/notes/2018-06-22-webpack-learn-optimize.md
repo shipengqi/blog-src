@@ -7,7 +7,7 @@ tags: ["webpack"]
 
 使用 webpack 有一段时间了，但是在构建的时候慢的一批，所以就要学习一下，webpack 如何优化。
 
-<!-- more -->
+
 
 优化分为两部分，webpack 的构建速度和浏览器的加载速度，这里先学习提升 webpack 的构建速度。
 提升 webpack 构建速度其实就是想办法让 webpack 少干点活，避免 webpack 去做一些不必要的事情。

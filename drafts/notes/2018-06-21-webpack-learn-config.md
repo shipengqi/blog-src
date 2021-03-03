@@ -7,7 +7,7 @@ tags: ["webpack"]
 
 记录 webpack 常用的配置。
 
-<!-- more -->
+
 
 ## 解析路径
 webpack 依赖 [enhanced-resolve](https://github.com/webpack/enhanced-resolve/) 来解析代码模块的路径。

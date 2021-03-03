@@ -6,7 +6,7 @@ categories: ["Go"]
 
 CentOs 下安装 Go。
 
-<!-- more -->
+
 
 ## 下载源码包：
 官网 [下载地址](https://golang.org/dl/) 。

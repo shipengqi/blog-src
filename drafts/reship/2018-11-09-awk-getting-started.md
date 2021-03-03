@@ -7,7 +7,7 @@ categories: ["Linux"]
 [`awk`](https://en.wikipedia.org/wiki/AWK)是处理文本文件的工具。它**依次处理文件的每一行**，并读取里面的每一个字段。对于日志、CSV 那样的每行格式相同的文本文件，
 `awk`可能是最方便的工具。
 
-<!-- more -->
+
 
 ## 简单使用
 命令格式：

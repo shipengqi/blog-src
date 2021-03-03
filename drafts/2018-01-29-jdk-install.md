@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 JDK 官网下载地址 ：<http://www.oracle.com/technetwork/java/javase/downloads/>
 
-<!-- more -->
+
 
 
 

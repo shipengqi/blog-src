@@ -11,7 +11,7 @@ Docker 包括三个基本概念：
 - 容器（Container）
 - 仓库（Repository）
 
-<!-- more -->
+
 
 
 ## 镜像

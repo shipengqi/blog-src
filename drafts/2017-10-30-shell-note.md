@@ -7,7 +7,7 @@ tags: ["Shell"]
 
 Shell 是用 C 语言编写的，它是用户使用 Linux 的桥梁。
 
-<!-- more -->
+
 
 ## 简单使用
 

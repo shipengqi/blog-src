@@ -7,7 +7,7 @@ tags: ["ES6"]
 
 ES6 引入了装饰器（Decorator），目前还是提案。但是Babel 转码器已经支持 Decorator。
 
-<!-- more -->
+
 
 ## Decorator基本用法
 ### 修饰类

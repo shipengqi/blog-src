@@ -8,7 +8,7 @@ tags: ["ES6"]
 ES2017 标准引入了 async 函数，它就是 Generator 函数的语法糖。
 Node.js 7 以上版本已经原生支持 async 和 await。
 
-<!-- more -->
+
 
 ### async 函数使用
 ```javascript

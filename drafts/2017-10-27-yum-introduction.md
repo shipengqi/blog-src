@@ -8,7 +8,7 @@ categories: ["Linux"]
 `yum`的关键之处 是要有可靠的软件仓库`repository`，yum在得到正确的参数后，会首先从`/etc/yum.repo`（repository）路径下的众repo文件中取得软件仓库的地址并下载、安装等，它可以是http或ftp站点，也可以是本地软件池，但必须包含rpm的header， header包括了rpm包的各种信息，
 包括描述，功能，提供的文件，依赖性等.正是收集了这些 header并加以分析，才能自动化地完成余下的任务。
 
-<!-- more -->
+
 
 特点：
 

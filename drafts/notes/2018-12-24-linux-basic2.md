@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 Linux 最传统的磁盘文件系统 （filesystem） 使用的是 EXT2 ！所以要了解 Linux 的文件系统就得要由认识 EXT2 开始。
 
-<!-- more -->
+
 
 ## Linux 磁盘与文件系统管理
 磁盘的物理组成：

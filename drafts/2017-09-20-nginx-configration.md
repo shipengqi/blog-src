@@ -6,7 +6,7 @@ tags: ["Nginx"]
 ---
 
 Nginx 默认配置文件：`/usr/local/nginx/conf/nginx.conf`
-<!-- more -->
+
 
 ## Nginx 全局变量
 - $arg_PARAMETER #包含GET请求中，如果有变量PARAMETER时的值。
