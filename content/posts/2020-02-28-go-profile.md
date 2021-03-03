@@ -9,7 +9,7 @@ Go 提供了 pprof 工具，可以用来做性能分析。pprof 可以读取分�
 
 ## 如何生成分析样本
 
-- `runtime/pprof`：采集程序的运行数据进行分析，通过调用如 `runtime.StartCPUProfile` 或 `runtime.StopCPUProfile` 等 API 生成分析样本。主要用于本地测试。
+- `runtime/pprof`：采集程序的运行数据进行分析，通过调用如 `runtime.StartCPUProfile`, `runtime.StopCPUProfile` 等 API 生成分析样本。主要用于本地测试。
 - `net/http/pprof`：采集 HTTP Server 的运行时数据进行分析，通过 HTTP 服务获取 Profile 分析样本，底层还是调用的 `runtime/pprof`。主要用于服务器端测试。
 - `go test`: 通过 `go test -bench=. -cpuprofile cpuprofile.out ...` 生成分析样本，主要用于本地基准测试。
 
@@ -241,6 +241,7 @@ func main() {
   defer trace.Stop()
   ...
 }
+```
 
 `go run main.go 2> trace.out` 生成 trace 文件。通过 `go tool trace trace.out`，查看 trace 信息。
 

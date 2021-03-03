@@ -8,10 +8,10 @@ categories: ["Life"]
 
 
 
-<img src="/images/wedding/sea2.jpg" width="80%" height="">
+![sea](/images/wedding/sea2.jpg)
 
 You are so beautiful in white.
 
-<img src="/images/wedding/kiss.jpg" width="80%" height="">
+![kiss](/images/wedding/kiss.jpg)
 
 （老婆说，我只爱我的代码 。。。）

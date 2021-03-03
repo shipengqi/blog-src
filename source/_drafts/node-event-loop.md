@@ -19,7 +19,7 @@ Node 相对于其他语言的优势在于对 I/O 的处理。我们知道 Node �
 下图是 libuv 的架构：
 <img src="/images/node-event/libuv-arch.png" width="70%" height="">
 
-![](../images/node-event/async-io-call-flow.jpg)
+![](../../static/images/node-event/async-io-call-flow.jpg)
 ## 非 IO 的异步 API
 
 ## Event Loop

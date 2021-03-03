@@ -22,7 +22,7 @@ comments: false
 
 本博客文章大部分是我自己的学习笔记，也尝试写一点自己的总结和理解，部分是转载自别的博客。
 
-给大家推荐一些常看的优秀博客或者 Github：
+给大家推荐一些常看的优秀博客：
 - [煎鱼](https://eddycjy.com/)
 - [码农桃花源](https://qcrao.com/)
 - [曹大博客](https://xargin.com/)  
@@ -35,5 +35,4 @@ comments: false
 - [阿里巴巴 UED 团队](http://www.aliued.com/)
 - [IMWeb 前端博客](http://imweb.io/topic/tab/all)
 - [美团点评技术团队](https://tech.meituan.com/)
-- [wuliang](https://github.com/wuliang142857)
 
