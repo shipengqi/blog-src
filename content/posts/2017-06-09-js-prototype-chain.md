@@ -6,7 +6,7 @@ categories: ["Javascript"]
 
 每一个 Javascript 对象(null 除外)都和另一个对象相关联，即原型，每一个对象都从原型继承属性。
 
-
+<!--more-->
 
 ## 原型链
 

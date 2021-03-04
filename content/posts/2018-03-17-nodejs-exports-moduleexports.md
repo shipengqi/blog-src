@@ -6,7 +6,7 @@ categories: ["Node.js"]
 
 `exports` 变量是在模块的文件级别作用域内有效的，它在**模块被执行前**被赋予 `module.exports`。
 
-
+<!--more-->
 
 我们通过一个依赖循环的例子来理解 `exports` 和 `module.exports` 的区别。
 

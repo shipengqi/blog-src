@@ -7,6 +7,8 @@ categories: ["Go"]
 本页收集了在 review go 代码时常见的评论。这只是一份常见错误的清单，并不是一个全面的风格指南。全面的风格指南可以参
 考 [The Uber Go Style Guide](https://github.com/uber-go/guide) 。
 
+<!--more-->
+
 可以看做是对 [Effective Go](https://golang.org/doc/effective_go.html) 的补充。
 
 ## Gofmt

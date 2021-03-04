@@ -3,11 +3,13 @@ title: JavaScript 的闭包
 date: 2017-03-19 23:26:21
 categories: ["Javascript"]
 ---
+
 JavaScript 的闭包有两个用途：
 
 1. 访问函数内部的变量。
 2. 让变量的值在作用域内保持不变。
 
+<!--more-->
 
 JavaScript 没有块作用域（比如 `for` 循环，`if` 的 `{}` 中的代码块），函数是 JavaScript 中唯一有作用域的对象。
 

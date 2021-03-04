@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 Linux 下环境变量设置，可以在通过 `export` 命令在控制台中设置，也可修改 `profile` 文件或者 `bashrc` 文件。
 
-
+<!--more-->
 
 ## export命令
 

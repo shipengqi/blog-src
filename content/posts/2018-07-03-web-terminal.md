@@ -6,7 +6,7 @@ categories: ["Node.js"]
 
 最近要实现一个 web terminal，调研了几个开源的包，最后选择了 [Cloud Commander](http://cloudcmd.io/)。
 
-
+<!--more-->
 
 选择 Cloud Commander 几个原因：
 
@@ -31,8 +31,9 @@ npm i gritty -g
 ### 安装中的错误
 
 如果碰到下面两种错误，都是因为权限引起的错误：
-<img src="/images/web-terminal/error1.JPG" width="80%" height="">
-<img src="/images/web-terminal/error2.JPG" width="80%" height="">
+
+{{< image src="/images/web-terminal/error1.JPG" >}}
+{{< image src="/images/web-terminal/error2.JPG" >}}
 
 解决：
 
@@ -60,8 +61,10 @@ cloudcmd --terminal --terminal-path /usr/local/lib/node_modules/gritty --save
 ```
 
 然后访问 `http://localhost:8000`：
-<img src="/images/web-terminal/terminal1.JPG" width="80%" height="">
-<img src="/images/web-terminal/terminal2.JPG" width="80%" height="">
+
+{{< image src="/images/web-terminal/terminal1.JPG" >}}
+{{< image src="/images/web-terminal/terminal2.JPG" >}}
+
 
 关于更多配置使用查看 [Cloud Commander 官方文档](http://cloudcmd.io/)。
 如果只是想实现 terminal 功能，可以直接安装使用 [gritty](https://github.com/cloudcmd/gritty)。

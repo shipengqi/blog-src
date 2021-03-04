@@ -6,7 +6,7 @@ categories: ["Node.js"]
 
 Node.js 提供了四个定时器，分别是：`setTimeout()`，`setInterval()`，`setImmediate()`，`process.nextTick()`。
 
-
+<!--more-->
 
 它们的用法都差不多，但是在一些特殊情况下很难区分。如下面的例子：
 

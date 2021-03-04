@@ -7,6 +7,8 @@ categories: ["Go"]
 
 Go 提供了 pprof 工具，可以用来做性能分析。pprof 可以读取分析样本的集合，并生成报告以可视化并帮助分析数据。
 
+<!--more-->
+
 ## 如何生成分析样本
 
 - `runtime/pprof`：采集程序的运行数据进行分析，通过调用如 `runtime.StartCPUProfile`, `runtime.StopCPUProfile` 等 API 生成分析样本。主要用于本地测试。

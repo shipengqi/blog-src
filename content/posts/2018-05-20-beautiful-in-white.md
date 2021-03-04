@@ -6,7 +6,7 @@ categories: ["Life"]
 
 今天，5.20，我爱你，我们结婚了。
 
-
+<!--more-->
 
 ![sea](/images/wedding/sea2.jpg)
 

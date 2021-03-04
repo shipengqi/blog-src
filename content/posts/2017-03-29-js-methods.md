@@ -6,6 +6,8 @@ categories: ["Javascript"]
 
 javascript 中的类方法、构造方法、原型方法的对比
 
+<!--more-->
+
 ## 定义
 
 ```javascript

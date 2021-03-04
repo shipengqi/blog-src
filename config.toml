@@ -5,6 +5,8 @@ defaultContentLanguage = "zh-cn"
 languageCode = "zh-CN"
 # 是否包括中日韩文字
 hasCJKLanguage = true
+# 自定义摘要长度
+# summaryLength = 50
 # 网站标题
 title = "Learining and coding"
 
@@ -68,6 +70,19 @@ enableEmoji = true
         # whether to use typeit animation for title name
         # 是否为标题显示打字机动画
         typeit = false
+    [params.app]
+        # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
+        title = "Learning"
+        # 是否隐藏网站图标资源链接
+        noFavicon = false
+        # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
+        svgFavicon = ""
+        # Android 浏览器主题色
+        themeColor = "#ffffff"
+        # Safari 图标颜色
+        iconColor = "#5bbad5"
+        # Windows v8-10 磁贴颜色
+        tileColor = "#da532c"
     # Section (all posts) page config
     # Section (所有文章) 页面配置
     [params.section]
