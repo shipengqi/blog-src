@@ -1197,7 +1197,7 @@ Go 调度器源代码中还有一个用来代表工作线程的 m 结构体，�
 
 通过m既可以找到与之对应的工作线程正在运行的goroutine，又可以找到工作线程的局部运行队列等资源。
 
-![](../images/go-scheduler/gpm.png)
+![](../../static/images/go-scheduler/gpm.png)
 
 红色的 g 表示 m 对应的工作线程正在运行的 goroutine，而灰色的 g 表示处于运行队列之中正在等待被调度起来运行的 goroutine。
 

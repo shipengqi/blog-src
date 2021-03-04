@@ -7,7 +7,7 @@ categories: ["Node.js"]
 [webdriver.io 官网](http://webdriver.io/)
 [官方文档](http://webdriver.io/guide.html)
 
-<!-- more -->
+
 
 下文内容翻译自官方文档，水平有限，有能力还是看[官方文档](http://webdriver.io/guide.html)。
 

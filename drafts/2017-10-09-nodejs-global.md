@@ -7,7 +7,7 @@ categories: ["Node.js"]
 Node.js中的全局对象有哪些？
 全局对象是指在所有模块中都是可以使用的对象，Node.js中，有一个全局命名空间对象global，process、console、Buffer等都是global的子对象，不需要require引用而直接使用。
 
-<!-- more -->
+
 
 1. 全局变量：__filename、__dirname
 2. 计时器：setTimeout(cb, ms)、clearTimeout(t)、setInterval(cb, ms)、clearInterval(t)

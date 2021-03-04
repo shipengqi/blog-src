@@ -9,7 +9,7 @@ tags: ["Docker"]
 Docker 底层的核心技术包括 Linux 上的命名空间（Namespaces）、控制组（Control groups）、Union 文件系
 统（Union file systems）和容器格式（Container format）。
 
-<!-- more -->
+
 
 我们知道，传统的虚拟机通过在宿主主机中运行 hypervisor 来模拟一整套完整的硬件环境提供给虚拟机的操作系统。虚拟机系统看到的
 环境是可限制的，也是彼此隔离的。

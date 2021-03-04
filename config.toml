@@ -1,0 +1,265 @@
+baseURL = "http://example.org/"
+# [en, zh-cn, fr, ...] 设置默认的语言
+defaultContentLanguage = "zh-cn"
+# 网站语言, 仅在这里 CN 大写
+languageCode = "zh-CN"
+# 是否包括中日韩文字
+hasCJKLanguage = true
+# 网站标题
+title = "Learining and coding"
+
+# 更改使用 Hugo 构建网站时使用的默认主题
+theme = "LoveIt"
+
+# whether to use robots.txt
+# 是否使用 robots.txt
+enableRobotsTXT = true
+# whether to use git commit log
+# 是否使用 git 信息
+enableGitInfo = true
+# whether to use emoji code
+# 是否使用 emoji 代码
+enableEmoji = true
+
+[params]
+    # LoveIt theme version
+    # LoveIt 主题版本
+    version = "0.2.X"
+    # site default theme ("light", "dark", "auto")
+    # 网站默认主题 ("light", "dark", "auto")
+    defaultTheme = "auto"
+    # public git repo url only then enableGitInfo is true
+    # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
+    gitRepo = "https://github.com/shipengqi/shipengqi.github.io"
+    # which hash function used for SRI, when empty, no SRI is used ("sha256", "sha384", "sha512", "md5")
+    # 哪种哈希函数用来 SRI, 为空时表示不使用 SRI ("sha256", "sha384", "sha512", "md5")
+    fingerprint = ""
+    # date format
+    # 日期格式
+    dateFormat = "2006-01-02"
+    # website images for Open Graph and Twitter Cards
+    # 网站图片, 用于 Open Graph 和 Twitter Cards
+    images = ["/logo.png"]
+
+    # Header config
+    # 页面头部导航栏配置
+    [params.header]
+        # desktop header mode ("fixed", "normal", "auto")
+        # 桌面端导航栏模式 ("fixed", "normal", "auto")
+        desktopMode = "fixed"
+        # mobile header mode ("fixed", "normal", "auto")
+        # 移动端导航栏模式 ("fixed", "normal", "auto")
+        mobileMode = "auto"
+        # Header title config
+        # 页面头部导航栏标题配置
+        [params.header.title]
+        # URL of the LOGO
+        # LOGO 的 URL
+        logo = ""
+        # title name
+        # 标题名称
+        name = "Learning and coding"
+        # you can add extra information before the name (HTML format is supported), such as icons
+        # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
+        pre = "<i class='far fa-flushed fa-fw'></i>"
+        # you can add extra information after the name (HTML format is supported), such as icons
+        # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
+        post = ""
+        # whether to use typeit animation for title name
+        # 是否为标题显示打字机动画
+        typeit = false
+    # Section (all posts) page config
+    # Section (所有文章) 页面配置
+    [params.section]
+        # special amount of posts in each section page
+        # section 页面每页显示文章数量
+        paginate = 20
+        # date format (month and day)
+        # 日期格式 (月和日)
+        dateFormat = "01-02"
+        # amount of RSS pages
+        # RSS 文章数目
+        rss = 10
+    # List (category or tag) page config
+    # List (目录或标签) 页面配置
+    [params.list]
+        # special amount of posts in each list page
+        # list 页面每页显示文章数量
+        paginate = 20
+        # date format (month and day)
+        # 日期格式 (月和日)
+        dateFormat = "01-02"
+        # amount of RSS pages
+        # RSS 文章数目
+        rss = 10
+    [params.home]
+        [params.home.profile]
+            enable = true
+            # Gravatar Email for preferred avatar in home page
+            gravatarEmail = ""
+            # URL of avatar shown in home page
+            avatarURL = "/profile.png"
+            # title shown in home page (HTML format is supported)
+            title = ""
+            # subtitle shown in home page
+            subtitle = "Every noble work is at first impossible."
+            # whether to use typeit animation for subtitle
+            typeit = true
+            # whether to show social links
+            social = true
+            # disclaimer (HTML format is supported)
+            disclaimer = ""
+    [params.social]
+        GitHub = "shipengqi"
+        Zhihu = "shi-peng-qi-60"
+        Email = "pooky.shipengqi@gmail.com"
+        RSS = true
+    [params.search]
+        enable = true
+        # 搜索引擎的类型 ("lunr", "algolia")
+        type = "lunr"
+        # 文章内容最长索引长度
+        contentLength = 4000
+        # 搜索框的占位提示语
+        placeholder = ""
+        #  最大结果数目
+        maxResultLength = 10
+        #  结果内容片段长度
+        snippetLength = 50
+        #  搜索结果中高亮部分的 HTML 标签
+        highlightTag = "em"
+        #  是否在搜索索引中使用基于 baseURL 的绝对路径
+        absoluteURL = false
+        [params.search.algolia]
+        index = ""
+        appID = ""
+        searchKey = ""
+    # Page config
+    # 文章页面配置
+    [params.page]
+        # whether to hide a page from home page
+        # 是否在主页隐藏一篇文章
+        hiddenFromHomePage = false
+        # whether to hide a page from search results
+        # 是否在搜索结果中隐藏一篇文章
+        hiddenFromSearch = false
+        # whether to enable twemoji
+        # 是否使用 twemoji
+        twemoji = false
+        # whether to enable lightgallery
+        # 是否使用 lightgallery
+        lightgallery = false
+        # whether to enable the ruby extended syntax
+        # 是否使用 ruby 扩展语法
+        ruby = true
+        # whether to enable the fraction extended syntax
+        # 是否使用 fraction 扩展语法
+        fraction = true
+        # whether to enable the fontawesome extended syntax
+        # 是否使用 fontawesome 扩展语法
+        fontawesome = true
+        # whether to show link to Raw Markdown content of the content
+        # 是否显示原始 Markdown 文档内容的链接
+        linkToMarkdown = true
+        # whether to show the full text content in RSS
+        # 是否在 RSS 中显示全文内容
+        rssFullText = false
+        # Table of the contents config
+        # 目录配置
+    # Footer config
+    # 页面底部信息配置
+    [params.footer]
+        enable = true
+        # Custom content (HTML format is supported)
+        # 自定义内容 (支持 HTML 格式)
+        custom = ''
+        # whether to show Hugo and theme info
+        # 是否显示 Hugo 和主题信息
+        hugo = true
+        # whether to show copyright info
+        # 是否显示版权信息
+        copyright = true
+        # whether to show the author
+        # 是否显示作者
+        author = true
+        # site creation time
+        # 网站创立年份
+        since = 2017
+        # ICP info only in China (HTML format is supported)
+        # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
+        icp = ""
+        # license info (HTML format is supported)
+        # 许可协议信息 (支持 HTML 格式)
+        license= '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+[menu]
+    [[menu.main]]
+        identifier = "posts"
+        # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
+        pre = ""
+        # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
+        post = ""
+        name = "Posts"
+        url = "/posts/"
+        # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
+        title = ""
+        weight = 1
+    [[menu.main]]
+        identifier = "categories"
+        pre = ""
+        post = ""
+        name = "Categories"
+        url = "/categories/"
+        title = ""
+        weight = 2
+    [[menu.main]]
+        identifier = "about"
+        pre = ""
+        post = ""
+        name = "About"
+        url = "/about/"
+        title = ""
+        weight = 3
+    [[menu.main]]
+        identifier = "github"
+        pre = "<i class='fab fa-github fa-fw'></i>"
+        post = ""
+        name = ""
+        url = "https://github.com/shipengqi/shipengqi.github.io"
+        title = "GitHub"
+        weight = 4
+# Hugo 解析文档的配置
+[markup]
+    # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
+    [markup.highlight]
+        # false 是必要的设置 (https://github.com/dillonzq/LoveIt/issues/158)
+        noClasses = false
+
+# Author config
+# 作者配置
+[author]
+    name = "shipengqi"
+    email = "pooky.shipengqi@gmail.com"
+    link = ""
+
+# Options to make output .md files
+# 用于输出 Markdown 格式文档的设置
+    [mediaTypes]
+    [mediaTypes."text/plain"]
+    suffixes = ["md"]
+# Options to make output .md files
+# 用于输出 Markdown 格式文档的设置
+[outputFormats.MarkDown]
+    mediaType = "text/plain"
+    isPlainText = true
+    isHTML = false
+
+# Options to make hugo output files
+# 用于 Hugo 输出文档的设置
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
+    page = ["HTML", "MarkDown"]
+    section = ["HTML", "RSS"]
+    taxonomy = ["HTML", "RSS"]
+    taxonomyTerm = ["HTML"]
+
+

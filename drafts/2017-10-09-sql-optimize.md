@@ -6,7 +6,7 @@ categories: ["Database"]
 
 SQL语句优化整理。
 
-<!-- more -->
+
 
 1. 尽量避免全表扫描，首先应考虑在`where`及`order by`涉及的列上建立索引。
 

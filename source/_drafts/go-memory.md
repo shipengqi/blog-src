@@ -26,7 +26,7 @@ tags:
 线性分配（Bump Allocator）只需要在内存中**维护一个指向内存特定位置的指针**，用户程序申请内存时，分配器只需要检查剩余的空闲内存、返回分配的内存区域并修改指针在内存
 中的位置，即移动下图中的指针：
 
-![](../images/go-gc/linear-allocation.jpg)
+![](../../static/images/go-gc/linear-allocation.jpg)
 
 优势：
 
@@ -35,7 +35,7 @@ tags:
 
 缺点：由于只维护了一空闲内存位置的指针，导致分配过的内存空间被释放后无法重用内存。如图红色部分内存无法无法重用：
 
-![](../images/go-gc/linear-allocation2.jpg)
+![](../../static/images/go-gc/linear-allocation2.jpg)
 
 所以线性分配器需要合适的垃圾回收算法配合使用。如，标记压缩（Mark-Compact）、复制回收（Copying GC）和分代回收（Generational GC）等算法可以通过拷贝的方式整理存活对象的碎片，将空闲内存定期合并，这样
 就能利用线性分配器的效率提升内存分配器的性能了。
@@ -44,7 +44,7 @@ tags:
 
 空闲链表分配器（Free-List Allocator）内部维护了一个链表。申请内存时，空闲链表分配器会依次遍历空闲的内存块，找到足够大的内存，然后申请新的资源并修改链表：
 
-![](../images/go-gc/free-list-alloctions.png)
+![](../../static/images/go-gc/free-list-alloctions.png)
 
 这种方式可以重用内存，但是分配内存的时间复杂度就是 O(n)，因为需要遍历链表。
 
@@ -72,7 +72,7 @@ Go 运行时根据对象的大小将对象分为三类：
 
 内存分配器不还将内存分成不同的级别分别管理，TCMalloc 和 Go 运行时分配器都会引入线程缓存（Thread Cache）、中心缓存（Central Cache）和页堆（Page Heap）三个组件分级管理内存：
 
-![](../images/go-gc/multi-level.png)
+![](../../static/images/go-gc/multi-level.png)
 
 线程缓存属于每一个独立的线程，它能够满足线程上绝大多数的内存分配需求，因为不涉及多线程，所以也不需要使用互斥锁来保护内存，这能够减少锁竞争带来的性能损耗。
 当线程缓存不能满足需求时，就会使用中心缓存作为补充解决小对象的内存分配问题；在遇到 32KB 以上的对象时，内存分配器就会选择页堆直接分配大量的内存。

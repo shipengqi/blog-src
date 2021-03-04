@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 学习Linux，先要了解Linux文件系统的目录结构。
 
-<!-- more -->
+
 
 ![Directory structure](/images/linux-directory-structure/directory-structure.jpg)
 图片来源：http://www.runoob.com/linux/linux-system-contents.html

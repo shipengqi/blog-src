@@ -7,7 +7,7 @@ tags: ["Docker"]
 
 `Compose` 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
 
-<!-- more -->
+
 
 `docker compose`[源码地址](https://github.com/docker/compose)。
 

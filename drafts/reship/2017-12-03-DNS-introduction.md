@@ -7,7 +7,7 @@ categories: ["Protocol"]
 DNS （Domain Name System ）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。
 举例来说，如果你要访问域名`math.stackexchange.com`，首先要通过DNS查出它的IP地址是`151.101.129.69`。
 
-<!-- more -->
+
 
 ## 查询过程
 虽然只需要返回一个IP地址，但是DNS的查询过程非常复杂，分成多个步骤。

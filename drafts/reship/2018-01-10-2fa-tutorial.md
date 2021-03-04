@@ -8,7 +8,7 @@ categories: ["Others"]
 
 密码是最常见的认证方法，但是不安全，容易泄露和冒充。
 
-<!-- more -->
+
 
 ![](/images/2fa-tutorial/1.jpg)
 

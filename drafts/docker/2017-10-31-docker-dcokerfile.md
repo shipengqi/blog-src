@@ -7,7 +7,7 @@ tags: ["Docker"]
 
 Dockerfile 功能很强大，它提供了十多个指令。
 
-<!-- more -->
+
 
 ### COPY 复制文件
 

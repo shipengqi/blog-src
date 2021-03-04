@@ -6,7 +6,7 @@ tags: ["Shell"]
 ---
 Linux下进行远程拷贝传输文件的命令: `scp`，`scp`是 `secure copy`的缩写，基于`ssh`登陆进行安全的远程文件拷贝命令。
 
-<!-- more -->
+
 
 `scp`命令特点：
 

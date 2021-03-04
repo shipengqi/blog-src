@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 CentOs 下安装 ETCD。
 
-<!-- more -->
+
 
 ## 下载源码包：
 下载地址：https://github.com/coreos/etcd/releases。

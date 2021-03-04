@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 Systemd 是一个用于 Linux 操作系统的系统与服务管理器。
 
-<!-- more -->
+
 
 历史上，`Linux` 的启动一直采用`init`进程。
 下面的命令用来启动服务。
