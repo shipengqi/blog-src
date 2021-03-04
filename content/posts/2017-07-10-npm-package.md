@@ -6,7 +6,7 @@ categories: ["Node.js"]
 
 使用 `npm init` 命令初始化一个 `package.json` 文件，描述这个 NPM 包的所有相关信息，包括作者、简介、包依赖、构建等信息，格式是严格的 JSON 格式。
 
-
+<!--more-->
 
 ## 属性
 

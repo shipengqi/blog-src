@@ -6,6 +6,8 @@ categories: ["Go"]
 
 golang 1.11 已经支持 Go Module。这是官方提倡的新的包管理，乃至项目管理机制，可以不再需要 `GOPATH` 的存在。
 
+<!--more-->
+
 ## Module 机制
 
 Go Module 不同于以往基于 `GOPATH` 和 Vendor 的项目构建，其主要是通过 `$GOPATH/pkg/mod` 下的缓存包来对项目进行构建。 Go Module 可以通过 `GO111MODULE`

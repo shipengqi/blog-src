@@ -4,8 +4,9 @@ date: 2019-11-12 12:41:19
 categories: ["Go"]
 ---
 
-
 Go 的标准库 `net/http` 用来处理 HTTP 协议，包括 HTTP server 和 HTTP client。这里主要分析 HTTP server 部分。 
+
+<!--more-->
 
 ## 请求处理流程分析
 

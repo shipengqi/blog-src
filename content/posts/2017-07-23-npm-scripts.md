@@ -7,6 +7,7 @@ categories: ["Node.js"]
 npm 脚本功能是最常用的功能之一。运行 `npm run <script_name>` 会执行当前项目的 `package.json` 中 `scripts` 属性下对应 `script_name` 的
 脚本。
 
+<!--more-->
 
 ## 简单使用
 

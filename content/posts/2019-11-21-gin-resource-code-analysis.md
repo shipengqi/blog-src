@@ -4,9 +4,10 @@ date: 2019-11-21 17:22:16
 categories: ["Go"]
 ---
 
-
 [Gin](https://github.com/gin-gonic/gin) 是基于 Golang 实现的的一个 web 框架。Gin 是一个类似于 [martini](https://github.com/go-martini/martini)
 但拥有更好性能的 API 框架, 由于 [httprouter](https://github.com/julienschmidt/httprouter)，速度提高了近 40 倍。
+
+<!--more-->
 
 ## Handler 接口的实现
 

@@ -6,7 +6,7 @@ categories: ["Javascript"]
 
 JavaScript 中的 `apply`、`call`、`bind` 方法都可以改变函数的 `this` 的作用域。
 
-
+<!--more-->
 
 ## apply
 

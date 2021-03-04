@@ -4,9 +4,10 @@ date: 2019-06-10 14:05:18
 categories: ["Node.js"]
 ---
 
-
 [koa2](https://github.com/koajs/koa) 是基于 Node.js 实现的一个 web 框架。非常简洁，轻量，所有的功能都以插件的形式实现，开发者可以
 按需引入。
+
+<!--more-->
 
 我们从一个官方示例开始，来看看 koa 的实现原理：
 

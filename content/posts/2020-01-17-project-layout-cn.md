@@ -7,6 +7,8 @@ categories: ["Go"]
 
 标准的 Go 项目布局，[project-layout](https://github.com/golang-standards/project-layout) 翻译。
 
+<!--more-->
+
 这是一个 Go 应用项目的基本布局。它不是官方核心 Go dev 团队定义的标准；然而，它是 GO 生态圈中一套历史上和新兴项目中常见的布局模式。其中
 一些模式比其他模式更受欢迎。它还有一些小的增强,以及一些对于任何一个大真实世界应用程序，都通用的支持目录。
 

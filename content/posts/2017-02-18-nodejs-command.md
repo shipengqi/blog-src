@@ -7,6 +7,8 @@ draft: false
 
 使用 Node.js 实现命令行。
 
+<!--more-->
+
 ## 命令行参数处理
 
 ### yargs

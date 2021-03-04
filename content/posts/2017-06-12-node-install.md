@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 在 CentOS 上用源码安装 Node.js。
 
-
+<!--more-->
 
 1. 官网下载 [node](https://nodejs.org/en/download/) 。
 

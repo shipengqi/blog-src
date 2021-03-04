@@ -6,7 +6,7 @@ categories: ["Node.js"]
 
 Node 中的异常处理是一个应该注意的点。
 
-
+<!--more-->
 
 ## try/catch
 

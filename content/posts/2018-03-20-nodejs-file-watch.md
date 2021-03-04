@@ -9,7 +9,7 @@ Node.js，实现文件监听，可以使用 [fs.watch](https://nodejs.org/api/fs
 
 也可以通过第三方库 [chokidar](https://www.npmjs.com/package/chokidar) 来实现。
 
-
+<!--more-->
 
 ## fs.watch
 

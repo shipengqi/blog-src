@@ -6,7 +6,7 @@ categories: ["Linux"]
 
 在 `Linux` 下如何实现定时执行脚本。可以使用 `crontab`。
 
-
+<!--more-->
 
 `Linux` 默认安装 `crontab`，一般被用来执行周期性任务。`crond` 进程会定期检查是否有要执行的任务，如果有，则自动执行。
 

@@ -4,8 +4,9 @@ date: 2019-10-31 14:55:55
 categories: ["Node.js"]
 ---
 
-
 [lerna](https://github.com/lerna/lerna) 是一个基于 git 和 npm 的多包管理工具。
+
+<!--more-->
 
 ## 为什么需要 lerna
 

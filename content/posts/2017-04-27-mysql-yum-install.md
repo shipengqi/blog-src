@@ -6,7 +6,7 @@ categories: ["Database"]
 
 安装参考官网 [Yum 安装 MySQL 文档](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html)。
 
-
+<!--more-->
 
 ## 安装步骤
 
