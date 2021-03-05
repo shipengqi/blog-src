@@ -13,7 +13,13 @@ git init
 git config user.name 'shipengqi'
 git config user.email 'pooky.shipengqi@gmail.com'
 git add -A
-git commit -m 'deploy'
+
+# Commit changes.
+msg="rebuilding site `date`"
+if [ $# -eq 1 ]
+  then msg="$1"
+fi
+git commit -m "$msg"
 
 # 如果发布到 https://<USERNAME>.github.io
 git push -f git@github.com:shipengqi/shipengqi.github.io.git master
