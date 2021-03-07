@@ -6,6 +6,7 @@ comments: false
 
 
 ### 个人简介
+
 **Name:** Shi PengQi
 
 **Email:** pooky.shipengqi@gmail.com
@@ -23,10 +24,11 @@ comments: false
 本博客文章大部分是我自己的学习笔记，也尝试写一点自己的总结和理解，部分是转载自别的博客。
 
 给大家推荐一些常看的优秀博客：
+
 - [煎鱼](https://eddycjy.com/)
 - [码农桃花源](https://qcrao.com/)
-- [曹大博客](https://xargin.com/)  
-- [曹大博客](https://xargin.com/)  
+- [曹大博客](https://xargin.com/)
+- [面向信仰编程](https://draveness.me/)
 - [阮一峰的个人网站](http://www.ruanyifeng.com/home.html)
 - [廖雪峰的官方网站](https://www.liaoxuefeng.com/)
 - [粉丝日志](http://blog.fens.me/)
