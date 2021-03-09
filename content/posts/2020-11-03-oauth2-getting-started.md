@@ -214,7 +214,7 @@ Authorization: Bearer b1a64d5c-5e0c-4a70-9711-7af6568a61fb
 
 ## 资源拥有者凭据许可（Password）
 
-资源拥有者的凭据，就是用户名和密码。这是最糟糕的一种方式。为什么OAuth 2.0 还支持这种许可类型？
+资源拥有者的凭据，就是用户名和密码。这是最糟糕的一种方式。为什么 OAuth 2.0 还支持这种许可类型？
 
 例如，小兔此时就是京东官方出品的一款软件，小明也是京东的用户，那么小明其实是可以使用用户名和密码来直接使用小兔这款软件的。原因很简单，那就是这里不再
 有“第三方”的概念了。
@@ -249,3 +249,48 @@ Authorization: Bearer b1a64d5c-5e0c-4a70-9711-7af6568a61fb
 
 ## OIDC
 
+OIDC 是一种用户身份认证的开放标准。OIDC 是基于 OAuth 2.0 构建的身份认证框架协议。OAuth 2.0 是一种授权协议，而不是身份认证协议。
+
+**OIDC = 授权协议 + 身份认证**，是 OAuth 2.0 的超集。
+
+OIDC 和 OAuth 2.0 的角色对应关系：
+
+![oidc-roles](/images/oauth2.0/oidc-roles.png)
+
+OIDC 标准框架中的三个角色：
+
+- EU（End User），终端用户
+- RP（Relying Party），认证服务的依赖方，就是 OAuth 2.0 中的第三方软件。
+- OP（OpenID Provider），身份认证服务提供方
+
+OIDC 的通信流程：
+
+![oidc-flow](/images/oauth2.0/oidc-flow.png)
+
+OIDC 的授权码流程和 OAuth 2.0 授权码流程几乎一样，唯一的区别就是多了一个 `ID_TOKEN`。
+
+### ID_TOKEN
+
+OIDC 对 OAuth 2.0 最主要的扩展就是提供了 `id_token`。
+
+`id_token` 和 `access_token` 是一起返回的。但是 `access_token` 是不需要被第三方软件解析的。而 `id_token` 需要被第三方软件解析，从而获取
+`id_token` 中的信息。
+
+`id_token` 能够标识用户，失效时间等属性来达到身份认证的目的。`id_token` 才是身份认证得关键。
+
+#### ID_TOKEN 中有什么信息？
+
+`id_token` 也是 JWT token（由一组 Cliams 构成以及其他辅助的 Cliams），一定包含下面 5 个参数：
+
+- iss，token 的颁发者，它的值就是 OP 的 URL。
+- sub，token 的主题，值是一个代表 EU 的全局唯一的标识符。
+- aud，token 的目标受众，值是 RP 的 `app_id`。
+- exp，token 的过期时间。
+- iat，token 的颁发时间。
+
+在第三方软件（RP）拿到这些信息之后，就获得了身份信息（如 sub，EU 的全局唯一的标识符），然后对身份信息进行验证 至此，可以说用户身份认证就可以完成了，
+后续可以根据 UserInfo EndPoint 获取更完整的信息。
+
+### OIDC 流程
+
+**`id_token` -> 创建 UserInfo EndPoint -> 解析 `id_token` -> 记录登录状态 -> 获取 UserInfo**。
