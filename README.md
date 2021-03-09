@@ -16,7 +16,7 @@ hugo serve
 hugo serve --disableFastRender
 
 # deploy
-# ./deploy.sh
+./deploy.sh
 ```
 
 ## 主题
