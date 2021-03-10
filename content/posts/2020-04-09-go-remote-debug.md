@@ -61,6 +61,20 @@ $ dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient --chec
 API server listening at: [::]:2345
 ```
 
+进程会 pending 在这里，等待 remote debug 的连接。
+
+如果不需要被阻塞，可以使用 `--continue` 参数：
+
+```bash
+$ dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient --check-go-version=false exec --continue ./main
+API server listening at: [::]:2345
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+...
+```
+
 ## IDE 配置
 
 示例使用的 IDE 是 IDEA，在 `Add Configuration` 中配置 `Go Remote`：
@@ -100,6 +114,87 @@ API server listening at: [::]:2345
 could not launch process: fork/exec ./main: operation not permitted
 ```
 
-可以设置 `--security-opt=seccomp:unconfined` 参数。
+可以设置 `--security-opt=seccomp:unconfined` 参数。关闭容器的 seccomp（linux 内核的一种安全机制） 限制。
 
-参考 [operation not permitted issue](https://github.com/go-delve/delve/issues/515#issuecomment-214911481)。
+docker 是使用命名空间进行用户隔离，使用 cgroups 来限制容器使用的资源。使用 apparmor 限制容器对资源的访问以及使用 seccomp 限制容器的系统调用等。
+
+```bash
+$ docker run -p 2345:2345 --security-opt=seccomp:unconfined test:latest
+
+# 或者
+$ docker run -p 2345:2345 --security-opt=apparmor:unconfined --cap-add=SYS_PTRACE test:latest
+```
+
+`--cap-add` 用来添加 Linux capabilities。`SYS_PTRACE` 表示使用 ptrace(2) 追踪任意进程。
+
+参考：
+
+- [docker run reference](https://docs.docker.com/engine/reference/run/)
+- [operation not permitted issue](https://github.com/go-delve/delve/issues/515#issuecomment-214911481)。
+- [Delve debug in docker](https://github.com/go-delve/delve/issues/1109)。  
+- [container debug](https://github.com/dlsniper/webinar/blob/master/container-debug.sh#L10-L11)。
+
+### closed network connection
+
+如果使用了 `--continue` 参数，碰到了如下错误：
+```bash
+2021-03-10T07:10:48Z error layer=rpc writing response:write tcp 127.0.0.1:2345->127.0.0.1:39402: use of closed network connection
+```
+
+可能是在你的 main goroutine 中有无限循环导致，例如：
+
+```go
+func main() {
+    for {
+        // Necessary code here
+    }
+}()
+```
+
+可以改成：
+
+```go
+func main() {
+	go func() {
+        for {
+            // Necessary code here
+        }
+    }
+}()
+```
+
+如果要实现在 main goroutine 中阻塞，可以利用 chan 来实现。
+
+参考 [closed network connection issue](https://github.com/go-delve/delve/issues/2284)。
+
+###  permission denied
+
+如果在 kubernetes 中，pod 启动时碰到下面的错误：
+
+```bash
+Could not create config directory: mkdir .config: permission denied.
+```
+
+可能是因为设置了 securityContext 的问题，可以查看是否配置了 `runAsUser`，`runAsGroup` 等。
+
+另外 pod 也需要配置容器的 `--security-opt` 等参数：
+
+```yaml
+    spec:
+      containers:
+      - args:
+        - --security-opt=seccomp:unconfined
+        - --security-opt=apparmor:unconfined
+        - --cap-add=SYS_PTRACE
+# or capabilities in container.securityContext
+      securityContext:
+        capabilities:
+          add:
+          - SYS_PTRACE
+
+```
+
+### Kubernetes 中的 Pod 状态 Pending 或者 1/2 Running
+
+在 Kubernetes 中调试时，如果 pod 配置了 `readinessProbe`，但是没有使用 `--continue` 参数，那么容器进程阻塞，会导致 pod 的 `readinessProbe`
+总是失败，导致 Pod 的状态一直是 `Pending` 或者 `1/2  Running`。
