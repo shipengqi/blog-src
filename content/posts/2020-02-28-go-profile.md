@@ -36,8 +36,7 @@ func main() {
       log.Println(Add("https://github.com/shipengqi"))
     }
   }()
-  // 注意 net/http/pprof 注册是的默认的 mux
-  // 如果使用的默认的 mux，可以在一个协程中调用 http.ListenAndServe
+  // 注意 net/http/pprof 注册的是默认的 mux
   http.ListenAndServe("0.0.0.0:6060", nil)
 }
 
@@ -64,7 +63,7 @@ func Add(str string) string {
 - threadcreate：`<ip:port>/debug/pprof/threadcreate`，查看创建新 OS 线程的堆栈跟踪
 - trace`<ip:port>/debug/pprof/trace?seconds=20`，下载 20 秒的 trace 记录
 
-这些分析样本可以直接在中断查看：
+这些分析样本可以直接在终端查看：
 
 ```bash
 $ go tool pprof http://localhost:6060/debug/pprof/profile?seconds=60
