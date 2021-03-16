@@ -32,8 +32,8 @@ npm i gritty -g
 
 如果碰到下面两种错误，都是因为权限引起的错误：
 
-{{< image src="/images/web-terminal/error1.JPG" >}}
-{{< image src="/images/web-terminal/error2.JPG" >}}
+![error1](/images/web-terminal/error1.JPG)
+![error2](/images/web-terminal/error2.JPG)
 
 解决：
 
@@ -62,8 +62,8 @@ cloudcmd --terminal --terminal-path /usr/local/lib/node_modules/gritty --save
 
 然后访问 `http://localhost:8000`：
 
-{{< image src="/images/web-terminal/terminal1.JPG" >}}
-{{< image src="/images/web-terminal/terminal2.JPG" >}}
+![terminal1](/images/web-terminal/terminal1.JPG)
+![terminal2](/images/web-terminal/terminal2.JPG)
 
 
 关于更多配置使用查看 [Cloud Commander 官方文档](http://cloudcmd.io/)。
