@@ -1,6 +1,7 @@
 ---
 title: Golang Remote Debug with Delve
 date: 2020-04-09T17:55:23+08:00
+categories: ["Go"]
 draft: false
 ---
 

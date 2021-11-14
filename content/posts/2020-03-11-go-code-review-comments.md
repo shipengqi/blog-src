@@ -15,13 +15,11 @@ categories: ["Go"]
 
 所有代码在发布前均使用 `gofmt` 进行修正。
 
-另一种方法是使用 [goimports](https://godoc.org/golang.org/x/tools/cmd/goimports) ，这是 `gofmt` 的一个超集，可以根据需要添
-加（和删除）导入行。
+另一种方法是使用 [goimports](https://godoc.org/golang.org/x/tools/cmd/goimports) ，这是 `gofmt` 的一个超集，可以根据需要添加（和删除）导入行。
 
 ## Comment Sentences
 
-[commentary](https://golang.org/doc/effective_go.html#commentary) 注释应该是完整的句子，即使这似乎有点多余。这样做，能使注释在
-转化成 `godoc` 时有一个不错的格式。注释应该以要描述的对象开头，句号结尾。
+[commentary](https://golang.org/doc/effective_go.html#commentary) 注释应该是完整的句子，即使这似乎有点多余。这样做，能使注释在转化成 `godoc` 时有一个不错的格式。注释应该以要描述的对象开头，句号结尾。
 
 ```go
 // Request represents a request to run a command.

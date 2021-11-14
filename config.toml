@@ -8,7 +8,7 @@ hasCJKLanguage = true
 # 自定义摘要长度
 # summaryLength = 50
 # 网站标题
-title = "Learining and coding"
+title = "Learning and coding"
 
 # 更改使用 Hugo 构建网站时使用的默认主题
 theme = "LoveIt"
@@ -63,7 +63,7 @@ enableEmoji = true
         name = "Learning and coding"
         # you can add extra information before the name (HTML format is supported), such as icons
         # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
-        pre = "<i class='far fa-flushed fa-fw'></i>"
+        pre = "<i class='fas fa-meteor fa-fw'></i>"
         # you can add extra information after the name (HTML format is supported), such as icons
         # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
         post = ""
@@ -72,7 +72,7 @@ enableEmoji = true
         typeit = false
     [params.app]
         # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
-        title = "Learning"
+        title = "Learning and coding"
         # 是否隐藏网站图标资源链接
         noFavicon = false
         # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
@@ -227,13 +227,61 @@ enableEmoji = true
         title = ""
         weight = 2
     [[menu.main]]
+        identifier = "golang-learn"
+        pre = ""
+        post = ""
+        name = "Go 进阶"
+        url = "https://shipengqi.github.io/golang-learn"
+        title = ""
+        weight = 3
+    [[menu.main]]
+        identifier = "kubernetes-learn"
+        pre = ""
+        post = ""
+        name = "Kubernetes"
+        url = "https://shipengqi.github.io/kubernetes-learn"
+        title = ""
+        weight = 4
+    [[menu.main]]
+        identifier = "os-learn"
+        pre = ""
+        post = ""
+        name = "Operating System"
+        url = "https://shipengqi.github.io/os-learn"
+        title = ""
+        weight = 5
+    [[menu.main]]
+        identifier = "db-learn"
+        pre = ""
+        post = ""
+        name = "Database"
+        url = "https://shipengqi.github.io/db-learn"
+        title = ""
+        weight = 6
+    [[menu.main]]
+        identifier = "network-protocol-learn"
+        pre = ""
+        post = ""
+        name = "网络协议"
+        url = "https://shipengqi.github.io/network-protocol-learn"
+        title = ""
+        weight = 7
+    [[menu.main]]
+        identifier = "algorithm-learn"
+        pre = ""
+        post = ""
+        name = "算法"
+        url = "https://shipengqi.github.io/algorithm-learn"
+        title = ""
+        weight = 8
+    [[menu.main]]
         identifier = "about"
         pre = ""
         post = ""
         name = "About"
         url = "/about/"
         title = ""
-        weight = 3
+        weight = 9
     [[menu.main]]
         identifier = "github"
         pre = "<i class='fab fa-github fa-fw'></i>"
@@ -241,7 +289,7 @@ enableEmoji = true
         name = ""
         url = "https://github.com/shipengqi/shipengqi.github.io"
         title = "GitHub"
-        weight = 4
+        weight = 10
 # Hugo 解析文档的配置
 [markup]
     # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
