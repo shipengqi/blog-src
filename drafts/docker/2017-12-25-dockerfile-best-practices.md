@@ -253,14 +253,12 @@ docker run --rm -v $PWD:/go/src/github.com/Boostport/kubernetes-vault-0.5.0 \
 docker build --label com.sample.image-version=$VERSION \
 --label com.sample.image-name=kubernetes-vault \
 --label com.sample.itom.kubernetes-vault=$VERSION \
---label vendor="Micro Focus International plc" \
 -t localhost:5000/kubernetes-vault:$VERSION \
 -f cmd/controller/Dockerfile cmd/controller/
 
 docker build --label com.sample.image-version=$VERSION \
 --label com.sample.image-name=kubernetes-vault-init \
 --label com.sample.itom.kubernetes-vault-init=$VERSION \
---label vendor="Micro Focus International plc" \
 -t localhost:5000/kubernetes-vault-init:$VERSION \
 -f cmd/init/Dockerfile cmd/init/
 
@@ -268,7 +266,6 @@ docker build --label com.sample.image-version=$VERSION \
 docker build --label com.sample.image-version=$VERSION \
 --label com.sample.image-name=kubernetes-vault-renew \
 --label com.sample.itom.kubernetes-vault-renew=$VERSION \
---label vendor="Micro Focus International plc" \
 -t localhost:5000/kubernetes-vault-renew:$VERSION \
 -f cmd/renew/Dockerfile cmd/renew/
 ```

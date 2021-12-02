@@ -36,15 +36,15 @@ export GO111MODULE=on
 ## 迁移项目
 
 ```sh
-# clone 项目, 不要在 `GOPATH` 中, 之前的项目的结构是 `GOPATH/src/cdf-mannager`
-git clone https://github.com/xxx/cdf-mannager
+# clone 项目, 不要在 `GOPATH` 中, 之前的项目的结构是 `GOPATH/src/keel-mannager`
+git clone https://github.com/xxx/keel-mannager
 
 # 删除 vender
-cd cdf-mannager
+cd keel-mannager
 rm -rf vender
 
 # init
-go mod init cdf-mannager
+go mod init keel-mannager
 
 # 下载依赖 也可以不执行这一步， go run 或 go build 会自动下载
 go mod download
@@ -53,7 +53,7 @@ go mod download
 Go 会把 `Gopkg.lock` 或者 `glide.lock` 中的依赖项写入到 `go.mod` 文件中。`go.mod` 文件的内容像下面这样：
 
 ```
-module cdf-manager
+module keel-manager
 
 require (
         github.com/fsnotify/fsnotify v1.4.7
@@ -88,7 +88,7 @@ require (
 **如果是一个新项目，或者删除了 `Gopkg.lock` 文件，可以直接运行：**
 
 ```sh
-go mod init cdf-mannager
+go mod init keel-mannager
 
 # 拉取必须模块 移除不用的模块
 go mod tidy

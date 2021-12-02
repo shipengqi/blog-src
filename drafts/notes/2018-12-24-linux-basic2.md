@@ -596,7 +596,7 @@ bash 能记忆使用过的指令。这么多的**指令记录在`~/.bash_history
 ### bash 的进站与欢迎讯息： /etc/issue, /etc/motd
 bash 进站画面在`/etc/issue`里面。
 ```bash
-[root@shcCDFrh75vm7 etc]# cat issue
+[root@shckeelrh75vm7 etc]# cat issue
 \S
 Kernel \r on an \m
 ```
@@ -692,7 +692,7 @@ cmd; cmd
 - 里头很多帐号本来就是系统正常运行所必须要的，我们可以简称他为**系统帐号**。例如 bin, daemon, adm, nobody 等等。
 
 ```bash
-[root@shcCDFrh75vm7 ~]# head -n 4 /etc/passwd
+[root@shckeelrh75vm7 ~]# head -n 4 /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
 daemon:x:2:2:daemon:/sbin:/sbin/nologin
@@ -721,7 +721,7 @@ adm:x:3:4:adm:/var/adm:/sbin/nologin
 
 所以后来发展出将密码移动到`/etc/shadow`这个文件分隔开来的技术，而且还加入很多的密码限制参数在`/etc/shadow`里头。
 ```bash
-[root@shcCDFrh75vm7 ~]# head -n 4 /etc/shadow
+[root@shckeelrh75vm7 ~]# head -n 4 /etc/shadow
 root:$6$PcVZ4yj4vlMjqmkL$RUHwggR7gPD0SnjTF1WnStHi2If0hSJnc4M/oVTfD0omJxVGhQgnQhBKRNPiwcBSeL72IerSphnEVdaomgjx./::0:99999:7:::
 bin:*:17492:0:99999:7:::
 daemon:*:17492:0:99999:7:::
