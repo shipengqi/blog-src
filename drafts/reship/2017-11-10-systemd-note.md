@@ -369,9 +369,9 @@ Description=ChatOpts bot service
 
 [Service]
 Type=simple
-EnvironmentFile=/etc/opt/microfocus/itom-hubot-enterprise-bot/proxy.env
+EnvironmentFile=/etc/opt/sample/itom-hubot-enterprise-bot/proxy.env
 
-ExecStart=/usr/bin/node /opt/microfocus/itom-hubot-enterprise-bot/node_modules/coffee-script/bin/coffee /opt/microfocus/itom-hubot-enterprise-bot/hubot.coffee
+ExecStart=/usr/bin/node /opt/sample/itom-hubot-enterprise-bot/node_modules/coffee-script/bin/coffee /opt/microfocus/itom-hubot-enterprise-bot/hubot.coffee
 
 User=chatopsbot
 

@@ -890,18 +890,18 @@ RUN zypper -n ref && \
 
 ENV PATH=$PATH:$NODE_INSTALL_DIR/bin:$YARN_INSTALL_DIR/bin
 
-COPY . /opt/microfocus/
+COPY . /opt/sample/
 
-RUN mkdir -p /var/opt/microfocus/chatops-chatbot/log && \
-    mkdir -p /var/opt/microfocus/chatops-login/log && \
-    mkdir -p /var/opt/microfocus/chatops-admin/log && \
-    chmod 555 /opt/microfocus/startChatOps.sh && \
-    cd /opt/microfocus/chatops-login   && yarn install --production && \
-    cd /opt/microfocus/chatops-chatbot && yarn install --production && \
-    cd /opt/microfocus/chatops-admin  && yarn install --production
+RUN mkdir -p /var/opt/sample/chatops-chatbot/log && \
+    mkdir -p /var/opt/sample/chatops-login/log && \
+    mkdir -p /var/opt/sample/chatops-admin/log && \
+    chmod 555 /opt/sample/startChatOps.sh && \
+    cd /opt/sample/chatops-login   && yarn install --production && \
+    cd /opt/sample/chatops-chatbot && yarn install --production && \
+    cd /opt/sample/chatops-admin  && yarn install --production
 
 
-ENTRYPOINT ["/opt/microfocus/startChatOps.sh"]
+ENTRYPOINT ["/opt/sample/startChatOps.sh"]
 
 
 ```
@@ -937,12 +937,12 @@ RUN zypper -n ref && \
 
 ENV PATH=$PATH:$NODE_INSTALL_DIR/bin:$YARN_INSTALL_DIR/bin
 
-COPY . /opt/microfocus/
+COPY . /opt/sample/
 
-RUN chmod 555 /opt/microfocus/startChatOps.sh && \
-    cd /opt/microfocus/chatops-login   && yarn install --production && \
-    cd /opt/microfocus/chatops-chatbot && yarn install --production && \
-    cd /opt/microfocus/chatops-admin  && yarn install --production
+RUN chmod 555 /opt/sample/startChatOps.sh && \
+    cd /opt/sample/chatops-login   && yarn install --production && \
+    cd /opt/sample/chatops-chatbot && yarn install --production && \
+    cd /opt/sample/chatops-admin  && yarn install --production
 
 
 FROM opensuse-base:42.3
@@ -950,18 +950,18 @@ FROM opensuse-base:42.3
 ENV NODE_ENV=production \
     PATH=$PATH:/usr/local/node/bin:/opt/yarn/bin
 
-COPY --from=build-env /opt/microfocus /opt/microfocus/
+COPY --from=build-env /opt/sample /opt/sample/
 COPY --from=build-env /usr/local/node /usr/local/node/
 COPY --from=build-env /opt/yarn /opt/yarn/
 
-RUN mkdir -p /var/opt/microfocus/chatops-chatbot/log && \
-    mkdir -p /var/opt/microfocus/chatops-login/log && \
-    mkdir -p /var/opt/microfocus/chatops-admin/log && \
+RUN mkdir -p /var/opt/sample/chatops-chatbot/log && \
+    mkdir -p /var/opt/sample/chatops-login/log && \
+    mkdir -p /var/opt/sample/chatops-admin/log && \
     yarn global add coffee-script && \
     yarn cache clean && \
     npm cache clean
 
-ENTRYPOINT ["/opt/microfocus/startChatOps.sh"]
+ENTRYPOINT ["/opt/sample/startChatOps.sh"]
 ```
 第一部分`FROM`后边多了个 `AS`，给这个阶段命名。
 注意第二部分`COPY`关键字，它现在可以接受 `--from=` 这样的参数，从上个我们命名的阶段复制文件过来。

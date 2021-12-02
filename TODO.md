@@ -7,6 +7,7 @@
 - 趣谈 Linux 操作系统（GeekTime）
 - Linux 性能优化实战（GeekTime）
 - 深入浅出计算机组成原理（GeekTime）
+- 操作系统实战（GeekTime）
 
 ## 计算机网络
 
@@ -18,6 +19,7 @@
 - [从 0 到 1 开发一款高性能 rpc 框架](https://juejin.cn/book/6844733826422276103)
 - 网络编程实战（GeekTime）
 - 深入浅出 gRPC（GeekTime）
+- RPC 实战与核心原理（GeekTime）
 
 ## 数据库
 
@@ -30,6 +32,7 @@
 - [Redis 核心原理与实战](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98)
 - MongoDB 高手课（GeekTime）
 - ElasticSearch 核心技术与实战（GeekTime）
+- Redis 核心技术与实战（GeekTime）
 
 ## 消息队列
 
@@ -40,6 +43,7 @@
 ## Go
 
 - [Go 微服务实战 38 讲](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=287#/content)
+- Go 微服务实战（GeekTime）
 - [22 讲通关 Go 语言](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/22%20%E8%AE%B2%E9%80%9A%E5%85%B3%20Go%20%E8%AF%AD%E8%A8%80-%E5%AE%8C)
 - [基于 Go 语言构建企业级的 RESTful API 服务](https://juejin.cn/book/6844733730678898702)
 - Go 从入门到实战（GeekTime）
@@ -48,6 +52,9 @@
 - [Go 语言设计与实现](https://draveness.me/golang/)
 - [golang](http://xiaorui.cc/archives/category/golang)
 - [golang](https://qcrao.com/)
+- [Go IAM/IDM](https://github.com/marmotedu)
+- Go 并发编程实战（GeekTime）
+- Go 工程实战（GeekTime）
 - Go 核心 36 讲（GeekTime）
 - Google 深度讲解 Go（GeekTime）
 
@@ -82,6 +89,8 @@
 - 从 0 开始学微服务（GeekTime）
 - 从 0 开始学架构（GeekTime）
 - 许式伟的架构课（GeekTime）
+- 手把手带你搭建秒杀系统（GeekTime）
+- 手把手带你实现 web 框架（GeekTime）
 
 ### 分布式系统
 
@@ -93,6 +102,8 @@
 - [300分钟吃透分布式缓存](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/300%E5%88%86%E9%92%9F%E5%90%83%E9%80%8F%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98-%E5%AE%8C)
 - [分布式链路追踪实战](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA%E5%AE%9E%E6%88%98-%E5%AE%8C)
 - 分布式技术原理与算法解析（GeekTime）
+- 分布式协议与算法实战（GeekTime）
+- 分布式数据库 30 讲（GeekTime）
 
 ### 云原生
 
@@ -101,6 +112,7 @@
 - [白话 Serverless 架构](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=1306#/content)
 - [玩转 Serverless 架构](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=589#/content)
 - [etcd 原理与实践](https://kaiwu.lagou.com/course/courseInfo.htm?courseId=613#/content)
+- etcd 实践（GeekTime）
 - [CNCF X 阿里巴巴云原生技术公开课](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/CNCF%20X%20%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF%E5%85%AC%E5%BC%80%E8%AF%BE)
 - [Kubernetes 从上手到实践](https://juejin.cn/book/6844733753063915533)
 - [Kubernetes 实践入门指南](http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97)
@@ -109,6 +121,9 @@
 - 开发者必备的 Docker 实践指南（掘金小册）
 - 自己动手写 Docker
 - K8S 容器云平台工程师
+- kubernetes 源码剖析
+- [k8s-source-code-analysis](https://github.com/daniel-hutao/k8s-source-code-analysis)
+- 容器实战高手课（GeekTime）
 
 ## 前端
 
@@ -142,3 +157,8 @@
 - 后端技术基础详解（GeekTime）
 - 拉钩 8 点一课
 - Nginx 核心知识 100 讲
+
+## blog
+
+- kubernetes 手写 container，kubernetes 基础，常见问题，手写 kubernetes 部署工具
+- goroutine pool，go 数据结构，关键字实现原理，垃圾回收，内存分配，goroutine 调度，并发编程，项目结构，规范，性能优化，调优，标准库，测试

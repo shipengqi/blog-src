@@ -17,7 +17,7 @@ Go 提供了 pprof 工具，可以用来做性能分析。pprof 可以读取分�
 
 ## 如何查看分析报告
 
-###　导入 pprof
+### 导入 pprof
 
 只需要 `import _ "net/http/pprof"` 就可以导入 pprof。
 
