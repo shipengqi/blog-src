@@ -117,7 +117,7 @@ enableEmoji = true
             # title shown in home page (HTML format is supported)
             title = ""
             # subtitle shown in home page
-            subtitle = "Every noble work is at first impossible."
+            subtitle = "及时当勉励，岁月不待人。"
             # whether to use typeit animation for subtitle
             typeit = true
             # whether to show social links
@@ -230,50 +230,10 @@ enableEmoji = true
         identifier = "golang-learn"
         pre = ""
         post = ""
-        name = "Go 进阶"
+        name = "Go Learning"
         url = "https://shipengqi.github.io/golang-learn"
         title = ""
         weight = 3
-    [[menu.main]]
-        identifier = "kubernetes-learn"
-        pre = ""
-        post = ""
-        name = "Kubernetes"
-        url = "https://shipengqi.github.io/kubernetes-learn"
-        title = ""
-        weight = 4
-    [[menu.main]]
-        identifier = "os-learn"
-        pre = ""
-        post = ""
-        name = "Operating System"
-        url = "https://shipengqi.github.io/os-learn"
-        title = ""
-        weight = 5
-    [[menu.main]]
-        identifier = "db-learn"
-        pre = ""
-        post = ""
-        name = "Database"
-        url = "https://shipengqi.github.io/db-learn"
-        title = ""
-        weight = 6
-    [[menu.main]]
-        identifier = "network-protocol-learn"
-        pre = ""
-        post = ""
-        name = "网络协议"
-        url = "https://shipengqi.github.io/network-protocol-learn"
-        title = ""
-        weight = 7
-    [[menu.main]]
-        identifier = "algorithm-learn"
-        pre = ""
-        post = ""
-        name = "算法"
-        url = "https://shipengqi.github.io/algorithm-learn"
-        title = ""
-        weight = 8
     [[menu.main]]
         identifier = "about"
         pre = ""

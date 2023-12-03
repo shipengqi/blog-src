@@ -33,7 +33,7 @@ CGO_ENABLED=0 go build -gcflags "all=-N -l" -a -o ./main ./main.go
 
 # start
 dlv --listen=:2345 \
- --headless=true \
+ --headless \
  --api-version=2 \
  --accept-multiclient \
  --check-go-version=false \

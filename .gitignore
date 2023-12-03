@@ -59,6 +59,7 @@ typings/
 .env
 .idea
 .deploy*
-public
 db.json
+
+
 
