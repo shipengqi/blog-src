@@ -60,6 +60,6 @@ typings/
 .idea
 .deploy*
 db.json
-
-
+public/
+resources/
 
