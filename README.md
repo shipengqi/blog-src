@@ -4,23 +4,27 @@
 
 - [博客地址](https://shipengqi.github.io)，Deployed on GitHub Pages.
 
-## Requirements
-- Golang
-
 ## Usage
-```bash
-# start development env
+
+Development:
+
+```
 hugo serve
 
 # or 
 hugo serve --disableFastRender
+```
 
-# deploy
+Manually deploy:
+
+```
 ./deploy.sh
 ```
 
 ## 主题
+
 [LoveIt](https://github.com/dillonzq/LoveIt)
 
 ## Reading list
+
 [Reading list](./SUMMARY.md)
