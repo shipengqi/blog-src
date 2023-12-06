@@ -63,7 +63,7 @@ enableEmoji = true
         name = "Echo"
         # you can add extra information before the name (HTML format is supported), such as icons
         # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
-        pre = "<i class='fas fa-meteor fa-fw'></i>"
+        pre = "<img src='/favicon-32x32.png' style='vertical-align: sub;margin-right: 8px;'>"
         # you can add extra information after the name (HTML format is supported), such as icons
         # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
         post = ""
