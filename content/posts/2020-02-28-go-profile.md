@@ -53,7 +53,7 @@ func Add(str string) string {
 
 ### 查看分析样本
 
-访问 `http://localhost:6060/debug/pprof/` 就可以查看分析样本。pprof 包括了一下几个子页面：
+访问 `http://localhost:6060/debug/pprof/` 就可以查看分析样本。pprof 包括了以下几个子页面：
 
 - cpu（CPU Profiling）: `<ip:port>/debug/pprof/profile?seconds=60`，seconds 默认是 30s，表示等待时间
 - block（Block Profiling）：`<ip:port>/debug/pprof/block`，查看导致阻塞同步的堆栈跟踪
