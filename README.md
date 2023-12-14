@@ -21,6 +21,8 @@ Manually deploy:
 ./deploy.sh
 ```
 
+> Any changes in the `content` directory will automatically trigger a deployment.
+
 ## 主题
 
 [LoveIt](https://github.com/dillonzq/LoveIt)
