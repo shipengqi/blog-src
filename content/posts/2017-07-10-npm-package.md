@@ -44,10 +44,10 @@ specify the engine using the "engines" field. (See below.)
 
 模块的 bug 提交地址或者一个邮箱。例如：
 
-```javascript
+```json
 {
-    "url" : "https://github.com/owner/project/issues",
-    "email" : "project@hostname.com"
+    "url": "https://github.com/owner/project/issues",
+    "email": "project@hostname.com"
 }
 ```
 
@@ -60,11 +60,11 @@ specify the engine using the "engines" field. (See below.)
 author：模块的作者。
 contributors、maintainers：模块的贡献者、维护者，是一个数组。
 
-```javascript
+```json
 {
-    "name" : "Xiao Ming",
-    "email" : "xiaoming@163.com",
-    "url" : "http://www.xiaoming.com/"
+    "name": "Xiao Ming",
+    "email": "xiaoming@163.com",
+    "url": "http://www.xiaoming.com/"
 }
 ```
 
@@ -86,7 +86,7 @@ contributors、maintainers：模块的贡献者、维护者，是一个数组。
 
 为系统的 `man` 命令提供帮助文档。帮助文件的文件名必须以数字结尾，如果是压缩的，需要以 `.gz` 结尾。
 
-```javascript
+```json
 "man": ["./man/foo.1", "./man/bar.1", "./man/foo.2" ]
 ```
 
@@ -98,10 +98,10 @@ CommonJS 模块所要求的目录结构信息，展示项目的目录结构信�
 
 模块的仓库地址。
 
-```javascript
+```json
 "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rainnaZR/es6-react.git"
+  "type": "git",
+  "url": "git+https://github.com/rainnaZR/es6-react.git"
 }
 ```
 
